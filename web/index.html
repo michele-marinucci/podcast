@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deep Dives</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">Deep&nbsp;Dives</a>
+    <span class="tagline">3-hour company histories, generated on demand</span>
+  </header>
+
+  <main id="view-new" hidden>
+    <section class="hero">
+      <h1>Every company has an epic story.</h1>
+      <p>Type a company or ticker. We research the books, interviews, and filings —
+         you approve the outline — then two hosts tell the whole story.</p>
+    </section>
+
+    <form id="create-form" class="card">
+      <label>Company or ticker
+        <input name="company" placeholder="Costco, NVDA, Rolex…" required autocomplete="off">
+      </label>
+
+      <div class="row">
+        <label>Episode length
+          <select name="runtime">
+            <option value="120">2 hours</option>
+            <option value="180">3 hours</option>
+            <option value="210" selected>3.5 hours</option>
+            <option value="240">4 hours</option>
+          </select>
+        </label>
+        <label class="grow">Anything to emphasize? <span class="muted">(optional)</span>
+          <input name="preferences" placeholder="e.g. go deep on the logistics story, more analysis than history">
+        </label>
+      </div>
+
+      <details class="uploads">
+        <summary>Add your own documents <span class="muted">— earnings transcripts, initiation
+        reports, investor decks (PDF, DOCX, TXT, MD)</span></summary>
+        <input id="file-input" type="file" multiple accept=".pdf,.docx,.txt,.md">
+        <div id="file-list"></div>
+        <p class="muted small">Highest-value uploads: sell-side initiation reports, earnings-call
+        transcripts from inflection quarters, investor-day decks, expert-call transcripts.
+        Licensed documents ground the facts but are only listed generically in the public
+        sources panel.</p>
+      </details>
+
+      <button type="submit" id="create-btn">Research this company</button>
+      <p class="muted small">Research takes a few minutes. You'll review the episode outline
+      before the full generation starts.</p>
+    </form>
+
+    <section id="recent" class="card" hidden>
+      <h2>Recent episodes</h2>
+      <ul id="recent-list"></ul>
+    </section>
+  </main>
+
+  <main id="view-episode" hidden>
+    <a class="back" href="/">&larr; New episode</a>
+    <div class="ep-header">
+      <h1 id="ep-title"></h1>
+      <p id="ep-logline" class="muted"></p>
+    </div>
+
+    <div id="status-bar" class="card status">
+      <div class="spinner" id="spinner"></div>
+      <div>
+        <div id="status-message"></div>
+        <div id="status-detail" class="muted small"></div>
+      </div>
+    </div>
+
+    <section id="checkpoint" class="card" hidden>
+      <h2>Your episode outline</h2>
+      <p class="muted">Review the chapters. Add a note to any chapter to shift its emphasis,
+      then approve to generate the full episode.</p>
+      <div id="checkpoint-chapters"></div>
+      <label>Overall direction <span class="muted">(optional)</span>
+        <input id="global-note" placeholder="e.g. spend more time on the analysis, less on early history">
+      </label>
+      <button id="approve-btn">Approve &amp; generate episode</button>
+    </section>
+
+    <section id="chapters-section" hidden>
+      <h2>Chapters</h2>
+      <div id="chapters"></div>
+    </section>
+
+    <section id="final" class="card" hidden>
+      <h2>Full episode</h2>
+      <audio id="final-audio" controls preload="none"></audio>
+      <p><a id="script-link" href="#" target="_blank">Read the transcript</a> ·
+         <a id="download-link" href="#">Download MP3</a></p>
+    </section>
+
+    <section id="sources-section" class="card" hidden>
+      <h2>Sources</h2>
+      <p class="muted small">Every fact in this episode is drawn from these materials.</p>
+      <ul id="sources"></ul>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

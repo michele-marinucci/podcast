@@ -1,0 +1,156 @@
+:root {
+  --bg: #12100e;
+  --surface: #1c1917;
+  --surface-2: #262220;
+  --text: #ece7e1;
+  --muted: #9c948a;
+  --accent: #e8956d;
+  --accent-strong: #d97c50;
+  --ok: #7fb98a;
+  --err: #d98080;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.55 Georgia, "Times New Roman", serif;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 20px clamp(16px, 6vw, 64px);
+  border-bottom: 1px solid var(--surface-2);
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.tagline { color: var(--muted); font-size: 14px; font-style: italic; }
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px clamp(16px, 4vw, 32px) 96px;
+}
+
+.hero h1 { font-size: clamp(26px, 4.5vw, 38px); margin: 18px 0 8px; }
+.hero p { color: var(--muted); max-width: 56ch; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 18px 0;
+}
+
+h2 { font-size: 19px; margin: 0 0 10px; }
+
+label { display: block; margin: 12px 0; font-size: 15px; }
+.row { display: flex; gap: 16px; flex-wrap: wrap; }
+.row label.grow { flex: 1; min-width: 240px; }
+
+input, select, textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid #3a342f;
+  border-radius: 8px;
+  font: inherit;
+}
+
+input:focus, select:focus { outline: 2px solid var(--accent); border-color: transparent; }
+
+button {
+  margin-top: 14px;
+  padding: 12px 22px;
+  background: var(--accent-strong);
+  color: #1a120c;
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover { background: var(--accent); }
+button:disabled { opacity: 0.6; cursor: default; }
+
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+.uploads summary { cursor: pointer; color: var(--accent); margin: 8px 0; }
+.file-row {
+  display: grid;
+  grid-template-columns: 1fr 220px 150px 32px;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+}
+.file-row .filename { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-row input, .file-row select { margin-top: 0; }
+.file-row .remove { margin: 0; padding: 6px 10px; background: var(--surface-2); color: var(--muted); }
+
+#recent-list { list-style: none; padding: 0; margin: 0; }
+#recent-list li { padding: 8px 0; border-bottom: 1px solid var(--surface-2); display: flex; justify-content: space-between; gap: 12px; }
+#recent-list a { color: var(--text); text-decoration: none; }
+#recent-list a:hover { color: var(--accent); }
+
+.back { color: var(--muted); text-decoration: none; font-size: 14px; }
+.ep-header h1 { margin: 14px 0 4px; font-size: clamp(24px, 4vw, 34px); }
+
+.status { display: flex; align-items: center; gap: 14px; }
+.status.error { border-color: var(--err); }
+.status.ok { border-color: var(--ok); }
+
+.spinner {
+  width: 18px; height: 18px;
+  border: 3px solid var(--surface-2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+.spinner[hidden] { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.chapter-brief {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--surface-2);
+}
+.chapter-brief input { margin-top: 8px; font-size: 14px; }
+
+.chapter { padding: 14px 18px; }
+.ch-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.chapter audio, #final-audio { width: 100%; margin-top: 10px; }
+
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-family: system-ui, sans-serif;
+  white-space: nowrap;
+}
+.pill.done, .pill.ok { color: var(--ok); }
+.pill.error { color: var(--err); }
+.pill.writing, .pill.auditing, .pill.voicing { color: var(--accent); }
+
+#sources { list-style: none; padding: 0; margin: 0; }
+#sources li { padding: 6px 0; border-bottom: 1px solid var(--surface-2); font-size: 14px; }
+#sources a { color: var(--accent); }

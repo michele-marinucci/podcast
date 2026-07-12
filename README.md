@@ -1,8 +1,35 @@
-# Deep-Dive Podcast Generator
+# Deep Dives — Podcast Generator
 
 Give it a company name or stock ticker → get a 3-4 hour, two-host, Acquired-style
 deep-dive podcast: the full history told as narrative, then investor-grade analysis
 (the numbers, 7 Powers, playbook, bull vs. bear, grading, carve-outs).
+
+## Web app (primary interface)
+
+```bash
+pip install -r requirements.txt        # + ffmpeg on PATH
+export ANTHROPIC_API_KEY=... GLM_API_KEY=... GEMINI_API_KEY=...
+uvicorn src.webapp:app                 # http://localhost:8000
+```
+
+Flow: type a ticker, optionally upload documents (earnings transcripts, initiation
+reports, investor decks — PDF/DOCX/TXT/MD with a doc-type + period per file) →
+pipeline maps sources and fetches the corpus (EDGAR filings, YouTube interview
+captions, articles, book-derivative material) → writes the cited dossier → you get
+the **outline checkpoint** (title, chapters, teasers; add per-chapter notes) →
+approve → chapters are written, fact-audited, polished, and voiced one by one,
+appearing in the UI as they finish → full episode player + transcript + a
+**sources panel** listing everything the episode was built from.
+
+Try the whole flow without API keys or spend:
+
+```bash
+DRY_RUN=1 uvicorn src.webapp:app       # canned content + silent audio, real flow
+```
+
+Layout: `src/webapp.py` (FastAPI), `src/pipeline.py` (staged orchestration + job
+state), `src/fetchers.py` (EDGAR/articles/YouTube/uploads), `web/` (frontend),
+`prompts/` (the editorial brain — see `prompts/README.md` for the stage contract).
 
 ## How it works
 
@@ -82,7 +109,7 @@ export GEMINI_API_KEY=...       # Gemini TTS
 
 Review `config.yaml` — providers, hosts' names, runtime, voices are all there.
 
-## Usage
+## CLI usage (headless alternative)
 
 ```bash
 python -m src.generate "Costco"                 # full pipeline
