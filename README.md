@@ -94,6 +94,51 @@ python -m src.generate "Costco" --tts-only      # voice an existing/edited scrip
 Recommended workflow: run `--script-only` first, skim `03_script.txt` (and spot-check
 numbers against `01_dossier.md`), then `--tts-only`.
 
+## Publishing to Apple Podcasts / Spotify
+
+Episodes are saved to `output/<slug>/episode.mp3`. Apple and Spotify don't accept MP3
+uploads directly — they ingest a **podcast RSS feed** at a public URL. Two routes:
+
+### Route A — zero infrastructure (manual)
+
+Upload `episode.mp3` to a free podcast host like **Spotify for Creators**
+(creators.spotify.com). It hosts the audio, generates the RSS feed, publishes to
+Spotify instantly, and can distribute to Apple Podcasts too. Easiest if you publish
+occasionally.
+
+### Route B — automated (`src/publish.py`)
+
+Self-host the feed on any S3-compatible bucket. **Cloudflare R2 recommended**: free
+egress means people streaming your 3-hour episodes costs you ~$0.
+
+One-time setup:
+1. Create an R2 bucket, enable public access (r2.dev URL or a custom domain).
+2. Create an R2 API token; export `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY`.
+3. Fill in the `publish:` section of `config.yaml` — including `show.image_url`
+   (Apple requires 3000x3000 cover art) and `show.email` (Apple verifies it).
+
+Then per episode:
+
+```bash
+python -m src.publish "Costco"     # upload MP3 + regenerate/upload feed.xml
+git add feed/ && git commit -m "publish costco"   # keep the episode manifest
+```
+
+Submit `https://<your-public-url>/feed.xml` **once**:
+- **Spotify**: creators.spotify.com → Add your podcast → "I have a podcast elsewhere" → paste feed URL
+- **Apple**: podcastsconnect.apple.com → Add show → "Add a show with an RSS feed"
+
+Every later `publish` run updates the feed; both platforms pick up new episodes
+automatically (Apple can take a few hours).
+
+### Private listening (just for you)
+
+Skip the directories entirely: in the Apple Podcasts app, **Library → ⋯ → Follow a
+Show by URL** and paste your `feed.xml` URL. Works immediately, no review, nothing
+public-facing. Spotify doesn't support arbitrary RSS URLs — for Spotify the show must
+go through a host/directory (Route A or B), or use an app like Pocket Casts which
+follows any RSS URL.
+
 ## The prompts
 
 The editorial craft lives in `prompts/` — tune these to change the show:

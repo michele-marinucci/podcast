@@ -58,8 +58,30 @@ tts:
   #   host_a: JBFqnCBsd6RMkjVDRZzb   # ElevenLabs voice IDs
   #   host_b: Xb7hH8MSUJpSbSDYk0k2
 
+# ---- Publishing (RSS feed for Apple Podcasts / Spotify) --------------------
+# Any S3-compatible storage works; Cloudflare R2 is recommended (free egress,
+# so streaming 3-hour episodes costs nothing). See README → Publishing.
+publish:
+  endpoint_url: https://<ACCOUNT_ID>.r2.cloudflarestorage.com
+  bucket: podcast
+  public_base_url: https://<YOUR-PUBLIC-BUCKET-URL>   # r2.dev URL or custom domain
+  access_key_env: R2_ACCESS_KEY_ID
+  secret_key_env: R2_SECRET_ACCESS_KEY
+  show:
+    title: Deep Dives
+    description: >
+      Three-to-four-hour company deep dives — the full history as narrative,
+      then investor-grade analysis.
+    author: Your Name
+    email: you@example.com        # Apple verifies ownership via this address
+    image_url: ""                 # REQUIRED by Apple: 3000x3000 JPG/PNG URL
+    category: Business
+    language: en
+    explicit: false
+
 # Required environment variables (depending on providers chosen):
 #   ANTHROPIC_API_KEY   - research stage and/or anthropic script provider
 #   GLM_API_KEY         - Z.ai (or OPENROUTER_API_KEY with the OpenRouter base_url)
 #   GEMINI_API_KEY      - Gemini TTS
 #   ELEVENLABS_API_KEY  - ElevenLabs TTS
+#   R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY - publishing to R2/S3
