@@ -8,6 +8,16 @@ interviews, and primary documents, not on SEO articles.
 
 Today's date: {{DATE}}
 
+# WHAT THE USER ALREADY UPLOADED
+
+{{USER_MATERIALS}}
+
+The user may have provided documents for this episode (earnings transcripts, analyst
+initiation reports, investor decks, expert-call transcripts, their own notes) — the
+list above may also be "none". Do NOT re-source what these already cover; target the
+gaps around them. Example: if the user uploaded FY2019-FY2024 earnings transcripts,
+spend your earnings-call slots on the older inflection-era quarters instead.
+
 # WHAT TO FIND (use web search aggressively)
 
 1. **Canonical books.** The 2-5 definitive books about the company or its founders

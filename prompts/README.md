@@ -26,10 +26,42 @@ the user as they finish.
 | Variable | Used in | Source |
 |---|---|---|
 | `{{COMPANY}}`, `{{DATE}}` | 00, 01, 02, 03 | request |
+| `{{USER_MATERIALS}}` | 00 | upload list summary ("none" if empty) |
 | `{{RUNTIME_MINUTES}}`, `{{TARGET_WORDS}}`, `{{SEGMENT_COUNT}}`, `{{WORDS_PER_SEGMENT}}` | 02, 03 | user setting → backend math |
 | `{{USER_PREFERENCES}}` | 02 | user knobs (story-vs-analysis balance, tone, focus areas) |
 | `{{HOST_A}}`, `{{HOST_B}}` | 03 | product config (or user setting) |
 | `{{AUDIO_TAGS_RULE}}` | 04 | set iff TTS provider is ElevenLabs v3 |
+
+## User uploads
+
+The episode-creation screen accepts documents that join the corpus alongside fetched
+sources. Ranked by value per upload (use this as UI copy):
+
+| Upload | Why it's gold | Notes |
+|---|---|---|
+| **Sell-side initiation reports** | An initiation-of-coverage report IS a mini-dossier: history, business model, unit economics, competitive map, valuation — the single highest-value upload | Licensed → grounding only, listed generically in sources panel |
+| **Earnings call transcripts** | Management's voice quarter by quarter; users often have brokerage access we don't | Ask for the *inflection* quarters, not just recent ones |
+| **Investor day / analyst day decks** | The company's own strategy narrative + segment disclosures that never make the 10-K | PDF-heavy — needs slide text extraction |
+| **Expert-network call transcripts** (Tegus/AlphaSense) | Operator-level detail on how the business actually works | Licensed → same handling as initiations |
+| **Paid newsletter deep dives** | Often the best synthesis writing on a company | Licensed |
+| **Book excerpts / their own book notes** | Closes the gap stage 0 can only approximate | Personal-use materials; grounding only |
+| **User's own thesis / notes** | Doubles as steering — "emphasize the logistics story" | Facts appearing *only* here stay `[UNVERIFIED]` |
+| **(Private companies)** pitch decks, data-room docs | Only path to real numbers for non-filers | Confidential → never surface in sources panel |
+
+Intake spec:
+- **Formats**: PDF, DOCX, TXT, MD; transcripts also as pasted text. Extract to plain
+  text before corpus assembly.
+- **Metadata per file** (one dropdown + one text field): document type (from the table
+  above) and period/date. Everything else is inferable.
+- **Corpus labeling**: same `[S#]` namespace, `user_upload` type (see format below).
+- **Trust tier**: filings > official transcripts > journalism/interviews > user uploads
+  > web search — encoded in `01_research.md`; numeric conflicts resolve toward filings.
+- **Prompt-injection guard**: uploads are untrusted data; `01_research.md` instructs
+  the model to ignore instruction-like text inside documents and flag it.
+- **Licensing**: licensed uploads ground facts but are never quoted at length (>25
+  words) and appear only generically in the public sources panel.
+- **Dedup**: the upload list is passed to stage 0 as `{{USER_MATERIALS}}` so the source
+  map targets gaps instead of re-fetching what the user provided.
 
 ## Corpus format (stage 0b → 1)
 

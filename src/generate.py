@@ -72,8 +72,9 @@ def stage_research(cfg: dict, company: str, out: Path) -> str:
     if sources_dir.is_dir():
         docs = sorted(p for p in sources_dir.iterdir() if p.suffix in (".md", ".txt"))
         if docs:
-            extra = "\n\n# PROVIDED SOURCE DOCUMENTS\n\n" + "\n\n---\n\n".join(
-                f"## {p.name}\n\n{p.read_text()}" for p in docs
+            extra = "\n\n# CORPUS: USER-PROVIDED SOURCE DOCUMENTS\n\n" + "\n\n---\n\n".join(
+                f"[S{i}] | user_upload | {p.stem}\n\n{p.read_text()}"
+                for i, p in enumerate(docs, 1)
             )
 
     prompt = load_prompt(
