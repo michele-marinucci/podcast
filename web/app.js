@@ -1,6 +1,33 @@
 /* Deep Dives frontend: new-episode form + episode progress view (polling). */
 
 const $ = (id) => document.getElementById(id);
+
+/* fetch wrapper: a 401 anywhere pops the password screen */
+async function api(path, opts) {
+  const resp = await fetch(path, opts);
+  if (resp.status === 401) {
+    showLogin();
+    throw new Error("auth-required");
+  }
+  return resp;
+}
+
+function showLogin() {
+  const overlay = $("login-overlay");
+  if (!overlay.hidden) return;
+  overlay.hidden = false;
+  $("login-password").focus();
+  $("login-form").onsubmit = async (e) => {
+    e.preventDefault();
+    const resp = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: $("login-password").value }),
+    });
+    if (resp.ok) location.reload();
+    else $("login-error").textContent = "Wrong password — try again.";
+  };
+}
 const DOC_TYPES = [
   ["earnings_transcript", "Earnings call transcript"],
   ["initiation_report", "Sell-side initiation report"],
@@ -51,12 +78,12 @@ function initForm() {
     ));
     for (const p of pickedFiles) data.append("files", p.file);
     try {
-      const resp = await fetch("/api/episodes", { method: "POST", body: data });
+      const resp = await api("/api/episodes", { method: "POST", body: data });
       if (!resp.ok) throw new Error((await resp.json()).detail || resp.statusText);
       const { id } = await resp.json();
       location.href = `/?ep=${encodeURIComponent(id)}`;
     } catch (err) {
-      alert(`Could not start: ${err.message}`);
+      if (err.message !== "auth-required") alert(`Could not start: ${err.message}`);
       btn.disabled = false;
       btn.textContent = "Research this company";
     }
@@ -94,7 +121,7 @@ function renderFileList() {
 
 async function loadRecent() {
   try {
-    const episodes = await (await fetch("/api/episodes")).json();
+    const episodes = await (await api("/api/episodes")).json();
     if (!episodes.length) return;
     $("recent").hidden = false;
     $("recent-list").innerHTML = episodes.slice(0, 12).map((e) =>
@@ -116,10 +143,14 @@ let approving = false;
 async function pollEpisode() {
   let state;
   try {
-    const resp = await fetch(`/api/episodes/${encodeURIComponent(episodeId)}`);
+    const resp = await api(`/api/episodes/${encodeURIComponent(episodeId)}`);
     if (!resp.ok) { $("status-message").textContent = "Episode not found."; return; }
     state = await resp.json();
-  } catch { setTimeout(pollEpisode, 4000); return; }
+  } catch (err) {
+    if (err.message === "auth-required") return; // login screen showing; reload resumes
+    setTimeout(pollEpisode, 4000);
+    return;
+  }
 
   render(state);
   if (!["done", "error"].includes(state.status)) setTimeout(pollEpisode, 2500);
@@ -185,7 +216,7 @@ function renderCheckpoint(s) {
     document.querySelectorAll("[data-note]").forEach((el) => {
       if (el.value.trim()) notes[el.dataset.note] = el.value.trim();
     });
-    await fetch(`/api/episodes/${encodeURIComponent(episodeId)}/approve`, {
+    await api(`/api/episodes/${encodeURIComponent(episodeId)}/approve`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ notes, global_note: $("global-note").value.trim() }),

@@ -7,11 +7,15 @@ Run:
 
 from __future__ import annotations
 
+import asyncio
+import hashlib
+import hmac
 import json
+import os
 import threading
 from pathlib import Path
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -21,7 +25,41 @@ ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "output"
 ALLOWED_UPLOADS = {".pdf", ".docx", ".txt", ".md"}
 
+# Shared-password gate: set APP_PASSWORD to require login for all /api/ routes.
+# Leave unset for open local development.
+APP_PASSWORD = os.environ.get("APP_PASSWORD", "")
+AUTH_COOKIE = "dd_auth"
+
+
+def _auth_token() -> str:
+    return hashlib.sha256(f"deep-dives:{APP_PASSWORD}".encode()).hexdigest()
+
+
 app = FastAPI(title="Deep Dives")
+
+
+@app.middleware("http")
+async def auth_gate(request: Request, call_next):
+    path = request.url.path
+    if APP_PASSWORD and path.startswith("/api/") and path != "/api/login":
+        cookie = request.cookies.get(AUTH_COOKIE, "")
+        if not hmac.compare_digest(cookie, _auth_token()):
+            return JSONResponse({"detail": "Password required"}, status_code=401)
+    return await call_next(request)
+
+
+@app.post("/api/login")
+async def login(payload: dict, request: Request):
+    if not APP_PASSWORD:
+        return {"ok": True}
+    if not hmac.compare_digest(str(payload.get("password", "")), APP_PASSWORD):
+        await asyncio.sleep(0.8)  # slow brute force
+        raise HTTPException(401, "Wrong password")
+    resp = JSONResponse({"ok": True})
+    https = request.headers.get("x-forwarded-proto", request.url.scheme) == "https"
+    resp.set_cookie(AUTH_COOKIE, _auth_token(), max_age=60 * 60 * 24 * 30,
+                    httponly=True, samesite="lax", secure=https)
+    return resp
 
 
 def _job(episode_id: str) -> Job:
