@@ -1,0 +1,65 @@
+# ============================================================================
+# Podcast generator configuration
+# Recommended default: GLM 5.2 script + Gemini multi-speaker TTS (~$7/episode).
+# Premium: Anthropic Opus 4.8 script + ElevenLabs v3 (~$24/episode).
+# ============================================================================
+
+episode:
+  runtime_minutes: 210        # 3.5 hours
+  words_per_minute: 155       # conversational podcast pace
+  # segment_count: 13         # optional; default = target_words / ~2600
+
+hosts:
+  host_a: ALEX                # storyteller / product brain
+  host_b: MORGAN              # finance / strategy brain
+
+# ---- Research stage (needs live web search for factual grounding) ----------
+# provider "anthropic" uses Claude's server-side web_search tool (best option).
+# Set provider to "script" to fall back to the script model's own knowledge
+# plus any documents you drop into output/<slug>/sources/*.md
+research:
+  provider: anthropic
+  model: claude-opus-4-8
+  max_searches: 30
+
+# ---- Script generation ------------------------------------------------------
+script:
+  provider: glm               # glm | anthropic
+  model: glm-5.2
+  base_url: https://api.z.ai/api/paas/v4      # Z.ai official ($1.40/$4.40 per MTok)
+  # Cheaper routed alternative:
+  #   base_url: https://openrouter.ai/api/v1
+  #   model: z-ai/glm-5.2
+  #   api_key_env: OPENROUTER_API_KEY
+  api_key_env: GLM_API_KEY
+
+  # Premium alternative (best analysis + prose):
+  # provider: anthropic
+  # model: claude-opus-4-8
+
+# ---- Text-to-speech ---------------------------------------------------------
+tts:
+  provider: gemini            # gemini | elevenlabs
+  model: gemini-3.1-flash-tts # check `ai.google.dev` for the current TTS model id
+  max_chars_per_request: 4500
+  voices:
+    host_a: Puck              # Gemini prebuilt voice names
+    host_b: Charon
+  style: >
+    Read this two-host business podcast conversation naturally and with energy,
+    like two close friends who love this stuff recording a show. React genuinely
+    to each other; vary pacing; big numbers get dramatic emphasis.
+
+  # Premium alternative (most expressive; supports [laughs]/[sighs] audio tags):
+  # provider: elevenlabs
+  # model: eleven_v3
+  # max_chars_per_request: 4000
+  # voices:
+  #   host_a: JBFqnCBsd6RMkjVDRZzb   # ElevenLabs voice IDs
+  #   host_b: Xb7hH8MSUJpSbSDYk0k2
+
+# Required environment variables (depending on providers chosen):
+#   ANTHROPIC_API_KEY   - research stage and/or anthropic script provider
+#   GLM_API_KEY         - Z.ai (or OPENROUTER_API_KEY with the OpenRouter base_url)
+#   GEMINI_API_KEY      - Gemini TTS
+#   ELEVENLABS_API_KEY  - ElevenLabs TTS
