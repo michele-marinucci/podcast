@@ -13,7 +13,9 @@ the previous segment, and the opening lines of the next segment.
    was already covered, compress it to a callback.
 3. **TTS hygiene.** Fix anything a voice model would stumble on: symbols ($, %, &),
    abbreviations, ambiguous numbers, unreadably long sentences, stray markdown or stage
-   directions. Numbers should be written as they should be spoken.
+   directions. Numbers should be written as they should be spoken. Strip any leaked
+   pipeline artifacts: citation markers like [S3] or (WSJ, 2019), [UNVERIFIED] tags,
+   editorial notes — convert to natural spoken attribution or remove.
 4. **Verbal tics.** If either host has repeated the same reaction word ("Wow", "Crazy",
    "Totally") more than twice in this segment, vary it.
 {{AUDIO_TAGS_RULE}}

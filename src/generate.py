@@ -119,6 +119,7 @@ def stage_outline(cfg: dict, company: str, dossier: str, out: Path) -> dict:
         TARGET_WORDS=target_words,
         SEGMENT_COUNT=segment_count,
         WORDS_PER_SEGMENT=words_per_segment,
+        USER_PREFERENCES=ep.get("preferences", "No special preferences."),
     )
     llm = make_llm(cfg["script"])
     log(f"[outline] {segment_count} segments x ~{words_per_segment} words")

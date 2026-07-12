@@ -35,6 +35,19 @@ company's actual history (use the "Eras of the Business" section of the dossier)
 9. **Carve-outs & close** — each host recommends one thing (book, show, gadget) loosely
    connected to themes of the episode, then sign-off.
 
+# LISTENER PREFERENCES
+
+{{USER_PREFERENCES}}
+
+# THE CHECKPOINT
+
+Your outline is shown to the listener BEFORE the episode is generated — they see the
+title, logline, and chapter list, and may add notes or shift emphasis. So: titles and
+teasers must sell the episode on their own, and every segment carries a one-line
+`teaser` written for that screen (intriguing, concrete, no spoilers of the payoffs).
+If a segment brief contains a `user_notes` field when it reaches the writers, it was
+added at this checkpoint and must be honored.
+
 # YOUR TASK
 
 Divide the episode into **{{SEGMENT_COUNT}} segments** of roughly
@@ -70,6 +83,7 @@ Return ONLY a JSON object (no markdown fences, no commentary) with this shape:
       "id": 1,
       "arc_part": "cold_open_and_welcome",
       "title": "...",
+      "teaser": "one intriguing line for the episode page",
       "target_words": {{WORDS_PER_SEGMENT}},
       "narrative_goal": "...",
       "emotional_register": "...",
@@ -77,7 +91,7 @@ Return ONLY a JSON object (no markdown fences, no commentary) with this shape:
         "Beat description with the specific dossier facts/numbers to use...",
         "..."
       ],
-      "must_use_facts": ["Revenue was $X in YYYY", "..."],
+      "must_use_facts": ["Revenue was $X in YYYY [S4]", "..."],
       "handoff": "End on: ..."
     }
   ]
@@ -85,6 +99,7 @@ Return ONLY a JSON object (no markdown fences, no commentary) with this shape:
 
 Rules:
 - Sum of target_words across segments must be within 5% of {{TARGET_WORDS}}.
-- Every beat must be executable from the dossier alone. Do not invent facts.
+- Every beat must be executable from the dossier alone. Do not invent facts. Carry the
+  dossier's citation markers into must_use_facts so the writers keep the trail.
 - Do not front-load all the good material; each segment needs at least one "whoa" moment.
 - The history acts should get ~60-65% of the total word budget.

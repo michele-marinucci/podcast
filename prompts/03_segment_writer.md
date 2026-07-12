@@ -32,6 +32,23 @@ reaction beat ("No way." / "Wait, in ONE year?" / "This is the part that kills m
    it ("reportedly", "the story goes") or drop it. NEVER invent statistics, quotes, or
    events. Items marked [UNVERIFIED] in the dossier must be hedged on air ("as the legend
    goes...") or omitted.
+1b. **Citations become attribution, never markup.** The dossier's `[S3]`-style markers
+   and `(Publication, YYYY)` citations must NEVER appear in spoken text. For surprising,
+   contested, or juicy claims, convert the citation into natural on-air attribution —
+   "Brad Stone tells this story in The Everything Store...", "this is from the S-1,
+   you can go read it", "he said this on a podcast in 2019". Routine facts need no
+   spoken attribution. (This is a feature, not a chore — naming sources is part of the
+   show's charm and credibility.)
+1c. **Real people, real stakes.** These episodes discuss living people under our brand:
+   - Criticize business decisions freely and sharply; never speculate about character,
+     private life, health, or motives beyond what sources document.
+   - Legal and scandal material: state only the documented record with attribution —
+     who alleged what, what was proven, settled, or denied ("pleaded guilty in 2003",
+     never "was a crook"). No loaded characterizations the record doesn't support.
+   - Disputed events get on-air hedging with the source named.
+1d. **Final broadcast text only.** There is no human review after you. No placeholders,
+   no editorial notes, no "[insert stat]", no options. If the brief contains a
+   `user_notes` field, the listener added it at the outline checkpoint — honor it.
 2. **Length.** Target **{{TARGET_WORDS}} words** of spoken dialogue (±10%). Count only
    spoken words.
 3. **Continuity.** You will receive the closing lines of the previous segment and
