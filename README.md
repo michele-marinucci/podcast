@@ -31,6 +31,28 @@ Layout: `src/webapp.py` (FastAPI), `src/pipeline.py` (staged orchestration + job
 state), `src/fetchers.py` (EDGAR/articles/YouTube/uploads), `web/` (frontend),
 `prompts/` (the editorial brain — see `prompts/README.md` for the stage contract).
 
+## Production deploy
+
+The app needs a **persistent single container** (long-running jobs, ffmpeg, local
+disk) — serverless platforms like Vercel cannot run it. Two supported paths:
+
+**Render (recommended — no CLI needed).** `render.yaml` is a one-click blueprint:
+Render dashboard → *New + → Blueprint* → connect this repo → fill in the four env
+vars when prompted (`APP_PASSWORD`, `ANTHROPIC_API_KEY`, `GLM_API_KEY`,
+`GEMINI_API_KEY`). It builds the Dockerfile, attaches a 10 GB disk at `/app/output`,
+and health-checks `/api/health`. ~$7/mo for the instance + disk.
+
+**Fly.io (CLI).** See the header of `fly.toml` for the four commands.
+
+Operational rules baked into both configs:
+- **Exactly one instance.** Jobs run in-process and state lives on the local disk;
+  horizontal scaling would split the brain. (Scaling later = job queue + object
+  storage — a straightforward refactor when needed.)
+- `MAX_ACTIVE_JOBS` (default 2) caps concurrent generations so a burst of requests
+  can't run up your API bill; extra requests get a polite 429.
+- Set `APP_PASSWORD` or the instance is open to anyone with the URL.
+- Set spend limits on the Anthropic / Z.ai / Google consoles as the real backstop.
+
 ## How it works
 
 A 3.5-hour episode is ~32,000 words of dialogue — far too long (and too fragile) for a

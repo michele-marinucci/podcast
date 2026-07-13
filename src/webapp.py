@@ -41,7 +41,7 @@ app = FastAPI(title="Deep Dives")
 @app.middleware("http")
 async def auth_gate(request: Request, call_next):
     path = request.url.path
-    if APP_PASSWORD and path.startswith("/api/") and path != "/api/login":
+    if APP_PASSWORD and path.startswith("/api/") and path not in ("/api/login", "/api/health"):
         cookie = request.cookies.get(AUTH_COOKIE, "")
         if not hmac.compare_digest(cookie, _auth_token()):
             return JSONResponse({"detail": "Password required"}, status_code=401)
@@ -69,6 +69,28 @@ def _job(episode_id: str) -> Job:
     return Job(job_dir)
 
 
+@app.get("/api/health")
+def health():
+    return {"ok": True}
+
+
+ACTIVE_STATUSES = {"queued", "researching", "fetching", "drafting_outline",
+                   "writing", "voicing", "stitching"}
+MAX_ACTIVE_JOBS = int(os.environ.get("MAX_ACTIVE_JOBS", "2"))
+
+
+def _active_jobs() -> int:
+    count = 0
+    if OUTPUT.is_dir():
+        for state_path in OUTPUT.glob("*/state.json"):
+            try:
+                if json.loads(state_path.read_text()).get("status") in ACTIVE_STATUSES:
+                    count += 1
+            except json.JSONDecodeError:
+                continue
+    return count
+
+
 @app.post("/api/episodes")
 async def create_episode(
     company: str = Form(...),
@@ -80,6 +102,8 @@ async def create_episode(
     company = company.strip()
     if not company:
         raise HTTPException(400, "Company name or ticker is required")
+    if _active_jobs() >= MAX_ACTIVE_JOBS:
+        raise HTTPException(429, "Too many episodes generating right now — try again in a few minutes")
 
     upload_names = []
     job = create_job(company, runtime, preferences, [])
@@ -128,6 +152,8 @@ async def approve(episode_id: str, payload: dict):
     job = _job(episode_id)
     if job.state.get("status") != "awaiting_approval":
         raise HTTPException(409, f"Episode is {job.state.get('status')}, not awaiting approval")
+    if _active_jobs() >= MAX_ACTIVE_JOBS:
+        raise HTTPException(429, "Too many episodes generating right now — approve again in a few minutes")
     job.update(status="writing", message="Approved — writing the episode")
     notes = {str(k): v for k, v in (payload.get("notes") or {}).items() if v}
     global_note = (payload.get("global_note") or "").strip()

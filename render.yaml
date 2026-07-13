@@ -1,0 +1,24 @@
+# Render blueprint — one-click production deploy.
+# In Render: New + -> Blueprint -> connect this repo -> fill in the env vars.
+services:
+  - type: web
+    name: deep-dives
+    runtime: docker
+    plan: starter            # persistent disks require a paid instance (~$7/mo)
+    numInstances: 1          # MUST stay 1: jobs run in-process and state is on local disk
+    healthCheckPath: /api/health
+    disk:
+      name: episodes
+      mountPath: /app/output
+      sizeGB: 10
+    envVars:
+      - key: APP_PASSWORD    # shared password for the private beta
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GLM_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: MAX_ACTIVE_JOBS
+        value: "2"
