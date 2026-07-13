@@ -203,4 +203,7 @@ def episode_script(episode_id: str):
     return FileResponse(path, media_type="text/plain")
 
 
-app.mount("/", StaticFiles(directory=ROOT / "web", html=True), name="web")
+# Local/container serving of the frontend. On Vercel, web/ is served by the
+# platform's static routing instead (see vercel.json) and may be absent here.
+if (ROOT / "web").is_dir():
+    app.mount("/", StaticFiles(directory=ROOT / "web", html=True), name="web")
