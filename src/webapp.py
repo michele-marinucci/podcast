@@ -74,6 +74,19 @@ def health():
     return {"ok": True}
 
 
+def _require_worker() -> None:
+    """Generation runs in-process: it needs a persistent machine with ffmpeg and
+    disk. On serverless (Vercel), background threads are killed after the response
+    and the filesystem is read-only — so creation is guarded off, not broken."""
+    if os.environ.get("VERCEL"):
+        raise HTTPException(
+            503,
+            "This deployment serves the app, but episode generation needs the "
+            "persistent worker (long-running jobs + audio processing). "
+            "See README → Production deploy.",
+        )
+
+
 ACTIVE_STATUSES = {"queued", "researching", "fetching", "drafting_outline",
                    "writing", "voicing", "stitching"}
 MAX_ACTIVE_JOBS = int(os.environ.get("MAX_ACTIVE_JOBS", "2"))
@@ -102,6 +115,7 @@ async def create_episode(
     company = company.strip()
     if not company:
         raise HTTPException(400, "Company name or ticker is required")
+    _require_worker()
     if _active_jobs() >= MAX_ACTIVE_JOBS:
         raise HTTPException(429, "Too many episodes generating right now — try again in a few minutes")
 
@@ -152,6 +166,7 @@ async def approve(episode_id: str, payload: dict):
     job = _job(episode_id)
     if job.state.get("status") != "awaiting_approval":
         raise HTTPException(409, f"Episode is {job.state.get('status')}, not awaiting approval")
+    _require_worker()
     if _active_jobs() >= MAX_ACTIVE_JOBS:
         raise HTTPException(429, "Too many episodes generating right now — approve again in a few minutes")
     job.update(status="writing", message="Approved — writing the episode")
