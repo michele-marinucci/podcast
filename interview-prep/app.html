@@ -1,0 +1,765 @@
+<title>Drill — Investing Interview Prep</title>
+
+<style>
+  :root {
+    --bg: #F4F5F2;
+    --surface: #FFFFFF;
+    --surface-2: #EDEFE9;
+    --ink: #15191A;
+    --ink-2: #4A524E;
+    --ink-3: #7C847F;
+    --line: #DCDFD8;
+    --line-2: #C8CCC3;
+    --accent: #1E5C46;
+    --accent-soft: #E3EDE7;
+    --clay: #9C4830;
+    --clay-soft: #F3E6E1;
+    --shadow: 0 1px 2px rgba(21, 25, 26, .05), 0 8px 24px -16px rgba(21, 25, 26, .3);
+
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+    --step--1: clamp(.75rem, .72rem + .12vw, .8rem);
+    --step-0: clamp(.94rem, .9rem + .2vw, 1rem);
+    --step-1: clamp(1.1rem, 1.02rem + .38vw, 1.25rem);
+    --step-2: clamp(1.3rem, 1.15rem + .7vw, 1.6rem);
+    --step-3: clamp(1.55rem, 1.3rem + 1.1vw, 2.1rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F1312;
+      --surface: #161B19;
+      --surface-2: #1D2321;
+      --ink: #E9ECE7;
+      --ink-2: #A5AFA9;
+      --ink-3: #737D78;
+      --line: #262D2A;
+      --line-2: #333B37;
+      --accent: #74C29C;
+      --accent-soft: #16261E;
+      --clay: #DA9078;
+      --clay-soft: #2B1E19;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0F1312;
+    --surface: #161B19;
+    --surface-2: #1D2321;
+    --ink: #E9ECE7;
+    --ink-2: #A5AFA9;
+    --ink-3: #737D78;
+    --line: #262D2A;
+    --line-2: #333B37;
+    --accent: #74C29C;
+    --accent-soft: #16261E;
+    --clay: #DA9078;
+    --clay-soft: #2B1E19;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+
+  :root[data-theme="light"] {
+    --bg: #F4F5F2;
+    --surface: #FFFFFF;
+    --surface-2: #EDEFE9;
+    --ink: #15191A;
+    --ink-2: #4A524E;
+    --ink-3: #7C847F;
+    --line: #DCDFD8;
+    --line-2: #C8CCC3;
+    --accent: #1E5C46;
+    --accent-soft: #E3EDE7;
+    --clay: #9C4830;
+    --clay-soft: #F3E6E1;
+    --shadow: 0 1px 2px rgba(21, 25, 26, .05), 0 8px 24px -16px rgba(21, 25, 26, .3);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  /* ---------- chrome ---------- */
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: .6rem 1rem .55rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .bar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    font-family: var(--sans);
+  }
+
+  .deckname {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    min-width: 0;
+  }
+
+  .deckname span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .counter {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .track { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .track > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .35s ease; }
+
+  main { flex: 1; padding: 1.25rem 1rem 1rem; }
+
+  footer {
+    position: sticky;
+    bottom: 0;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+    display: flex;
+    gap: .5rem;
+  }
+
+  /* ---------- buttons ---------- */
+
+  button {
+    font-family: var(--sans);
+    font-size: var(--step-0);
+    font-weight: 550;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    cursor: pointer;
+    line-height: 1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button:active { transform: translateY(1px); }
+  @media (prefers-reduced-motion: reduce) { button:active { transform: none; } .track > i { transition: none; } }
+
+  .primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    flex: 1;
+  }
+  @media (prefers-color-scheme: dark) { .primary { color: #0F1312; } }
+  :root[data-theme="dark"] .primary { color: #0F1312; }
+  :root[data-theme="light"] .primary { color: #fff; }
+
+  .grade { flex: 1; padding: .8rem .5rem; font-size: var(--step--1); }
+  .grade b { display: block; font-size: var(--step-0); font-weight: 650; }
+  .grade.miss { border-color: var(--clay); color: var(--clay); }
+  .grade.shaky { border-color: var(--line-2); color: var(--ink-2); }
+  .grade.nail { border-color: var(--accent); color: var(--accent); }
+
+  .ghost { background: transparent; border-color: transparent; color: var(--ink-3); padding: .4rem .5rem; font-size: var(--step--1); }
+  .ghost:hover { color: var(--ink); }
+
+  /* ---------- home ---------- */
+
+  .hero { padding: 1rem 0 1.75rem; }
+  .hero h1 {
+    font-size: var(--step-3);
+    line-height: 1.08;
+    margin: 0 0 .5rem;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+    font-weight: 600;
+  }
+  .hero p { margin: 0; color: var(--ink-2); max-width: 34ch; }
+
+  .grouplabel {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 650;
+    margin: 1.5rem 0 .6rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .grouplabel::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .decks { display: flex; flex-direction: column; gap: .5rem; }
+
+  .deck {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+    padding: .95rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: var(--step-0);
+    box-shadow: var(--shadow);
+  }
+  .deck strong { font-family: var(--sans); font-weight: 600; font-size: var(--step-0); }
+  .deck em { display: block; font-style: normal; color: var(--ink-2); font-size: var(--step--1); margin-top: .2rem; line-height: 1.45; }
+  .deck .n { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink-3); font-size: var(--step--1); white-space: nowrap; }
+
+  .toggles { display: flex; flex-wrap: wrap; gap: .5rem; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: 999px; overflow: hidden; background: var(--surface); }
+  .seg button {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: .45rem .85rem;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    font-weight: 550;
+  }
+  .seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); }
+
+  /* ---------- card ---------- */
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    align-items: center;
+    margin-bottom: .9rem;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .18rem .4rem;
+  }
+  .tag.id { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+
+  .q {
+    font-size: var(--step-2);
+    line-height: 1.28;
+    letter-spacing: -.015em;
+    margin: 0 0 1.25rem;
+    text-wrap: pretty;
+  }
+
+  .answer {
+    font-family: var(--mono);
+    font-size: var(--step-1);
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+  }
+
+  .sec { border-top: 1px solid var(--line); padding-top: .9rem; margin-top: .9rem; }
+  .sec:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+
+  .sech {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--ink-3);
+    margin: 0 0 .45rem;
+  }
+
+  .sec p { margin: 0; }
+  .sec.lead p { font-size: var(--step-1); line-height: 1.45; }
+
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .1rem 0;
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::after {
+    content: "";
+    width: .42rem; height: .42rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  details[open] > summary::after { transform: rotate(-135deg) translate(-1px, -1px); }
+  details > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  details > div { padding-top: .55rem; }
+
+  ol.steps { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .5rem; }
+  ol.steps li::marker { font-family: var(--mono); font-size: .8em; color: var(--ink-3); }
+
+  .trap { color: var(--clay); }
+
+  .followups { display: flex; flex-direction: column; gap: .55rem; }
+  .fu {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: .65rem .8rem;
+    font-size: var(--step-0);
+  }
+  .fu .n { font-family: var(--mono); font-size: .7rem; color: var(--ink-3); display: block; margin-bottom: .15rem; }
+
+  .tablewrap { overflow-x: auto; margin: .6rem 0 0; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: .78rem; font-variant-numeric: tabular-nums; min-width: 100%; }
+  th, td { text-align: right; padding: .32rem .55rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; color: var(--ink-2); }
+  thead th { color: var(--ink-3); font-weight: 600; border-bottom-color: var(--line-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  .tnote { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-3); margin: .9rem 0 0; }
+
+  .card-body { animation: rise .28s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .card-body { animation: none; } }
+
+  /* ---------- summary ---------- */
+
+  .tally { display: flex; gap: .5rem; margin: 1.25rem 0; }
+  .stat { flex: 1; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: .9rem .75rem; text-align: center; }
+  .stat b { display: block; font-family: var(--mono); font-size: var(--step-3); font-variant-numeric: tabular-nums; line-height: 1; }
+  .stat span { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; }
+  .stat.nail b { color: var(--accent); }
+  .stat.miss b { color: var(--clay); }
+
+  .review { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .4rem; }
+  .review .r { font-size: var(--step--1); color: var(--ink-2); border-left: 2px solid var(--clay); padding-left: .7rem; }
+  .review .r b { font-family: var(--mono); color: var(--ink-3); font-weight: 400; font-size: .7rem; display: block; }
+</style>
+
+<div id="app">
+  <header>
+    <div class="bar-top">
+      <div class="deckname"><span id="deckname">Drill</span></div>
+      <div class="counter" id="counter"></div>
+    </div>
+    <div class="track"><i id="track"></i></div>
+  </header>
+  <main id="main"></main>
+  <footer id="footer"></footer>
+</div>
+
+<script>
+/*__GENERATORS__*/
+</script>
+
+<script>
+const DECKS = /*__DATA__*/;
+
+const state = {
+  screen: "home",
+  mode: "general",   // general | tech   (diligence)
+  diff: "clean",     // clean | precise  (math)
+  queue: [],
+  idx: 0,
+  revealed: false,
+  fuShown: 0,
+  deckLabel: "",
+  results: [],
+};
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+};
+const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+/* ---------------- home ---------------- */
+
+function renderHome() {
+  state.screen = "home";
+  $("deckname").textContent = "Drill";
+  $("counter").textContent = "";
+  $("track").style.width = "0%";
+
+  const m = $("main");
+  m.innerHTML = "";
+
+  const hero = el("div", "hero");
+  const h1 = el("h1", null, "Two things get you hired.");
+  const p = el("p", null, "Fast arithmetic, and a structured answer to an open question. Pick a deck.");
+  hero.append(h1, p);
+  m.append(hero);
+
+  m.append(groupLabel("Diligence"));
+  const dwrap = el("div", "decks");
+  const avail = DECKS.filter((d) => countFor(d) > 0);
+  avail.forEach((d) => dwrap.append(deckButton(d.title, d.blurb, countFor(d), () => startDiligence([d], d.title))));
+  const total = avail.reduce((s, d) => s + countFor(d), 0);
+  dwrap.append(deckButton("Everything", "All four decks, shuffled together. This is the interview.", total, () => startDiligence(avail, "Everything")));
+  m.append(dwrap);
+
+  m.append(groupLabel("Mode"));
+  m.append(segment([
+    ["general", "General"],
+    ["tech", "Tech-specific"],
+  ], state.mode, (v) => { state.mode = v; renderHome(); },
+  "Tech mode adds software, semis and platform cards to every deck."));
+
+  m.append(groupLabel("Math"));
+  const mwrap = el("div", "decks");
+  const buckets = [...new Set(MATH_GENERATORS.map((g) => g.bucket))];
+  buckets.forEach((b) => {
+    const gens = MATH_GENERATORS.filter((g) => g.bucket === b);
+    mwrap.append(deckButton(b, gens.map((g) => g.name.replace(/&harr;/g, "↔")).join(" · "), gens.length + " gen", () => startMath(gens, b)));
+  });
+  mwrap.append(deckButton("All math", "Every generator, shuffled. Twenty questions.", MATH_GENERATORS.length + " gen", () => startMath(MATH_GENERATORS, "All math")));
+  m.append(mwrap);
+
+  m.append(segmentWrap(segment([
+    ["clean", "Clean"],
+    ["precise", "Precise"],
+  ], state.diff, (v) => { state.diff = v; renderHome(); },
+  "Clean resolves in your head in about fifteen seconds. Precise makes you grind.")));
+
+  $("footer").innerHTML = "";
+  $("footer").style.display = "none";
+}
+
+function countFor(d) {
+  return d.cards.filter((c) => state.mode === "tech" || c.mode === "general").length;
+}
+
+function groupLabel(t) { return el("div", "grouplabel", t); }
+
+function segmentWrap(node) { const w = el("div"); w.style.marginTop = ".75rem"; w.append(node); return w; }
+
+function segment(opts, current, onPick, note) {
+  const wrap = el("div");
+  const row = el("div", "toggles");
+  const seg = el("div", "seg");
+  opts.forEach(([val, label]) => {
+    const b = el("button", null, label);
+    b.setAttribute("aria-pressed", String(current === val));
+    b.onclick = () => onPick(val);
+    seg.append(b);
+  });
+  row.append(seg);
+  wrap.append(row);
+  if (note) {
+    const n = el("p", null, note);
+    n.style.cssText = "margin:.55rem 0 0;font-size:var(--step--1);color:var(--ink-3);max-width:40ch";
+    wrap.append(n);
+  }
+  return wrap;
+}
+
+function deckButton(title, blurb, n, onclick) {
+  const b = el("button", "deck");
+  const left = el("div");
+  left.append(el("strong", null, title), el("em", null, blurb));
+  b.append(left, el("span", "n", String(n)));
+  b.onclick = onclick;
+  return b;
+}
+
+/* ---------------- start ---------------- */
+
+function startDiligence(decks, label) {
+  const cards = [];
+  decks.forEach((d) => d.cards.forEach((c) => {
+    if (state.mode === "tech" || c.mode === "general") cards.push({ kind: "dil", ...c, pillar: d.title });
+  }));
+  begin(shuffle(cards), label);
+}
+
+function startMath(gens, label) {
+  const q = [];
+  for (let i = 0; i < 20; i++) {
+    const g = gens[i % gens.length];
+    const v = g.gen(state.diff);
+    q.push({ kind: "math", gen: g, ...v });
+  }
+  begin(shuffle(q), label + " · " + (state.diff === "clean" ? "clean" : "precise"));
+}
+
+function begin(queue, label) {
+  state.queue = queue;
+  state.idx = 0;
+  state.results = [];
+  state.deckLabel = label;
+  $("footer").style.display = "flex";
+  renderCard();
+}
+
+/* ---------------- card ---------------- */
+
+function renderCard() {
+  state.screen = "drill";
+  state.revealed = false;
+  state.fuShown = 0;
+
+  const c = state.queue[state.idx];
+  $("deckname").textContent = state.deckLabel;
+  $("counter").textContent = (state.idx + 1) + " / " + state.queue.length;
+  $("track").style.width = ((state.idx) / state.queue.length * 100) + "%";
+
+  const m = $("main");
+  m.innerHTML = "";
+  const body = el("div", "card-body");
+
+  const meta = el("div", "meta");
+  if (c.kind === "dil") {
+    meta.append(tag(c.id, "id"), tag(c.pillar), tag(c.object), tag(c.type));
+  } else {
+    meta.append(tag(c.gen.name.replace(/&harr;/g, "↔"), "id"), tag(c.gen.bucket), tag(state.diff));
+  }
+  body.append(meta);
+
+  const q = el("h2", "q");
+  q.innerHTML = c.q;
+  body.append(q);
+
+  m.append(body);
+  window.scrollTo(0, 0);
+  m.scrollTop = 0;
+
+  const f = $("footer");
+  f.innerHTML = "";
+  const rev = el("button", "primary", "Reveal");
+  rev.onclick = reveal;
+  f.append(rev);
+}
+
+function tag(t, cls) { return el("span", "tag" + (cls ? " " + cls : ""), t); }
+
+function reveal() {
+  if (state.revealed) return;
+  state.revealed = true;
+  const c = state.queue[state.idx];
+  const body = document.querySelector(".card-body");
+  const back = el("div");
+
+  if (c.kind === "math") {
+    const a = el("div", "answer");
+    a.innerHTML = c.a;
+    back.append(a);
+
+    const method = section("Method");
+    const ol = el("ol", "steps");
+    c.method.forEach((s) => { const li = el("li"); li.innerHTML = s; ol.append(li); });
+    method.append(ol);
+    back.append(method);
+
+    if (c.gen.table) {
+      const t = collapsible("Reference table", true);
+      const w = el("div", "tablewrap");
+      w.innerHTML = c.gen.table;
+      t.content.append(w);
+      back.append(t.node);
+    }
+
+    const teach = section("Why it matters");
+    const p = el("p");
+    p.innerHTML = c.gen.teaching;
+    teach.append(p);
+    back.append(teach);
+  } else {
+    const lead = section("The principle");
+    lead.classList.add("lead");
+    lead.append(el("p", null, c.principle));
+    back.append(lead);
+
+    const fr = collapsible("How to frame it", false);
+    const ol = el("ol", "steps");
+    c.framing.forEach((s) => ol.append(el("li", null, s)));
+    fr.content.append(ol);
+    back.append(fr.node);
+
+    const mt = collapsible("What matters most", false);
+    mt.content.append(el("p", null, c.matters));
+    back.append(mt.node);
+
+    const tp = collapsible("Trap", false);
+    const tpp = el("p", "trap", c.trap);
+    tp.content.append(tpp);
+    back.append(tp.node);
+
+    const fu = section("Follow-ups");
+    const list = el("div", "followups");
+    list.id = "fulist";
+    fu.append(list);
+    const more = el("button", "ghost", "Show first follow-up →");
+    more.id = "fubtn";
+    more.onclick = nextFollowup;
+    fu.append(more);
+    back.append(fu);
+  }
+
+  body.append(back);
+  showGrades();
+}
+
+function section(title) {
+  const s = el("div", "sec");
+  s.append(el("h3", "sech", title));
+  return s;
+}
+
+function collapsible(title, open) {
+  const d = el("details", "sec");
+  if (open) d.open = true;
+  const s = el("summary", null, title);
+  const content = el("div");
+  d.append(s, content);
+  return { node: d, content };
+}
+
+function nextFollowup() {
+  const c = state.queue[state.idx];
+  const list = $("fulist");
+  const i = state.fuShown;
+  if (i >= c.followups.length) return;
+  const f = el("div", "fu");
+  f.append(el("span", "n", "Follow-up " + (i + 1)), document.createTextNode(c.followups[i]));
+  list.append(f);
+  state.fuShown++;
+  const btn = $("fubtn");
+  if (state.fuShown >= c.followups.length) btn.remove();
+  else btn.textContent = "Next follow-up →";
+}
+
+function showGrades() {
+  const f = $("footer");
+  f.innerHTML = "";
+  [["miss", "Missed", "went blank"], ["shaky", "Shaky", "half there"], ["nail", "Nailed", "clean"]].forEach(([k, label, sub]) => {
+    const b = el("button", "grade " + k);
+    b.append(el("b", null, label), document.createTextNode(sub));
+    b.onclick = () => grade(k);
+    f.append(b);
+  });
+}
+
+function grade(g) {
+  const c = state.queue[state.idx];
+  state.results.push({ g, label: c.kind === "dil" ? c.id + " · " + c.q : c.gen.name.replace(/&harr;/g, "↔") + " · " + c.q.replace(/<[^>]+>/g, "") });
+  state.idx++;
+  if (state.idx >= state.queue.length) renderSummary();
+  else renderCard();
+}
+
+/* ---------------- summary ---------------- */
+
+function renderSummary() {
+  state.screen = "summary";
+  $("track").style.width = "100%";
+  $("counter").textContent = "done";
+
+  const n = state.results.filter((r) => r.g === "nail").length;
+  const s = state.results.filter((r) => r.g === "shaky").length;
+  const x = state.results.filter((r) => r.g === "miss").length;
+
+  const m = $("main");
+  m.innerHTML = "";
+  const hero = el("div", "hero");
+  hero.append(el("h1", null, "Session done."));
+  hero.append(el("p", null, x + s === 0 ? "Clean run. Raise the difficulty or switch decks." : "The ones below are the session. Everything else you already know."));
+  m.append(hero);
+
+  const tally = el("div", "tally");
+  [["nail", n, "nailed"], ["", s, "shaky"], ["miss", x, "missed"]].forEach(([cls, v, lab]) => {
+    const st = el("div", "stat " + cls);
+    st.append(el("b", null, String(v)), el("span", null, lab));
+    tally.append(st);
+  });
+  m.append(tally);
+
+  const weak = state.results.filter((r) => r.g !== "nail");
+  if (weak.length) {
+    m.append(groupLabel("Work these"));
+    const rev = el("div", "review");
+    weak.forEach((r) => {
+      const d = el("div", "r");
+      const parts = r.label.split(" · ");
+      d.append(el("b", null, parts[0]), document.createTextNode(parts.slice(1).join(" · ")));
+      rev.append(d);
+    });
+    m.append(rev);
+  }
+
+  const f = $("footer");
+  f.innerHTML = "";
+  const again = el("button", "primary", "Run it again");
+  again.onclick = () => { begin(shuffle(state.queue), state.deckLabel); };
+  const home = el("button", null, "Decks");
+  home.onclick = renderHome;
+  f.append(home, again);
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- keys ---------------- */
+
+document.addEventListener("keydown", (e) => {
+  if (state.screen !== "drill") return;
+  if (e.key === " " || e.key === "Enter") {
+    if (!state.revealed) { e.preventDefault(); reveal(); }
+  } else if (state.revealed) {
+    if (e.key === "1") grade("miss");
+    if (e.key === "2") grade("shaky");
+    if (e.key === "3") grade("nail");
+    if (e.key === "f") nextFollowup();
+  }
+});
+
+renderHome();
+</script>

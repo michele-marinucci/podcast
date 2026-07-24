@@ -1,0 +1,191 @@
+{
+  "pillar": "thesis",
+  "title": "Thesis & Pitch",
+  "blurb": "Variant perception, what is priced in, catalysts and re-rating, kill criteria, expression and sizing, and the pitch itself.",
+  "cards": [
+    {
+      "id": "THS-01",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "You like the stock. What does the market believe that you think is wrong — and why are you the one who is right?",
+      "principle": "A thesis without a variant perception is a description. The market has already looked at this company, and the price reflects a considered view. Your return comes from the gap between that view and reality, which means you must be able to state the market's view accurately before claiming it is wrong.",
+      "framing": [
+        "State consensus specifically and numerically — what estimates and what multiple, and therefore what the price implies.",
+        "State your view in the same units, so the gap is visible.",
+        "Explain the source of your edge: informational, analytical, or time-horizon.",
+        "Explain why the market holds its view. There is usually a structural reason, and naming it makes your claim credible.",
+        "Say what evidence would confirm or refute you, and when it arrives.",
+        "Size the gap in value terms."
+      ],
+      "matters": "For a fund with a twelve-month horizon, time-horizon arbitrage is the most honest and most repeatable edge to claim. You are not asserting that you have better information than the market or that you are cleverer than the analysts covering it — you are asserting that the market is discounting the next two quarters and you are underwriting the next eight. That is a structural feature of how most capital is managed, it does not require you to be smarter than anyone, and it is defensible in an interview in a way that claiming informational edge usually is not.",
+      "trap": "Saying the market does not appreciate the quality of this business — unfalsifiable, and everyone says it. Claiming informational edge you do not have. Being unable to state what consensus actually is in numbers.",
+      "followups": [
+        "How do you know that is consensus?",
+        "If you are right, why has it not happened yet?",
+        "Who is the marginal seller here, and what do they believe?"
+      ]
+    },
+    {
+      "id": "THS-02",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "What is priced in at 30 times earnings?",
+      "principle": "A multiple is not a judgement of cheap or expensive — it is a compressed forecast. Decoding what a price implies about growth, duration and returns converts a valuation opinion into a testable claim, and it is the fastest way to determine whether an apparently expensive stock is actually discounting something achievable.",
+      "framing": [
+        "Convert the multiple into an implied expectation: what growth, sustained for how long, at what terminal return, justifies this price?",
+        "Compare that implied growth duration against the company's history and the industry's.",
+        "Separate what is priced about the near term from what is priced about the terminal value. For high multiples, most of the value is terminal.",
+        "Check what the multiple has been historically and what changed, if anything, in the business.",
+        "Ask what the stock does if the company merely delivers consensus.",
+        "State what would have to be true for the current price to prove conservative."
+      ],
+      "matters": "The most useful version of this question is what happens if the company simply meets expectations. For richly valued stocks the answer is frequently that the stock does nothing or falls, because the price already contains several years of successful execution — which means meeting expectations is not a good outcome, it is the neutral one. Knowing that changes how you underwrite the position and how you size it, and it is the discipline that keeps quality investors out of expensive disappointments.",
+      "trap": "Comparing the multiple to peers without asking what any of them imply. Treating a high multiple as automatically expensive or a low one as cheap. Ignoring that most of a high multiple's value sits beyond the forecast period.",
+      "followups": [
+        "What growth duration does that multiple imply?",
+        "What does the stock do if they simply hit consensus?",
+        "What has to be true for this price to look conservative in hindsight?"
+      ]
+    },
+    {
+      "id": "THS-03",
+      "object": "stock",
+      "mode": "general",
+      "type": "anchored",
+      "q": "A vertical software company, two billion enterprise value, growing 18%, 25% EBIT margins, trading at 28 times EBIT. You think it is a double in three years. Over the next twelve months, what makes the market agree with you — and what do you watch monthly to know it is working?",
+      "principle": "For a medium-term horizon, catalysts are evidence-generating events rather than single-day prints. Separate thesis-confirming milestones, which tell you privately that you are right, from re-rating events, which make the market change its estimates. You need both, and they are rarely the same thing.",
+      "framing": [
+        "Numbers events: estimate revisions, guidance resets, a margin inflection actually appearing in reported results.",
+        "Company actions: pricing moves, product cycle, capital allocation, segment disclosure, acquisitions.",
+        "Industry and external: competitor exit, cycle turn, regulation, channel data.",
+        "Ownership and narrative: index inclusion, initiations, lock-up expiry, activist involvement, a breakup.",
+        "Attach a window to each, and name the two or three things you would monitor monthly.",
+        "State how much of the return is earnings versus multiple."
+      ],
+      "matters": "A twelve-month re-rating almost always requires the consensus estimate path to move, not just sentiment. Multiples expand when analysts raise numbers and extend their forecast horizon, which happens when reported results force it. So the catalyst that matters is whichever event first makes the estimate revisions unavoidable — identify that one, date it, and build the monitoring around it rather than around the narrative.",
+      "trap": "Naming an earnings date as a catalyst without saying what in the print changes the estimate path. Listing catalysts you cannot observe until after the stock has moved. Confusing volatility events with re-rating events.",
+      "followups": [
+        "If none of that happens in twelve months, do you still own it?",
+        "Which catalyst is most likely to break the thesis rather than confirm it?",
+        "How much of your double is multiple expansion, and who pays that multiple?"
+      ]
+    },
+    {
+      "id": "THS-04",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "It is a year from now and the position has lost you 30%. What happened?",
+      "principle": "A pre-mortem surfaces risks that a bear case misses, because it forces you to reason backwards from a bad outcome you are required to accept as real. Stating kill criteria in advance converts an emotional decision under stress into a rule set while you are still thinking clearly, which is when your judgement is worth the most.",
+      "framing": [
+        "Assume the loss is real and give three distinct causes, ranked by likelihood rather than severity.",
+        "Separate thesis failure, where you were wrong about the business, from price failure, where you were right but the multiple compressed.",
+        "Identify which of these you would see early and which would arrive as a surprise.",
+        "Define kill criteria: what specific observation, not price move, tells you the thesis is broken.",
+        "Distinguish kill criteria from add criteria, since the same drawdown can be either depending on what caused it.",
+        "State the maximum loss you would accept before forcing a full re-underwrite."
+      ],
+      "matters": "The most valuable discipline here is separating a broken thesis from a cheaper stock, because they demand opposite actions and feel identical in the moment. Write the specific observable that would tell you the thesis is broken — retention below a number, a competitor winning a class of deal, a margin trajectory that stalls for two consecutive quarters — before you own it. Price alone is never a kill criterion, but it is the thing that will pressure you to invent one.",
+      "trap": "Giving only the market-wide bear case, which says nothing specific about this position. Setting kill criteria in terms of price rather than evidence. Confusing a drawdown with a broken thesis.",
+      "followups": [
+        "Which of those causes would you see coming, and which arrives as a surprise?",
+        "What specific observation, not price, tells you the thesis is broken?",
+        "Down 30% on a multiple de-rate with the thesis intact — do you add?"
+      ]
+    },
+    {
+      "id": "THS-05",
+      "object": "theme",
+      "mode": "general",
+      "type": "framework",
+      "q": "You are right about the theme. How do you express it, and how big do you make it?",
+      "principle": "Expression and sizing are where a correct view becomes a return or a disappointment. The same thesis can be expressed with different risk profiles, and the choice should follow from what you actually know versus what you are merely exposed to. Sizing follows conviction and asymmetry, not enthusiasm.",
+      "framing": [
+        "List the possible expressions: the pure play, the diversified beneficiary, the supplier, the enabler, and the short side.",
+        "For each, ask what proportion of the return depends on your specific insight versus on factors you have no view on.",
+        "Prefer the expression with the highest ratio of thesis exposure to unrelated exposure.",
+        "Consider whether a pair or a hedge isolates the view, and be honest about the cost and the basis risk.",
+        "Size from asymmetry and conviction: how much do you make if right, lose if wrong, and how confident are you.",
+        "State what would make you add and what would make you cut, before you put it on."
+      ],
+      "matters": "The cleanest expression is usually the one where the most of your return depends on the thing you actually did the work on. A company where your insight drives 70% of the outcome is better than a pure play where it drives 30% and the rest is exposure to a cycle, a currency, or a management team you have never assessed. In a concentrated long-biased book this discipline matters more than in a hedged one, because you cannot rely on the hedge to strip out the noise.",
+      "trap": "Choosing the most levered expression rather than the most targeted one. Sizing on excitement. Assuming a pair trade removes risk when the two legs share a factor exposure that dominates both.",
+      "followups": [
+        "What percentage of your return in that name depends on your actual insight?",
+        "What are you exposed to that you have no view on?",
+        "What makes you double it, and what makes you halve it?"
+      ]
+    },
+    {
+      "id": "THS-06",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "How do you assess management, beyond meeting them?",
+      "principle": "Management assessment is a judgement about capital allocation and honesty, and both are visible in the record. Meetings are the least reliable input available, because senior executives are selected in part for their ability to be persuasive in exactly that setting. The historical record of decisions and disclosures is far more informative.",
+      "framing": [
+        "Review capital allocation history: acquisitions and their returns, buybacks and the prices paid, capex and what it earned.",
+        "Ask whether they buy back stock counter-cyclically or when it is expensive and comfortable. This one fact is enormously revealing.",
+        "Read old guidance against outcomes. Do they set achievable targets and meet them, or set aspirational ones and miss?",
+        "Look at how they discuss failure. Specific, unflattering candour is rare and highly correlated with honest reporting.",
+        "Examine incentive structures — what are they actually paid on, and does it match what you want them to do?",
+        "Check insider behaviour over time, weighting open-market purchases far above grants."
+      ],
+      "matters": "Buyback behaviour across a cycle is the single most informative disclosure about a management team's judgement and independence. Buying heavily at peak valuations and stopping during a drawdown reveals that they are managing optics or earnings per share, not value — and that same judgement is being applied to everything you cannot see. It is a free look at how they think about price and value, disclosed quarterly, and most investors ignore it entirely.",
+      "trap": "Weighting a meeting impression above the capital allocation record. Assuming founder-led implies long-term-oriented. Treating stock grants and scheduled sales as an insider signal.",
+      "followups": [
+        "When did they buy back the most stock, and at what multiple?",
+        "What are they compensated on, and what does that make them do?",
+        "Show me a time they admitted a mistake specifically and early."
+      ]
+    },
+    {
+      "id": "THS-07",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Pitch me a stock. Ninety seconds.",
+      "principle": "The pitch is a compression test. In ninety seconds you can convey a thesis, a variant perception, and an asymmetry, but only if you have decided in advance what to leave out. Everything you say that a competent generalist could have said from a screen is wasted time, and the omissions are what reveal whether you understand the investment.",
+      "framing": [
+        "One sentence on what the company does, pitched at a level that a smart generalist follows immediately.",
+        "The thesis in one sentence: what you think happens and over what period.",
+        "The variant perception: what the market believes and why it is wrong, in numbers.",
+        "Two or three supporting points, each one evidence rather than assertion.",
+        "The return: what it is worth, what you make, and what you lose if wrong.",
+        "The main risk, stated by you before they ask, and why you are comfortable with it."
+      ],
+      "matters": "Lead with the variant perception rather than the business description. The listener does not need to be sold on the company; they need to know why this is a mispricing and not simply a good business that everyone already recognises. Naming the main risk yourself is the strongest signal available that you have done the work and are not selling — and the single most common failure is spending sixty of the ninety seconds on background that establishes nothing.",
+      "trap": "Spending most of the time on what the company does. Presenting quality as if it were the thesis. Waiting to be asked about the risk. Being unable to state the downside in numbers.",
+      "followups": [
+        "What is the bear case, in their words rather than a strawman?",
+        "What would you need to see to double the position?",
+        "Why is this better than the second-best idea you have?"
+      ]
+    },
+    {
+      "id": "THS-08",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "You are long. Make the case that this is actually a short.",
+      "principle": "Being able to argue the other side well is the most reliable test of whether you understand a position. A long-biased investor still needs this: it stress-tests the thesis, reveals what the marginal seller believes, and identifies which evidence would flip you. A weak bear case usually means you have not found the real one.",
+      "framing": [
+        "Build the strongest version, not a strawman, and use the actual arguments of people who are short.",
+        "Separate the valuation short, where the business is fine but the price is wrong, from the fundamental short, where the business deteriorates.",
+        "Identify the accounting or disclosure angle: anything the company has stopped disclosing, or a widening gap between adjusted and reported figures.",
+        "Ask what the short's catalyst is and over what horizon, since a short needs timing far more than a long does.",
+        "State what evidence would convert you from long to short.",
+        "Say why, having made the case, you still hold the long."
+      ],
+      "matters": "A company quietly ceasing to disclose a metric it used to highlight is among the most consistently informative signals available, and it costs nothing to track. Companies disclose what flatters them, so a discontinued metric almost always deteriorated. Reviewing what has dropped out of the disclosure over several years is a fast, high-yield exercise on both sides of a position, and it frequently surfaces the bear case before it appears in the reported numbers.",
+      "trap": "Building a strawman bear case that is easy to dismiss. Confusing an expensive stock with a short, since expensive stocks can stay expensive for years. Not knowing what the actual short interest thesis is.",
+      "followups": [
+        "What has this company stopped disclosing?",
+        "What is the gap between adjusted and reported earnings, and is it widening?",
+        "What evidence would flip you from long to short?"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1075 @@
+<title>Drill — Investing Interview Prep</title>
+
+<style>
+  :root {
+    --bg: #F4F5F2;
+    --surface: #FFFFFF;
+    --surface-2: #EDEFE9;
+    --ink: #15191A;
+    --ink-2: #4A524E;
+    --ink-3: #7C847F;
+    --line: #DCDFD8;
+    --line-2: #C8CCC3;
+    --accent: #1E5C46;
+    --accent-soft: #E3EDE7;
+    --clay: #9C4830;
+    --clay-soft: #F3E6E1;
+    --shadow: 0 1px 2px rgba(21, 25, 26, .05), 0 8px 24px -16px rgba(21, 25, 26, .3);
+
+    --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+    --step--1: clamp(.75rem, .72rem + .12vw, .8rem);
+    --step-0: clamp(.94rem, .9rem + .2vw, 1rem);
+    --step-1: clamp(1.1rem, 1.02rem + .38vw, 1.25rem);
+    --step-2: clamp(1.3rem, 1.15rem + .7vw, 1.6rem);
+    --step-3: clamp(1.55rem, 1.3rem + 1.1vw, 2.1rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F1312;
+      --surface: #161B19;
+      --surface-2: #1D2321;
+      --ink: #E9ECE7;
+      --ink-2: #A5AFA9;
+      --ink-3: #737D78;
+      --line: #262D2A;
+      --line-2: #333B37;
+      --accent: #74C29C;
+      --accent-soft: #16261E;
+      --clay: #DA9078;
+      --clay-soft: #2B1E19;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0F1312;
+    --surface: #161B19;
+    --surface-2: #1D2321;
+    --ink: #E9ECE7;
+    --ink-2: #A5AFA9;
+    --ink-3: #737D78;
+    --line: #262D2A;
+    --line-2: #333B37;
+    --accent: #74C29C;
+    --accent-soft: #16261E;
+    --clay: #DA9078;
+    --clay-soft: #2B1E19;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
+  }
+
+  :root[data-theme="light"] {
+    --bg: #F4F5F2;
+    --surface: #FFFFFF;
+    --surface-2: #EDEFE9;
+    --ink: #15191A;
+    --ink-2: #4A524E;
+    --ink-3: #7C847F;
+    --line: #DCDFD8;
+    --line-2: #C8CCC3;
+    --accent: #1E5C46;
+    --accent-soft: #E3EDE7;
+    --clay: #9C4830;
+    --clay-soft: #F3E6E1;
+    --shadow: 0 1px 2px rgba(21, 25, 26, .05), 0 8px 24px -16px rgba(21, 25, 26, .3);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  /* ---------- chrome ---------- */
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: .6rem 1rem .55rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .bar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    font-family: var(--sans);
+  }
+
+  .deckname {
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    min-width: 0;
+  }
+
+  .deckname span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .counter {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--step--1);
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  .track { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .track > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .35s ease; }
+
+  main { flex: 1; padding: 1.25rem 1rem 1rem; }
+
+  footer {
+    position: sticky;
+    bottom: 0;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+    display: flex;
+    gap: .5rem;
+  }
+
+  /* ---------- buttons ---------- */
+
+  button {
+    font-family: var(--sans);
+    font-size: var(--step-0);
+    font-weight: 550;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    cursor: pointer;
+    line-height: 1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button:active { transform: translateY(1px); }
+  @media (prefers-reduced-motion: reduce) { button:active { transform: none; } .track > i { transition: none; } }
+
+  .primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    flex: 1;
+  }
+  @media (prefers-color-scheme: dark) { .primary { color: #0F1312; } }
+  :root[data-theme="dark"] .primary { color: #0F1312; }
+  :root[data-theme="light"] .primary { color: #fff; }
+
+  .grade { flex: 1; padding: .8rem .5rem; font-size: var(--step--1); }
+  .grade b { display: block; font-size: var(--step-0); font-weight: 650; }
+  .grade.miss { border-color: var(--clay); color: var(--clay); }
+  .grade.shaky { border-color: var(--line-2); color: var(--ink-2); }
+  .grade.nail { border-color: var(--accent); color: var(--accent); }
+
+  .ghost { background: transparent; border-color: transparent; color: var(--ink-3); padding: .4rem .5rem; font-size: var(--step--1); }
+  .ghost:hover { color: var(--ink); }
+
+  /* ---------- home ---------- */
+
+  .hero { padding: 1rem 0 1.75rem; }
+  .hero h1 {
+    font-size: var(--step-3);
+    line-height: 1.08;
+    margin: 0 0 .5rem;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+    font-weight: 600;
+  }
+  .hero p { margin: 0; color: var(--ink-2); max-width: 34ch; }
+
+  .grouplabel {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 650;
+    margin: 1.5rem 0 .6rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .grouplabel::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .decks { display: flex; flex-direction: column; gap: .5rem; }
+
+  .deck {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+    padding: .95rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: var(--step-0);
+    box-shadow: var(--shadow);
+  }
+  .deck strong { font-family: var(--sans); font-weight: 600; font-size: var(--step-0); }
+  .deck em { display: block; font-style: normal; color: var(--ink-2); font-size: var(--step--1); margin-top: .2rem; line-height: 1.45; }
+  .deck .n { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--ink-3); font-size: var(--step--1); white-space: nowrap; }
+
+  .toggles { display: flex; flex-wrap: wrap; gap: .5rem; }
+
+  .seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: 999px; overflow: hidden; background: var(--surface); }
+  .seg button {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: .45rem .85rem;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+    font-weight: 550;
+  }
+  .seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); }
+
+  /* ---------- card ---------- */
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    align-items: center;
+    margin-bottom: .9rem;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .18rem .4rem;
+  }
+  .tag.id { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+
+  .q {
+    font-size: var(--step-2);
+    line-height: 1.28;
+    letter-spacing: -.015em;
+    margin: 0 0 1.25rem;
+    text-wrap: pretty;
+  }
+
+  .answer {
+    font-family: var(--mono);
+    font-size: var(--step-1);
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+  }
+
+  .sec { border-top: 1px solid var(--line); padding-top: .9rem; margin-top: .9rem; }
+  .sec:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+
+  .sech {
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--ink-3);
+    margin: 0 0 .45rem;
+  }
+
+  .sec p { margin: 0; }
+  .sec.lead p { font-size: var(--step-1); line-height: 1.45; }
+
+  details > summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: var(--step--1);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    font-weight: 650;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .1rem 0;
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::after {
+    content: "";
+    width: .42rem; height: .42rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  details[open] > summary::after { transform: rotate(-135deg) translate(-1px, -1px); }
+  details > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  details > div { padding-top: .55rem; }
+
+  ol.steps { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .5rem; }
+  ol.steps li::marker { font-family: var(--mono); font-size: .8em; color: var(--ink-3); }
+
+  .trap { color: var(--clay); }
+
+  .followups { display: flex; flex-direction: column; gap: .55rem; }
+  .fu {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: .65rem .8rem;
+    font-size: var(--step-0);
+  }
+  .fu .n { font-family: var(--mono); font-size: .7rem; color: var(--ink-3); display: block; margin-bottom: .15rem; }
+
+  .tablewrap { overflow-x: auto; margin: .6rem 0 0; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: .78rem; font-variant-numeric: tabular-nums; min-width: 100%; }
+  th, td { text-align: right; padding: .32rem .55rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; color: var(--ink-2); }
+  thead th { color: var(--ink-3); font-weight: 600; border-bottom-color: var(--line-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  .tnote { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-3); margin: .9rem 0 0; }
+
+  .card-body { animation: rise .28s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .card-body { animation: none; } }
+
+  /* ---------- summary ---------- */
+
+  .tally { display: flex; gap: .5rem; margin: 1.25rem 0; }
+  .stat { flex: 1; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: .9rem .75rem; text-align: center; }
+  .stat b { display: block; font-family: var(--mono); font-size: var(--step-3); font-variant-numeric: tabular-nums; line-height: 1; }
+  .stat span { font-family: var(--sans); font-size: var(--step--1); color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; }
+  .stat.nail b { color: var(--accent); }
+  .stat.miss b { color: var(--clay); }
+
+  .review { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .4rem; }
+  .review .r { font-size: var(--step--1); color: var(--ink-2); border-left: 2px solid var(--clay); padding-left: .7rem; }
+  .review .r b { font-family: var(--mono); color: var(--ink-3); font-weight: 400; font-size: .7rem; display: block; }
+</style>
+
+<div id="app">
+  <header>
+    <div class="bar-top">
+      <div class="deckname"><span id="deckname">Drill</span></div>
+      <div class="counter" id="counter"></div>
+    </div>
+    <div class="track"><i id="track"></i></div>
+  </header>
+  <main id="main"></main>
+  <footer id="footer"></footer>
+</div>
+
+<script>
+/* Math drill generators.
+   Each generator emits infinite variants at two difficulties:
+     clean   - resolves in your head in ~15s
+     precise - messy figures, grind it out
+   Tables are static per generator and appear only where a table genuinely teaches. */
+
+const pick = (a) => a[Math.floor(Math.random() * a.length)];
+const pct = (x, d = 1) => (x * 100).toFixed(d) + "%";
+const mx = (x, d = 2) => x.toFixed(d) + "x";
+const money = (x) => "$" + x.toFixed(0);
+
+/* ---------- static teaching tables ---------- */
+
+const T_DOUBLE = `<table><thead><tr><th>Growth</th><th>Rule of 72</th><th>Actual</th></tr></thead><tbody>
+<tr><td>4%</td><td>18.0</td><td>17.7</td></tr>
+<tr><td>6%</td><td>12.0</td><td>11.9</td></tr>
+<tr><td>8%</td><td>9.0</td><td>9.0</td></tr>
+<tr><td>10%</td><td>7.2</td><td>7.3</td></tr>
+<tr><td>12%</td><td>6.0</td><td>6.1</td></tr>
+<tr><td>15%</td><td>4.8</td><td>5.0</td></tr>
+<tr><td>20%</td><td>3.6</td><td>3.8</td></tr>
+<tr><td>25%</td><td>2.9</td><td>3.1</td></tr>
+<tr><td>30%</td><td>2.4</td><td>2.6</td></tr>
+<tr><td>40%</td><td>1.8</td><td>2.1</td></tr>
+<tr><td>50%</td><td>1.4</td><td>1.7</td></tr></tbody></table>
+<p class="tnote">Compounding grid &mdash; what $1 becomes:</p>
+<table><thead><tr><th>Growth</th><th>1y</th><th>2y</th><th>3y</th><th>4y</th><th>5y</th><th>10y</th></tr></thead><tbody>
+<tr><td>5%</td><td>1.05</td><td>1.10</td><td>1.16</td><td>1.22</td><td>1.28</td><td>1.63</td></tr>
+<tr><td>10%</td><td>1.10</td><td>1.21</td><td>1.33</td><td>1.46</td><td>1.61</td><td>2.59</td></tr>
+<tr><td>15%</td><td>1.15</td><td>1.32</td><td>1.52</td><td>1.75</td><td>2.01</td><td>4.05</td></tr>
+<tr><td>20%</td><td>1.20</td><td>1.44</td><td>1.73</td><td>2.07</td><td>2.49</td><td>6.19</td></tr>
+<tr><td>25%</td><td>1.25</td><td>1.56</td><td>1.95</td><td>2.44</td><td>3.05</td><td>9.31</td></tr>
+<tr><td>30%</td><td>1.30</td><td>1.69</td><td>2.20</td><td>2.86</td><td>3.71</td><td>13.79</td></tr></tbody></table>`;
+
+const T_IRR = `<table><thead><tr><th>MoM</th><th>1y</th><th>2y</th><th>3y</th><th>4y</th><th>5y</th><th>7y</th><th>10y</th></tr></thead><tbody>
+<tr><td>1.25x</td><td>25%</td><td>12%</td><td>8%</td><td>6%</td><td>5%</td><td>&mdash;</td><td>&mdash;</td></tr>
+<tr><td>1.3x</td><td>30%</td><td>14%</td><td>9%</td><td>7%</td><td>5%</td><td>&mdash;</td><td>&mdash;</td></tr>
+<tr><td>1.5x</td><td>50%</td><td>22%</td><td>14%</td><td>11%</td><td>8%</td><td>6%</td><td>4%</td></tr>
+<tr><td>2x</td><td>100%</td><td>41%</td><td>26%</td><td>19%</td><td>15%</td><td>10%</td><td>7%</td></tr>
+<tr><td>2.5x</td><td>150%</td><td>58%</td><td>36%</td><td>26%</td><td>20%</td><td>14%</td><td>10%</td></tr>
+<tr><td>3x</td><td>200%</td><td>73%</td><td>44%</td><td>32%</td><td>25%</td><td>17%</td><td>12%</td></tr>
+<tr><td>4x</td><td>300%</td><td>100%</td><td>59%</td><td>41%</td><td>32%</td><td>22%</td><td>15%</td></tr>
+<tr><td>5x</td><td>400%</td><td>124%</td><td>71%</td><td>49%</td><td>38%</td><td>26%</td><td>17%</td></tr>
+<tr><td>10x</td><td>900%</td><td>216%</td><td>115%</td><td>78%</td><td>59%</td><td>39%</td><td>26%</td></tr></tbody></table>`;
+
+const T_DRAG = `<table><thead><tr><th>Multiple change</th><th>2y</th><th>3y</th><th>5y</th></tr></thead><tbody>
+<tr><td>&minus;10%</td><td>&minus;5.1%</td><td>&minus;3.4%</td><td>&minus;2.1%</td></tr>
+<tr><td>&minus;20%</td><td>&minus;10.6%</td><td>&minus;7.2%</td><td>&minus;4.4%</td></tr>
+<tr><td>&minus;30%</td><td>&minus;16.3%</td><td>&minus;11.2%</td><td>&minus;6.9%</td></tr>
+<tr><td>&minus;40%</td><td>&minus;22.5%</td><td>&minus;15.7%</td><td>&minus;9.7%</td></tr>
+<tr><td>&minus;50%</td><td>&minus;29.3%</td><td>&minus;20.6%</td><td>&minus;12.9%</td></tr></tbody></table>`;
+
+const T_YIELD = `<table><thead><tr><th>Multiple</th><th>Yield</th><th>Multiple</th><th>Yield</th></tr></thead><tbody>
+<tr><td>8x</td><td>12.5%</td><td>25x</td><td>4.0%</td></tr>
+<tr><td>10x</td><td>10.0%</td><td>30x</td><td>3.3%</td></tr>
+<tr><td>12.5x</td><td>8.0%</td><td>35x</td><td>2.9%</td></tr>
+<tr><td>15x</td><td>6.7%</td><td>40x</td><td>2.5%</td></tr>
+<tr><td>20x</td><td>5.0%</td><td>50x</td><td>2.0%</td></tr></tbody></table>`;
+
+/* ---------- generators ---------- */
+
+const MATH_GENERATORS = [
+  {
+    id: "double",
+    name: "Time to double",
+    bucket: "Return math",
+    table: T_DOUBLE,
+    teaching:
+      "Rule of 72 is excellent from 6&ndash;12% and drifts at the extremes. Above ~20% it <em>understates</em> how long doubling takes &mdash; always round up. Memorise the anchors outright: 10% &rarr; 7 years, 15% &rarr; 5 years, 20% &rarr; 3.8 years, 30% &rarr; 2.6 years.",
+    gen(mode) {
+      const r =
+        mode === "clean"
+          ? pick([6, 8, 9, 10, 12, 15, 18, 20, 25, 30]) / 100
+          : pick([7.4, 11.3, 13.8, 16.2, 19.6, 23.5, 27.1]) / 100;
+      const actual = Math.log(2) / Math.log(1 + r);
+      const r72 = 72 / (r * 100);
+      return {
+        q: `Earnings compound at ${pct(r, mode === "clean" ? 0 : 1)} a year. How long until they double?`,
+        a: `${actual.toFixed(1)} years`,
+        method: [
+          `Rule of 72: 72 &divide; ${(r * 100).toFixed(mode === "clean" ? 0 : 1)} = <strong>${r72.toFixed(1)} years</strong>`,
+          `Exact: ln2 &divide; ln(1+r) = <strong>${actual.toFixed(1)} years</strong>`,
+          r * 100 >= 20
+            ? `At this rate the rule is optimistic by ${(actual - r72).toFixed(1)} years &mdash; round up.`
+            : `The rule is accurate to within ${Math.abs(actual - r72).toFixed(1)} years here.`,
+        ],
+      };
+    },
+  },
+
+  {
+    id: "mom_irr",
+    name: "MoM &harr; IRR",
+    bucket: "Return math",
+    table: T_IRR,
+    teaching:
+      "For a 12-month-horizon fund you live in the top-left of this table. A 1.3x in a year is a great outcome; a 1.3x that takes three years is a 9% compounder you should not own concentrated. Time is the variable people forget to argue about &mdash; most thesis disagreements are timing disagreements wearing a valuation costume.",
+    gen(mode) {
+      const reverse = Math.random() < 0.4;
+      const n = pick([2, 3, 4, 5]);
+      if (reverse) {
+        const hurdle = mode === "clean" ? pick([15, 20, 25, 30]) / 100 : pick([17.5, 22.5, 27.5]) / 100;
+        const need = Math.pow(1 + hurdle, n);
+        return {
+          q: `You need a ${pct(hurdle, mode === "clean" ? 0 : 1)} IRR over ${n} years. What multiple of money does that require?`,
+          a: mx(need),
+          method: [
+            `MoM = (1 + IRR)<sup>n</sup> = (1 + ${hurdle.toFixed(3)})<sup>${n}</sup>`,
+            `= <strong>${mx(need)}</strong> over ${n} years`,
+            `Sense-check against the grid: ${n}y at roughly this hurdle sits near the ${need < 1.5 ? "1.25&ndash;1.5x" : need < 2 ? "1.5&ndash;2x" : need < 3 ? "2&ndash;3x" : "3x+"} row.`,
+          ],
+        };
+      }
+      const m = mode === "clean" ? pick([1.5, 2, 2.5, 3, 4, 5]) : pick([1.65, 2.35, 2.85, 3.4, 4.2]);
+      const irr = Math.pow(m, 1 / n) - 1;
+      return {
+        q: `You underwrite ${mx(m, m % 1 === 0 ? 0 : 2)} over ${n} years. What is the IRR?`,
+        a: pct(irr),
+        method: [
+          `IRR = MoM<sup>1/n</sup> &minus; 1 = ${m}<sup>1/${n}</sup> &minus; 1`,
+          `= <strong>${pct(irr)}</strong>`,
+          `Anchors: 2x/3y = 26% &middot; 2x/5y = 15% &middot; 3x/5y = 25% &middot; 2.5x/4y = 26%`,
+        ],
+      };
+    },
+  },
+
+  {
+    id: "attribution",
+    name: "Return attribution",
+    bucket: "Return math",
+    table: null,
+    teaching:
+      "Every equity return decomposes into exactly three multiplicative legs &mdash; growth &times; margin change &times; multiple change &mdash; plus buyback as a fourth. Compute each separately, then multiply. Never add. The real work is asking what the IRR becomes if you are wrong about the leg you are least sure of, which is almost always the margin.",
+    gen(mode) {
+      const g = (mode === "clean" ? pick([10, 12, 15, 20]) : pick([13.5, 16.4, 18.7])) / 100;
+      const n = pick([3, 4, 5]);
+      const [m0, m1] =
+        mode === "clean" ? pick([[20, 30], [15, 25], [25, 32], [10, 18]]) : pick([[17.5, 26.4], [22.3, 29.1]]);
+      const [x0, x1] = mode === "clean" ? pick([[22, 20], [25, 20], [30, 25], [18, 16]]) : pick([[23.5, 18.2], [27.4, 21.6]]);
+      const gLeg = Math.pow(1 + g, n);
+      const mLeg = m1 / m0;
+      const xLeg = x1 / x0;
+      const total = gLeg * mLeg * xLeg;
+      const irr = Math.pow(total, 1 / n) - 1;
+      const flat = gLeg * xLeg;
+      const flatIrr = Math.pow(flat, 1 / n) - 1;
+      return {
+        q: `Revenue grows ${pct(g, mode === "clean" ? 0 : 1)} a year for ${n} years. EBIT margin goes ${m0}% &rarr; ${m1}%. The multiple goes ${x0}x &rarr; ${x1}x. What is your IRR?`,
+        a: `${mx(total)} &rarr; ${pct(irr)} IRR`,
+        method: [
+          `Growth leg: ${(1 + g).toFixed(3)}<sup>${n}</sup> = <strong>${mx(gLeg)}</strong>`,
+          `Margin leg: ${m1} &divide; ${m0} = <strong>${mx(mLeg)}</strong>`,
+          `Multiple leg: ${x1} &divide; ${x0} = <strong>${mx(xLeg)}</strong>`,
+          `Multiply: ${mx(gLeg)} &times; ${mx(mLeg)} &times; ${mx(xLeg)} = <strong>${mx(total)}</strong> &rarr; ${pct(irr)} IRR`,
+          `Wrong-leg test &mdash; if margins never move: ${mx(flat)} &rarr; <strong>${pct(flatIrr)}</strong>. That floor is the number to underwrite.`,
+        ],
+      };
+    },
+  },
+
+  {
+    id: "drag",
+    name: "De-rating drag",
+    bucket: "Return math",
+    table: T_DRAG,
+    teaching:
+      "This table is why expensive compounders disappoint. A 20% grower that de-rates 40% over three years nets about 4% a year. Over five years the same de-rate costs only ~10% a year &mdash; <em>duration is the antidote to multiple risk</em>, which is precisely the argument for a three-year holding period on a twelve-month-horizon book.",
+    gen(mode) {
+      const [x0, x1] = mode === "clean" ? pick([[25, 20], [30, 21], [40, 24], [25, 15], [35, 28]]) : pick([[27.4, 19.8], [33.1, 22.7]]);
+      const n = pick([2, 3, 5]);
+      const g = (mode === "clean" ? pick([10, 15, 20, 25]) : pick([13.2, 18.6])) / 100;
+      const dragAnnual = Math.pow(x1 / x0, 1 / n) - 1;
+      const total = Math.pow(1 + g, n) * (x1 / x0);
+      const irr = Math.pow(total, 1 / n) - 1;
+      return {
+        q: `Earnings grow ${pct(g, mode === "clean" ? 0 : 1)} a year. Over ${n} years the multiple goes ${x0}x &rarr; ${x1}x. What is your annualised return?`,
+        a: pct(irr),
+        method: [
+          `Multiple change: ${x1} &divide; ${x0} = ${(x1 / x0).toFixed(3)}, i.e. <strong>${pct(dragAnnual)}</strong> a year of drag`,
+          `Earnings: ${(1 + g).toFixed(2)}<sup>${n}</sup> = ${mx(Math.pow(1 + g, n))}`,
+          `Combine multiplicatively: ${mx(Math.pow(1 + g, n))} &times; ${(x1 / x0).toFixed(3)} = ${mx(total)} &rarr; <strong>${pct(irr)}</strong>`,
+          `Note the additive shortcut (${pct(g)} ${dragAnnual < 0 ? "&minus;" : "+"} ${pct(Math.abs(dragAnnual))}) overstates by about ${Math.abs((g + dragAnnual - irr) * 100).toFixed(1)} points &mdash; that is the cross term.`,
+        ],
+      };
+    },
+  },
+
+  {
+    id: "incremental",
+    name: "Incremental margin",
+    bucket: "Margins & unit economics",
+    table: null,
+    teaching:
+      "Incremental margin is the honest way to express operating leverage: revenue grows $100, EBIT grows $X. A margin ramp toward a target hides the assumption; an incremental margin states it. Always compare the implied incremental margin against what the company has actually delivered in prior growth years &mdash; if your model implies 50% and history says 30%, you are making a claim you need to name.",
+    gen(mode) {
+      const r0 = mode === "clean" ? pick([500, 800, 1000, 1200]) : pick([742, 1183, 1465]);
+      const growth = (mode === "clean" ? pick([15, 20, 25]) : pick([17.4, 22.8])) / 100;
+      const m0 = (mode === "clean" ? pick([15, 20, 25]) : pick([18.3, 23.7])) / 100;
+      const inc = (mode === "clean" ? pick([30, 40, 50]) : pick([34, 43])) / 100;
+      const r1 = r0 * (1 + growth);
+      const e0 = r0 * m0;
+      const e1 = e0 + (r1 - r0) * inc;
+      const m1 = e1 / r1;
+      return {
+        q: `Revenue is ${money(r0)}m at a ${pct(m0, mode === "clean" ? 0 : 1)} EBIT margin. Revenue grows ${pct(growth, mode === "clean" ? 0 : 1)} and management says incremental margins are ${pct(inc, 0)}. What is the new EBIT margin?`,
+        a: pct(m1),
+        method: [
+          `New revenue: ${money(r0)}m &times; ${(1 + growth).toFixed(3)} = ${money(r1)}m, so incremental revenue is ${money(r1 - r0)}m`,
+          `Starting EBIT: ${money(r0)}m &times; ${pct(m0, 1)} = ${money(e0)}m`,
+          `Incremental EBIT: ${money(r1 - r0)}m &times; ${pct(inc, 0)} = ${money((r1 - r0) * inc)}m`,
+          `New EBIT ${money(e1)}m on ${money(r1)}m = <strong>${pct(m1)}</strong>, i.e. ${((m1 - m0) * 10000).toFixed(0)}bps of expansion`,
+        ],
+      };
+    },
+  },
+
+  {
+    id: "yield",
+    name: "Multiples & yield",
+    bucket: "Valuation",
+    table: T_YIELD,
+    teaching:
+      "Flipping a multiple into a yield is the fastest way to make a valuation intuitive and to compare across asset classes. A 25x stock is a 4% earnings yield &mdash; ask immediately whether that yield grows, because a 4% yield growing 15% and a 4% yield growing 3% are entirely different securities wearing the same multiple.",
+    gen(mode) {
+      const kind = pick(["yield", "evs"]);
+      if (kind === "yield") {
+        const x = mode === "clean" ? pick([10, 12.5, 15, 20, 25, 30, 40]) : pick([17.4, 23.8, 31.2]);
+        const y = 1 / x;
+        const g = (mode === "clean" ? pick([5, 10, 15]) : pick([8.4, 12.6])) / 100;
+        return {
+          q: `A stock trades at ${x}x earnings and grows ${pct(g, mode === "clean" ? 0 : 1)}. What is the earnings yield, and what is it in three years if the multiple holds?`,
+          a: `${pct(y)} today, ${pct(y * Math.pow(1 + g, 3))} on year-three earnings`,
+          method: [
+            `Earnings yield = 1 &divide; ${x} = <strong>${pct(y)}</strong>`,
+            `Year-three earnings are ${mx(Math.pow(1 + g, 3))} today's, so the yield on cost is ${pct(y)} &times; ${mx(Math.pow(1 + g, 3))} = <strong>${pct(y * Math.pow(1 + g, 3))}</strong>`,
+            `Same multiple, and the yield on your cost has moved ${((y * Math.pow(1 + g, 3) - y) * 100).toFixed(1)} points. That is what growth buys.`,
+          ],
+        };
+      }
+      const evs = mode === "clean" ? pick([4, 5, 6, 8, 10]) : pick([5.4, 7.3, 9.1]);
+      const m = (mode === "clean" ? pick([20, 25, 30, 40]) : pick([23.5, 31.4])) / 100;
+      const eve = evs / m;
+      return {
+        q: `A company trades at ${evs}x sales with a ${pct(m, mode === "clean" ? 0 : 1)} EBIT margin. What is the EV/EBIT?`,
+        a: mx(eve, 1),
+        method: [
+          `EV/EBIT = EV/Sales &divide; margin = ${evs} &divide; ${m.toFixed(3)}`,
+          `= <strong>${mx(eve, 1)}</strong>`,
+          `Reverse it as a discipline: at a mature ${pct(m + 0.1, 0)} margin the same EV/Sales would be ${mx(evs / (m + 0.1), 1)} &mdash; which is what the bull case is really assuming.`,
+        ],
+      };
+    },
+  },
+
+  {
+    id: "expectations",
+    name: "Implied expectations",
+    bucket: "Valuation",
+    table: null,
+    teaching:
+      "Reverse the question the market is answering. Rather than asking what a stock is worth, ask what has to be true for today's price to deliver your hurdle. It converts a vague sense that something is expensive into a specific, falsifiable claim about a growth rate &mdash; and it very often reveals that the required growth has never been achieved by anyone in the industry.",
+    gen(mode) {
+      const x0 = mode === "clean" ? pick([25, 30, 35, 40, 50]) : pick([27.6, 34.2, 43.8]);
+      const x1 = mode === "clean" ? pick([15, 18, 20, 22]) : pick([16.4, 19.7]);
+      const n = pick([3, 5]);
+      const hurdle = (mode === "clean" ? pick([15, 20, 25]) : pick([17.5, 22.5])) / 100;
+      const priceMult = Math.pow(1 + hurdle, n);
+      const earningsMult = priceMult / (x1 / x0);
+      const cagr = Math.pow(earningsMult, 1 / n) - 1;
+      return {
+        q: `A stock trades at ${x0}x earnings. You want a ${pct(hurdle, mode === "clean" ? 0 : 1)} annual return over ${n} years, and you assume it exits at ${x1}x. What earnings growth does that require?`,
+        a: pct(cagr) + " a year",
+        method: [
+          `Price must compound to ${(1 + hurdle).toFixed(3)}<sup>${n}</sup> = <strong>${mx(priceMult)}</strong>`,
+          `The multiple works against you: ${x1} &divide; ${x0} = ${(x1 / x0).toFixed(3)}`,
+          `So earnings must do ${mx(priceMult)} &divide; ${(x1 / x0).toFixed(3)} = <strong>${mx(earningsMult)}</strong> over ${n} years`,
+          `That is <strong>${pct(cagr)}</strong> a year. Now ask: has this company, or anyone in this industry, ever sustained that?`,
+        ],
+      };
+    },
+  },
+
+  {
+    id: "ev",
+    name: "Expected value & asymmetry",
+    bucket: "EV & sizing",
+    table: null,
+    teaching:
+      "Expected value is easy; the discipline is being honest about the probability and checking the asymmetry separately. A position can have positive expected value and still be a bad idea if the loss case is large enough to force you out before the thesis resolves. Ask both questions: what is the EV, and what is the ratio of upside to downside.",
+    gen(mode) {
+      const p = (mode === "clean" ? pick([50, 60, 65, 70, 75]) : pick([57, 63, 72])) / 100;
+      const up = (mode === "clean" ? pick([40, 50, 60, 80, 100]) : pick([47, 68, 84])) / 100;
+      const down = (mode === "clean" ? pick([15, 20, 25, 30]) : pick([18, 27])) / 100;
+      const ev = p * up - (1 - p) * down;
+      const rr = up / down;
+      const breakeven = down / (up + down);
+      return {
+        q: `You think there is a ${pct(p, 0)} chance the stock is up ${pct(up, 0)} and a ${pct(1 - p, 0)} chance it is down ${pct(down, 0)}. What is the expected value, and what probability would you need just to break even?`,
+        a: `EV = ${pct(ev)}; breakeven probability ${pct(breakeven, 0)}`,
+        method: [
+          `EV = ${p.toFixed(2)} &times; ${pct(up, 0)} &minus; ${(1 - p).toFixed(2)} &times; ${pct(down, 0)} = <strong>${pct(ev)}</strong>`,
+          `Risk/reward = ${pct(up, 0)} &divide; ${pct(down, 0)} = <strong>${rr.toFixed(1)} to 1</strong>`,
+          `Breakeven probability = downside &divide; (upside + downside) = <strong>${pct(breakeven, 0)}</strong>`,
+          `So you have ${((p - breakeven) * 100).toFixed(0)} points of cushion on the probability estimate. That margin, not the EV, is what should drive the size.`,
+        ],
+      };
+    },
+  },
+];
+
+</script>
+
+<script>
+const DECKS = [{"pillar": "markets", "title": "Markets", "blurb": "How to think about a market: structure, inflections, beneficiaries, and how an industry dynamic lands in the financials.", "cards": [{"id": "MKT-01", "object": "market", "mode": "general", "type": "framework", "q": "The market is growing 25% a year. Walk me through who captures the economics — and whether that's stable.", "principle": "Market growth and profit pools are nearly unrelated. Value accrues to whoever controls the scarce input or owns the customer relationship, and that position migrates over time. The useful question is never how big, but who has pricing power and how durable it is.", "framing": ["Draw the chain — supplier, component, assembly, distribution, customer — and put a rough margin on each stage.", "At each stage ask how many credible alternatives the adjacent stage has. Bargaining power is just a count of alternatives.", "Ask what is scarce, and whether the scarcity is durable. Capacity scarcity resolves in 18-36 months as capex lands; IP, regulatory and network scarcity do not.", "Locate the customer relationship and the data. They usually travel together.", "Ask who is funding the growth and whether their return on that spend is positive.", "Then, and only then, size the market."], "matters": "Ask what was scarce three years ago, what is scarce now, and what is scarce in three years. Profit pools migrate — hardware to software to services, provider to aggregator — and the consensus long is usually anchored on yesterday's bottleneck. That drift is where the variant view lives.", "trap": "TAM as a thesis. Assuming the share leader is the profit leader. Forgetting that fast growth attracts capital, and capital competes returns away.", "followups": ["Whose budget funds this, and does their spend earn a return?", "What is the bottleneck today versus in three years?", "Give me the version where the market triples and every participant earns exactly their cost of capital."]}, {"id": "MKT-02", "object": "market", "mode": "general", "type": "framework", "q": "How would you size this market — and more importantly, how would you know if your number is wrong by 3x?", "principle": "A market size is a claim with error bars, not a fact. The number matters far less than knowing which assumption carries it, because that assumption is the one you will actually be arguing about with the person on the other side of the trade.", "framing": ["Build bottom-up from units times price times penetration. Sanity-check against a top-down number and explain any gap.", "Separate TAM, SAM, and what is realistically servicable in five years. Only the third one is investable.", "Name whose budget it comes out of — new spend, or displaced spend.", "Identify the single assumption with the widest range, and state the range explicitly.", "Ask what price does over time. Tech markets deflate.", "State what would have to be true for your number to be 3x too high."], "matters": "The error is almost never in the arithmetic — it is in penetration ceiling and price trajectory. Most sizing errors come from assuming everyone is a customer and that price holds. Ask who structurally cannot buy this, at any price, and take them out of the denominator first.", "trap": "Quoting a Gartner or IDC number as the answer. Treating a large TAM as a bull argument on its own — huge TAMs attract capital and compete margins away.", "followups": ["Whose budget does this displace, and will that buyer defend it?", "What if unit prices fall 30% a year — is this still growing in dollars?", "Does a bigger TAM actually help this company, or is its share structurally capped?"]}, {"id": "MKT-03", "object": "market", "mode": "general", "type": "framework", "q": "What is inflecting in this market right now, and why now rather than three years ago?", "principle": "An inflection is a change in the second derivative of something real — cost, capability, regulation, or behaviour — that crosses a threshold and unlocks demand that was previously uneconomic. If you cannot name the threshold that was crossed, you are describing a trend, not an inflection, and trends are already priced.", "framing": ["Name the specific variable that changed and the threshold it crossed.", "Date it. When did it cross, and is it visible in reported numbers yet?", "Explain why this was not possible three years ago — cost curve, regulation, installed base, complementary technology.", "Identify the constraint that now binds instead. Every unlocked constraint reveals the next one.", "Say what the adoption evidence is, distinguishing pilots from production spend.", "State how long the transition takes, and what governs the pace."], "matters": "The why-now answer is where most candidates are weakest and where senior investors probe hardest. A real inflection has a mechanism — a cost falling below a substitute, a regulation changing an economic, an installed base reaching critical density. Vague answers about things getting better are the tell that you have found a story, not an inflection.", "trap": "Confusing a narrative inflection with an economic one. Confusing pilot spend with production spend. Assuming an inflection in capability implies an inflection in willingness to pay.", "followups": ["What was the binding constraint before, and what is it now?", "Show me where this appears in someone's reported numbers today.", "If the inflection is real, why is the stock not already discounting it?"]}, {"id": "MKT-04", "object": "market", "mode": "general", "type": "anchored", "q": "An industry with three players sees the smallest exit. Prices rise 8%. Walk me line by line through what happens to the survivors' financials over the next eight quarters.", "principle": "Industry dynamics are only investable once you can trace them to a line item with a lag. Most people stop at the dynamic — prices go up, good for margins — and that is exactly the step where the money is made or lost, because pricing, volume, cost, and capital intensity all move at different speeds.", "framing": ["Price first: does the 8% apply to the whole book immediately, or only to new and renewing contracts? State the reprice cycle.", "Volume second: does the survivor absorb the exiting player's volume, or does that demand disappear? Not all of it transfers.", "Gross margin: incremental price flows through at near 100% margin. Incremental volume flows at the variable margin, which is lower.", "Operating expense: absorbing volume may require capacity, service, or sales headcount. Say whether that is a step cost or a ramp.", "Capital: more volume means working capital and possibly capex. Cash conversion lags earnings.", "Then the second-order question: does the higher price attract re-entry, and how fast?"], "matters": "The whole answer lives in the lag structure. If contracts reprice over three years, an 8% list price move is a 2.7% realised price move in year one, and consensus will be modelling the headline. That gap between headline pricing and realised pricing is one of the most reliable sources of edge in industrial and software markets alike.", "trap": "Flowing the full 8% through to margin in year one. Assuming all of the exiting player's volume transfers. Ignoring that a visibly high-margin industry invites entry.", "followups": ["What is the realised price increase in year one versus the headline?", "Which cost line moves first if volumes rise 20%?", "At what price does a new entrant find this market attractive again?"]}, {"id": "MKT-05", "object": "market", "mode": "tech", "type": "anchored", "q": "A key input cost for this hardware company falls 30%. The stock is up on the news. What do you actually need to know before deciding whether that is good?", "principle": "An input cost decline accrues to whoever has pricing power, not to whoever buys the input. If the buyer's market is competitive, the saving is passed to customers within a repricing cycle and the margin benefit is temporary. Cost deflation is only a margin event where power exists.", "framing": ["Ask who else gets the same input at the same price. If everyone does, it is not an advantage.", "Ask how the buyer prices — cost-plus, value-based, or competitively benchmarked. Cost-plus passes it straight through.", "Check contract structure. Pass-through clauses hand the saving to the customer automatically.", "Establish the inventory lag: costs flow through COGS as old inventory sells, so the P&L benefit arrives one to two quarters late and reverses just as slowly.", "Ask whether the saving gets reinvested — in price, in R&D, in share gain — which is a management choice, not an accounting outcome.", "Decide whether this is a permanent cost curve shift or a cyclical trough."], "matters": "The question behind the question is whether the industry is a price-taker or a price-setter. In a price-taking industry, input deflation shows up as lower revenue with flat margins — the units get cheaper, the percentage holds, the dollars shrink. That is a materially worse outcome than the headline suggests, and it is the standard shape in commoditised hardware.", "trap": "Assuming cost down equals margin up. Ignoring inventory lag when timing the trade. Treating a cyclical input trough as a structural cost improvement.", "followups": ["Do their competitors buy the same input at the same price?", "What does the contract say about pass-through?", "If they keep the saving, what stops a competitor from pricing it away?"]}, {"id": "MKT-06", "object": "market", "mode": "general", "type": "framework", "q": "Where are we on the adoption curve, and how would you defend that answer with evidence?", "principle": "Penetration determines everything about the shape of future growth — the rate, the durability, the margin trajectory, and what multiple is defensible. Getting the position wrong by one phase is the single most expensive analytical error in growth investing, because early and late look identical on a one-year revenue chart.", "framing": ["Define the denominator precisely. Penetration of what population, and who is structurally excluded?", "Estimate current penetration and be explicit about the uncertainty.", "Look for the shape: is growth accelerating, linear, or decelerating in absolute units — not percentages.", "Distinguish new adopters from existing users spending more. Those have different durability.", "Look at the adopter profile: are new customers smaller, more price-sensitive, or harder to serve than the early ones?", "Cross-check against comparable adoption curves in adjacent categories."], "matters": "Watch absolute net adds, not growth rates. Percentage growth decelerates smoothly through the whole curve and tells you nothing about where you are. Absolute net adds peak at roughly the inflection point of the S-curve, which is typically 30 to 50% penetration — and that peak is the moment the market usually still believes growth is durable. Spotting the roll in net adds one or two quarters early is a repeatable source of alpha, on both sides.", "trap": "Assuming the S-curve is symmetric. Using percentage growth to locate yourself on the curve. Extrapolating early-adopter economics onto the late majority, who pay less and cost more to serve.", "followups": ["Are absolute net adds still rising?", "How do the newest cohorts compare to the 2021 cohorts on price and retention?", "What penetration does the current multiple imply they eventually reach?"]}, {"id": "MKT-07", "object": "market", "mode": "tech", "type": "framework", "q": "This market grows 30% a year in units and shrinks in dollars. How do you invest in it?", "principle": "Technology markets deflate by construction — cost per unit of performance falls relentlessly, and competition passes that to customers. Whether a market grows in dollars depends entirely on whether volume elasticity exceeds price decline. Unit growth is not revenue growth, and conflating them is the most common tech investing error.", "framing": ["Decompose revenue growth into unit growth and price per unit. Do it explicitly.", "Establish the elasticity: does a 30% price decline unlock more than 30% additional volume?", "Ask whether deflation expands the addressable use cases, or just transfers value to existing buyers.", "Identify who captures the deflation — the customer, the vendor, or an adjacent layer.", "Look one layer up: falling cost at one layer usually creates a profit pool at the layer above it.", "Decide whether to own the deflating layer at all, or the beneficiary of the deflation."], "matters": "The right response to a deflating layer is usually to own what the deflation enables, not the deflating thing itself. Falling cost per unit at one layer reliably builds a profit pool one layer up, because it expands the set of economically viable applications. Ask what becomes possible at the new price point that was not possible at the old one — that is where the dollars accumulate.", "trap": "Celebrating unit growth in a market where dollars are shrinking. Assuming deflation is bad for everyone — it is very good for the layer above. Modelling flat pricing in any technology market.", "followups": ["What is the historical elasticity — has volume outrun price before?", "What becomes economically viable at the new price that was not at the old one?", "Which layer of the stack captures the value the deflation releases?"]}, {"id": "MKT-08", "object": "market", "mode": "general", "type": "framework", "q": "Demand here is booming. How do you test whether it is durable?", "principle": "Demand is durable when the buyer earns a return on the purchase. Demand funded by someone's negative-return spending, by a financing window, or by a one-time budget event will stop, and it usually stops abruptly rather than fading. Trace the money to its source and ask whether that source is renewable.", "framing": ["Identify the buyer and the budget line the money comes from.", "Ask what return the buyer earns on this purchase, in their own terms.", "Establish whether the spend is operating budget, capital budget, or venture and stimulus funding. These have very different half-lives.", "Check whether purchases are recurring or a one-time build-out. A build-out has a completion date.", "Look for pull-forward: did an event compress several years of demand into one?", "Ask what the buyer does if their own revenue falls 20%."], "matters": "Ask the buyer's ROI question in the buyer's language, not the vendor's. Vendors quantify benefits in terms customers never actually budget against. If the buyer cannot point to the line where the saving or revenue appeared, the spend is discretionary — and discretionary spend funded by enthusiasm is the first thing cut. This single question would have caught most of the demand air-pockets of the last decade.", "trap": "Accepting vendor ROI studies at face value. Missing pull-forward and extrapolating a pulled-forward year. Assuming a build-out is a run-rate.", "followups": ["Is this operating budget or capital budget?", "What happens to this spend if the buyer's own revenue falls 20%?", "Is any of this funded by capital that has to be raised again next year?"]}, {"id": "MKT-09", "object": "market", "mode": "general", "type": "framework", "q": "How does market structure determine what margins are achievable here?", "principle": "Structure sets the ceiling; execution decides where within it you land. Concentration, differentiation, capacity constraints, and switching costs jointly determine whether pricing is possible at all. No amount of good management produces durable pricing power in a fragmented, undifferentiated market with excess capacity.", "framing": ["Count credible competitors and measure concentration honestly — top three share, and whether it is rising.", "Assess differentiation: would a customer notice if you swapped vendors?", "Look at capacity utilisation. Pricing power requires tightness; excess capacity destroys it regardless of concentration.", "Measure switching costs from the customer's side, in time and risk rather than in fees.", "Check barriers to entry and, separately, barriers to expansion by existing players — the second is more often the binding one.", "Compare achieved margins across the industry. Persistent dispersion means execution matters; uniformity means structure dominates."], "matters": "Margin dispersion across an industry is the diagnostic. Where every player earns similar margins, structure is destiny and your company-specific work is nearly worthless — model the industry and stop. Where dispersion is wide and persistent, there is something firm-specific worth understanding, and that is where fundamental work actually pays. Check the dispersion before deciding how to spend your time.", "trap": "Assuming consolidation automatically means pricing power — it does not, if capacity is loose. Treating entry barriers as the only barrier that matters.", "followups": ["What is the margin dispersion between the best and worst player, and has it persisted?", "Is capacity tight enough that anyone can actually raise price?", "What stops the number two player from buying share tomorrow?"]}, {"id": "MKT-10", "object": "market", "mode": "general", "type": "framework", "q": "What would tell you that price competition is coming, before it shows up in the numbers?", "principle": "Price wars are preceded by observable capacity and incentive changes, not by announcements. By the time discounting appears in reported gross margin it is two to four quarters old and fully reflected in the stock. The edge is entirely in the lead indicators.", "framing": ["Track capacity additions against demand growth. Price breaks when supply growth exceeds demand growth, with a lag.", "Watch for a player with a strategic reason to buy share — new management, a private-equity owner exiting, a subscale competitor facing irrelevance.", "Look at inventory in the channel, not just on the balance sheet.", "Monitor discounting behaviour directly: deal sizes, contract lengths, promotional intensity, end-of-quarter behaviour.", "Check whether the marginal competitor is profitable. Unprofitable competitors price irrationally because they have nothing to protect.", "Watch for product cycle gaps, when a player has nothing new to sell and defends on price instead."], "matters": "The most reliable single predictor is a competitor with low share and high fixed costs. They have the largest incentive to fill capacity at any price above marginal cost, and the least to lose from destroying industry economics. Identify that player in every market you look at, and watch their capacity utilisation — they set the floor price for everyone.", "trap": "Waiting for gross margin to confirm what channel behaviour showed two quarters earlier. Assuming rational actors — subscale players are rationally irrational.", "followups": ["Who is the marginal competitor, and are they profitable?", "Is capacity growth running ahead of demand growth?", "What are you seeing in contract length and end-of-quarter discounting?"]}, {"id": "MKT-11", "object": "market", "mode": "tech", "type": "framework", "q": "Supply is tight and pricing is excellent. How long does that last?", "principle": "Capacity scarcity is self-correcting on a knowable clock. The lead time to add supply — permitting, construction, equipment, qualification — sets the duration of the pricing window with far more precision than most investors credit. Scarcity that comes from IP, regulation, or network position does not have this clock, which is why it is worth so much more.", "framing": ["Establish the physical lead time to add capacity, from decision to shipping product.", "Find out what capacity has already been committed. Announced capex is a forward supply schedule you can read.", "Ask what the pricing looks like when that capacity lands, given demand growth in the interim.", "Distinguish scarcity of the facility from scarcity of a bottleneck input inside it.", "Ask whether the current price is above the level that justifies new entry. Sustained above-replacement-cost pricing guarantees supply response.", "Check whether customers are double-ordering, which inflates apparent demand and produces a violent correction."], "matters": "Read the industry capex announcements as a supply calendar and mark the date. In capacity-constrained cycles the stock tends to peak when the pricing is best, because the market is already discounting the supply that has been publicly announced and is under construction. The information is not secret — the discipline is simply to build the supply schedule and act on it while the current numbers still look excellent.", "trap": "Extrapolating peak pricing. Missing double-ordering, which makes a demand roll look like a collapse. Confusing a capacity bottleneck with a durable moat.", "followups": ["What capacity has been announced, and when does it ship?", "Is current pricing above the level that justifies new entry?", "How would you detect double-ordering in the numbers?"]}, {"id": "MKT-12", "object": "market", "mode": "general", "type": "framework", "q": "What could replace this product entirely, and how would you see it coming?", "principle": "Substitution rarely arrives as a better version of the same thing. It arrives as a different thing that solves the same job, usually worse on the incumbent's preferred metrics and dramatically better on price or convenience. Because it looks inferior on the established scorecard, incumbents and their analysts dismiss it right up until the crossover.", "framing": ["Define the job the customer is hiring this product to do, rather than the product category.", "List everything else that could do that job, including doing nothing and doing it manually.", "For each, ask what would need to change in cost or capability for it to become viable, and how fast that variable is moving.", "Check where the substitute is being adopted today — usually at the low end or in a use case incumbents do not want.", "Watch the trajectory, not the current position. The threat is the slope.", "Ask what the incumbent would have to give up to respond, since that is what usually prevents them."], "matters": "The substitution that matters is the one currently serving customers the incumbent is happy to lose. Low-end and adjacent-use-case adoption is the standard entry vector, and the incumbent's margin structure makes ignoring it locally rational. When you hear management dismiss a competitor as not enterprise-grade or a toy, mark the date and track the gap — that specific phrasing has an excellent track record as a leading indicator.", "trap": "Evaluating substitutes on the incumbent's metrics. Comparing today's capability instead of the rate of improvement. Assuming the incumbent can respond when their P&L structure means responding is unattractive.", "followups": ["What job is the customer actually hiring this to do?", "Where is the substitute winning today, and how fast is the gap closing?", "What would the incumbent have to cannibalise to respond?"]}, {"id": "MKT-13", "object": "theme", "mode": "general", "type": "framework", "q": "Everyone agrees the theme is real. Where is consensus wrong about who captures the profit?", "principle": "Three separate judgements get collapsed into one: is the theme real, where does profit accrue, and is it priced. A theme being correct is not an edge — it is usually the reason the obvious beneficiaries are expensive. The edge is in the second and third questions.", "framing": ["Separate the claims explicitly and say which one you are making.", "Map the value chain and ask where bargaining power sits, not where the excitement sits.", "Split first-derivative beneficiaries, which are obvious and crowded, from second-derivative ones.", "Trace who is funding the theme and whether that funding is renewable.", "Decide the expression: pure play, supplier, enabler, or the loser side.", "State what is already in the multiple, in numbers."], "matters": "The reliable mispricing in a consensus theme is timing and magnitude, not direction. The market is usually right that something will happen and wrong about how fast and how much falls to the bottom line. Frame your variant view in those terms — it is far more defensible than claiming the entire theme is misunderstood, and it is much more often true.", "trap": "Reflexive picks-and-shovels reasoning without checking whether the pick-maker has any competitive position. Owning a real theme at any price. Treating consensus agreement as confirmation rather than as a valuation problem.", "followups": ["Who is writing the cheques, and can they keep writing them in a downturn?", "What is already discounted in the multiple today?", "The theme plays out exactly as you say and the stock goes nowhere for two years. What happened?"]}, {"id": "MKT-14", "object": "market", "mode": "general", "type": "framework", "q": "How does the route to market change the economics here?", "principle": "Distribution decides who owns the customer, and owning the customer decides who keeps the margin. Two companies with identical products and identical end-market demand can have completely different margin structures, growth durability, and terminal value purely because of how the product reaches the buyer.", "framing": ["Map the path from product to end user and identify every party that touches the transaction.", "Establish who owns the customer relationship, the data, and the renewal.", "Compare gross margin by channel — partner and channel sales carry a discount that shows up as lower realised price.", "Compare the cost to serve by channel. Direct sales carries high opex but keeps the margin and the information.", "Ask what happens at renewal. Whoever renews the customer controls the pricing.", "Consider concentration risk: a channel partner large enough to matter is large enough to renegotiate."], "matters": "Watch for channel mix shifts inside reported revenue growth. A shift toward partner distribution can accelerate revenue while quietly degrading gross margin, renewal control, and customer visibility — and it typically shows up as a growth story before it shows up as a margin problem. The mix shift is often disclosed only in passing, if at all, which is precisely why it is worth tracking.", "trap": "Reading blended gross margin without decomposing channel mix. Ignoring that the party who owns the renewal owns the pricing. Treating a large partner as a pure positive.", "followups": ["Who controls the renewal conversation?", "How much of the growth is channel mix rather than underlying demand?", "What happens if the largest partner decides to renegotiate?"]}, {"id": "MKT-15", "object": "market", "mode": "general", "type": "framework", "q": "How does regulation shape this market, and is it an asset or a liability here?", "principle": "Regulation is a market structure variable, and it cuts both ways. It raises cost for everyone, which favours scale; it creates compliance barriers, which favour incumbents; and it caps pricing or mandates access, which destroys returns. The sign of the effect depends entirely on where you sit in the industry.", "framing": ["Identify what specifically is regulated: price, entry, conduct, data, or safety.", "Ask who bears the compliance cost as a percentage of revenue. Fixed compliance cost is a scale advantage.", "Ask whether regulation restricts entry, and whether that restriction is durable or under review.", "Separate current rules from the direction of travel — investors are paid for the change, not the level.", "Establish the political economy: who lobbies, who benefits, who complains loudly enough to force change.", "Ask what happens to the business if the rule reverses."], "matters": "Fixed compliance costs are one of the most under-appreciated sources of scale advantage. Where compliance requires a fixed investment in systems and headcount, it becomes a per-unit cost that falls with volume, and it structurally advantages the largest player while suppressing subscale entry. Incumbents lobbying for regulation are usually doing exactly this, and it is a legitimate and durable power.", "trap": "Treating all regulation as a negative. Underwriting a regulatory outcome as a catalyst with a date — regulatory timelines slip far more often than they hold.", "followups": ["Is compliance cost fixed or variable, and who does that favour?", "Which way is the direction of travel, and who is lobbying for it?", "What is the business worth if the rule reverses entirely?"]}, {"id": "MKT-16", "object": "theme", "mode": "tech", "type": "anchored", "q": "Name the second-derivative beneficiary of a technology shift, and explain why it is better positioned than the obvious winner.", "principle": "First-derivative beneficiaries are identified by everyone simultaneously and priced accordingly. Second-derivative beneficiaries are companies whose economics improve because of what the shift does to their costs, their competitive position, or their addressable market — not because they sell the new thing. They are mispriced because the connection requires one additional inferential step.", "framing": ["Identify the direct beneficiary and check what is priced in. That establishes the baseline.", "Ask what the shift does to costs elsewhere — who gets a structurally cheaper input.", "Ask what it does to competitive position — who gains relative advantage because a rival's differentiation is eroded.", "Ask what it expands — whose addressable market grows because a constraint was removed.", "Test whether the connection is genuinely economic or merely thematic. It must show up in a line item.", "Check whether the second-order beneficiary can retain the benefit or must compete it away."], "matters": "The best second-derivative positions are companies where a new capability collapses a cost that was previously a barrier to their own expansion. They gain twice — margin improves, and the addressable market widens — while the market is still classifying them as unrelated to the theme. The test that keeps you honest: name the line item and the quarter it starts moving. If you cannot, it is a story.", "trap": "Thematic association masquerading as economic linkage. Assuming the benefit is retained rather than competed away — if everyone in an industry gets the same cheaper input, customers get the benefit.", "followups": ["Which line item moves, and when?", "Do their competitors get the same benefit?", "If they keep it, what stops price competition from transferring it to customers?"]}, {"id": "MKT-17", "object": "stock", "mode": "general", "type": "framework", "q": "Revenue grew 20%. How much of that was the market, and how much was the company?", "principle": "Company growth decomposes into market growth times share change, and the two have completely different durability, different drivers, and deserve different multiples. Share gain requires a mechanism you can name and defend. Market growth is borrowed and can be handed back.", "framing": ["Establish market growth independently from third-party data or the sum of competitors.", "Derive share change as the residual, and sanity-check it against competitor disclosures.", "If share is rising, name the mechanism — product, price, distribution, or a competitor's failure.", "Ask whether the mechanism is repeatable or a one-time event such as a competitor stumble or a large deal.", "Check the price and margin cost of the share gain. Share bought with discounting is not a durable advantage.", "Separate volume, price, and mix within the company's own growth."], "matters": "Share gains driven by a competitor's self-inflicted problem are the most commonly over-extrapolated pattern in growth investing. They look identical to structural share gain in the numbers, and they end abruptly when the competitor fixes the issue. Always ask what the loser is doing about it, and whether they can plausibly fix it — that determines whether you are looking at two years of tailwind or six.", "trap": "Attributing all growth to execution. Ignoring that share gain funded by discounting shows up in growth before it shows up in margin. Extrapolating gains that came from a competitor's temporary failure.", "followups": ["What is the named mechanism for the share gain?", "What is the company they are taking share from doing about it?", "What did the share cost in price and gross margin?"]}, {"id": "MKT-18", "object": "stock", "mode": "general", "type": "framework", "q": "Do they have pricing power? Prove it.", "principle": "Pricing power is the ability to raise price above inflation without losing volume, sustained over a cycle. It is the single most informative fact about a business, because it compounds directly into margin with no incremental capital. Claimed pricing power is common; demonstrated pricing power is rare and verifiable in the history.", "framing": ["Look for the evidence in the record: has price actually risen above inflation, and what happened to volume?", "Separate realised price from list price. List price increases with rising discounts are not pricing power.", "Check whether price rose during a demand downturn. Anyone can raise price in a shortage.", "Ask what the customer's alternative is, and what switching would cost them in time and risk.", "Establish what share of the customer's cost base this represents. Small, critical inputs price well.", "Ask whether value delivered is measurable to the customer. Quantifiable value supports price."], "matters": "The cleanest test is behaviour during the last downturn. Pricing power is defined by what happens when demand is weak — that is when price-takers discount and price-setters hold. If the business has never been tested in a weak market, say so explicitly and treat the pricing power as unproven rather than absent. Unproven is a legitimate answer and a far better one than an assertion.", "trap": "Citing list price increases as evidence. Confusing shortage pricing with pricing power. Assuming a strong brand implies pricing power without checking realised price.", "followups": ["What happened to realised price in the last downturn?", "What percentage of the customer's cost base is this?", "Can the customer quantify what they get for the price?"]}, {"id": "MKT-19", "object": "market", "mode": "general", "type": "framework", "q": "This industry has grown for a decade and nobody has earned their cost of capital. Why, and does that change?", "principle": "The capital cycle governs returns more reliably than demand does. High growth attracts capital; capital adds supply; supply competes away returns. Returns recover only when capital withdraws — which happens when the growth story dies, not when demand improves. This inverts the intuitive relationship between growth and returns.", "framing": ["Look at industry capacity growth versus demand growth over the period, not at demand alone.", "Track where the capital came from and whether that source is still open.", "Identify the signs of capital withdrawal: consolidation, capex discipline, exits, capacity closures, capital raises failing.", "Ask whether the marginal supplier has been removed, since they set the price.", "Establish what changed structurally, if anything, or whether this is simply a cyclical trough in investment.", "Ask what would restart the capital inflow, because that is what ends the good period."], "matters": "The best entry point in a capital-cycle industry is when demand is unremarkable and capital is leaving. That combination is uncomfortable to own and impossible to pitch on a growth narrative, which is exactly why it is available. Conversely, the moment to reduce is when demand is excellent and everyone is announcing capacity — the returns are visible in the current numbers and already dead in the forward ones.", "trap": "Investing on demand growth without looking at supply growth. Waiting for demand to improve before buying, by which point capital has returned. Assuming consolidation fixes returns while capacity remains in the industry.", "followups": ["Is capacity still being added, and by whom?", "Has the marginal supplier actually exited, or just changed owner?", "What level of profitability brings capital back?"]}, {"id": "MKT-20", "object": "market", "mode": "tech", "type": "anchored", "q": "A software category is shifting from seat-based to usage-based pricing. What does that do to the market and to the incumbents?", "principle": "A pricing model change rewrites the relationship between customer value and vendor revenue, and therefore rewrites growth durability, revenue visibility, competitive dynamics, and the multiple the market will pay. It is a structural change disguised as a commercial one, and it usually helps growth before it hurts predictability.", "framing": ["Establish what the new model ties revenue to, and whether that variable grows faster or slower than seats.", "Ask what it does to land friction. Usage pricing typically lowers the barrier to adoption and accelerates new customer acquisition.", "Ask what it does to revenue visibility. Usage revenue is consumption-linked and therefore cyclical.", "Consider the effect on customer incentives — usage pricing gives customers a reason to optimise their consumption downward.", "Assess who the model favours competitively: it typically favours products with genuine value-based ROI and hurts products bought as standard overhead.", "Ask what the market pays for each revenue type, since visibility carries a real multiple premium."], "matters": "Usage-based revenue converts a software business into something closer to a cyclical one, and the market discovers this only in the first downturn. The growth acceleration comes first and is celebrated; the volatility arrives later and re-rates the multiple. On a twelve-month view, the sequencing matters more than the end state: the transition is usually a tailwind to revenue and a headwind to the multiple, and those two do not arrive at the same time.", "trap": "Treating the transition as purely a growth positive. Applying subscription multiples to consumption revenue. Missing that optimisation by customers is a permanent structural drag once tooling exists.", "followups": ["What is the usage variable actually tied to, and is it cyclical?", "What happens to this revenue line in a customer downturn?", "Should this business trade at the same multiple as a seat-based peer?"]}, {"id": "MKT-21", "object": "market", "mode": "tech", "type": "anchored", "q": "Orders are down 30%. Is that the cycle or the end of the business?", "principle": "Cyclical and structural declines look identical in a single year of reported numbers, and the distinction determines whether the stock is a double or a value trap. Separating them requires evidence about units versus price, share versus market, and inventory versus consumption — because a cyclical decline is a timing problem while a structural one is a terminal value problem.", "framing": ["Separate the company's decline from the market's. Losing share in a falling market is a different problem entirely.", "Distinguish sell-in from sell-through. Inventory corrections produce violent order declines with stable end demand.", "Decompose into units and price. Structural decline usually shows in units; cyclical shows in both.", "Check whether the end application still exists and is growing, independent of this product.", "Look for a substitute taking the volume, and where it is winning.", "Compare against prior cycles: amplitude, duration, and what the recovery looked like."], "matters": "The diagnostic question is whether end consumption ever fell. If units consumed by end customers held while orders collapsed, you are looking at an inventory correction, which is self-limiting and mean-reverting on a knowable timeline. If end consumption itself declined and a substitute is visible in the data, no amount of cyclical recovery brings it back. Get that fact first — almost every other question is downstream of it.", "trap": "Anchoring on peak earnings as the normalised level. Assuming mean reversion without checking whether the mean still exists. Confusing an inventory correction with a demand problem, or the reverse.", "followups": ["Did end consumption fall, or just orders?", "Are they losing share, or is the market shrinking?", "What did the last three cycles look like in amplitude and duration?"]}, {"id": "MKT-22", "object": "market", "mode": "general", "type": "framework", "q": "Where do margins settle in this industry at maturity, and how do you know?", "principle": "Terminal margin is the assumption that dominates any valuation with a medium-term horizon, and it is almost always asserted rather than derived. Mature margin is set by industry structure, capital intensity, and the returns needed to keep capital in the business — not by the current margin, and not by management's target.", "framing": ["Find genuinely mature analogues, in this industry or a structurally similar one, and look at where their margins settled.", "Work from required returns: what operating margin does this capital intensity need to earn a fair return on capital?", "Identify which current costs are growth investment and would fall away at maturity, and be conservative — much less is discretionary than management implies.", "Ask what competition does to price as the market matures and differentiation narrows.", "Check the customer mix at maturity. Late customers are typically less profitable to serve.", "Compare your terminal margin to the best margin anyone in this industry has ever sustained."], "matters": "Sanity-check terminal margin against return on capital, not against the P&L. A margin that implies a mature business earning 60% returns on capital in a market with no entry barrier is not a forecast — it is an arithmetic error that competition will correct. Working backwards from a defensible return on capital gives you a terminal margin that is grounded in something, and it is usually well below the sell-side's.", "trap": "Accepting management's long-term margin target as the terminal assumption. Assuming all sales and marketing spend is growth investment. Using a peak-cycle margin as the mature margin.", "followups": ["What return on capital does your terminal margin imply?", "Has anyone in this industry ever sustained that margin?", "How much of current opex genuinely falls away at maturity?"]}]}, {"pillar": "quality", "title": "Business Quality", "blurb": "Moats through Hamilton Helmer's 7 Powers: which power is operating, whether it is load-bearing, and whether it is hardening or eroding.", "cards": [{"id": "QUA-01", "object": "stock", "mode": "general", "type": "framework", "q": "This business earns 40% returns on capital. Which of the 7 Powers is operating, and how do you know it is that one?", "principle": "Helmer's definition is strict and worth holding to: a Power is a condition that creates a benefit the company enjoys and a barrier that prevents competitors from arbitraging it away. Both halves are required. High returns without an identifiable barrier are not a moat — they are an invitation, and they mean-revert.", "framing": ["State the benefit precisely: does this show up as higher price, lower cost, or lower capital intensity?", "State the barrier: what specifically stops a well-funded, competent competitor from replicating it?", "Name the power. Scale economies, network economies, counter-positioning, switching costs, branding, cornered resource, or process power.", "Test the barrier by imagining a competitor with unlimited capital. What exactly do they run into?", "Check that the power is visible in the financials — a real power shows up in margin, retention, or capital efficiency, not just in the strategy deck.", "Ask whether the power is strengthening or weakening with scale and time."], "matters": "The barrier half is where the analysis lives, and it is where almost everyone is lazy. Benefits are easy to observe and easy to describe; barriers require you to specify the mechanism by which a rational competitor is prevented from responding. If your answer to what stops a competitor is that they have not tried yet, or that the company executes better, you have found an advantage, not a power. Advantages erode. Powers do not.", "trap": "Naming a power that has no barrier — great product, strong culture, first mover. Listing several powers vaguely instead of identifying the one that is load-bearing. Confusing high current returns with durable returns.", "followups": ["A competitor with unlimited capital tries to replicate this. What exactly do they hit?", "Which single power is doing the work — if you had to drop the others?", "Where does this power show up in the reported numbers?"]}, {"id": "QUA-02", "object": "stock", "mode": "general", "type": "framework", "q": "Management says they have scale advantages. How do you verify that?", "principle": "Scale economies exist where unit cost falls with volume, and they are a power only if the leader's scale is large enough relative to the market that a competitor cannot reach the same point on the cost curve. Scale in an industry where the minimum efficient scale is reached at 10% share is not a power — it is a fact with no consequences.", "framing": ["Identify which cost is fixed and therefore spreads over volume — R&D, manufacturing, distribution, brand, compliance.", "Establish what share of total costs that fixed component represents. Small fixed cost means weak scale economics.", "Determine the minimum efficient scale: at what volume does the cost curve flatten?", "Compare the leader's scale to that point and to the number two player's scale.", "Verify in the financials: does the leader actually have structurally better gross or operating margin than subscale players?", "Check whether scale is global or local. Regional scale in a business with local cost structures is a different and often stronger thing."], "matters": "The decisive question is whether the cost curve has flattened out below the number two player's scale. If it has, everyone above that volume has the same costs and the leader's extra volume buys nothing — this is the most common false scale claim in software, where marginal cost is near zero for everyone and R&D spreads over revenue for the number two as well. Real scale power needs the curve to still be sloping at the competitor's position.", "trap": "Assuming scale in revenue equals scale in the relevant cost. Ignoring that in many technology businesses the number two is already past minimum efficient scale. Confusing scale with the purchasing leverage of a large buyer, which suppliers will match for anyone of similar size.", "followups": ["Which specific cost line has scale economics, and how big is it?", "Is the number two player already past minimum efficient scale?", "Show me the margin gap between the leader and the number three."]}, {"id": "QUA-03", "object": "stock", "mode": "tech", "type": "framework", "q": "Is this a network effect, or just a big customer base?", "principle": "A network effect exists when the value to each user rises with the number of other users. Scale alone is not a network effect. The distinction matters because network effects create a barrier that strengthens with adoption, while a large customer base with no inter-user value is simply an installed base that can be attacked customer by customer.", "framing": ["Ask whether an existing user genuinely benefits when a new user joins, and name the mechanism.", "Distinguish direct network effects, where users benefit from users, from indirect ones, where users benefit from complements.", "Establish whether the network is global or local. Local networks can be attacked market by market; global ones cannot.", "Ask how strong the effect is at the margin — does the millionth user add value, or did the effect saturate at the ten thousandth?", "Check for multi-homing. If users can cheaply belong to two networks, the effect is much weaker than it looks.", "Ask what the minimum viable network is for a competitor, since that sets the entry barrier."], "matters": "Saturation and multi-homing are what kill network-effect theses, and both are observable. Most network effects saturate — once the network is dense enough for a user's purposes, additional members add nothing, and the barrier stops growing precisely when the narrative is strongest. Ask what a user actually needs from the network, and whether a competitor at 5% of the size could deliver that. Very often they could.", "trap": "Calling any two-sided marketplace a network effect without checking whether either side benefits from density. Ignoring multi-homing. Assuming the effect keeps compounding after it has saturated.", "followups": ["Does the millionth user add value, or did this saturate long ago?", "How cheaply can a user belong to two of these at once?", "What is the minimum viable network a competitor needs?"]}, {"id": "QUA-04", "object": "stock", "mode": "general", "type": "framework", "q": "The incumbent could crush this challenger tomorrow. Why haven't they?", "principle": "Counter-positioning is a power where the challenger adopts a business model the incumbent cannot copy without damaging its own existing business. The barrier is not capability — it is that responding is rationally unattractive to the incumbent. It is the only power that is strongest against the largest competitor, and the one most consistently mispriced, because the incumbent's inaction looks like complacency until it is too late.", "framing": ["Describe the challenger's model and how it differs economically, not just in features.", "Ask what the incumbent would have to give up to copy it — margin, channel relationships, existing revenue, or an internal cost structure.", "Quantify the collateral damage. Counter-positioning holds when the damage exceeds the opportunity.", "Check the incumbent's incentives: management compensation, analyst expectations, and reported margin all push against self-cannibalisation.", "Establish how long the incumbent can rationally wait, and what forces their hand.", "Ask what happens when the incumbent finally does respond, because eventually they do."], "matters": "The predictable sequence is denial, then partial response, then a full response that arrives too late — and the incumbent behaves rationally at every step. Watch for the moment the incumbent's existing business is impaired enough that cannibalisation stops costing them anything, because that is when the barrier disappears. The challenger's window is the period during which the incumbent's own P&L is the thing protecting the challenger.", "trap": "Mistaking incumbent slowness for counter-positioning — the test is whether responding is unattractive, not whether they are badly run. Missing that a new CEO or an already-impaired core business can remove the constraint overnight.", "followups": ["What exactly does the incumbent lose by responding?", "How long can they rationally wait?", "What event removes their reason for restraint?"]}, {"id": "QUA-05", "object": "stock", "mode": "general", "type": "framework", "q": "How high are the switching costs, and how would you measure them rather than assert them?", "principle": "Switching costs come in three forms — financial, procedural, and relational — and they are measurable in the customer's currency of time, risk, and disruption rather than in fees. They are a power when the cost of switching exceeds the benefit of a better alternative, which means they must be assessed against how much better the alternative actually is.", "framing": ["Separate the three types: financial cost to switch, procedural cost in time and retraining, and relational cost in trust and embedded workflow.", "Ask what breaks during a switch and who gets blamed. Career risk is the most powerful switching cost there is.", "Look at the integration surface: how many other systems touch this one, and how much data lives inside it.", "Verify in the numbers — gross retention is the direct measurement of switching costs, and it is much more informative than net retention.", "Test against a materially better alternative. Switching costs that hold against a 10% improvement may not hold against a 10x one.", "Check whether the costs are rising or falling as the ecosystem standardises."], "matters": "Gross retention is the honest metric and the one to insist on. Net retention conflates expansion within existing customers with the failure to lose them, and a high net retention number can hide meaningful gross churn beneath aggressive upselling. Gross retention tells you directly what proportion of customers found switching worth the cost, which is precisely the definition of the power you are trying to measure.", "trap": "Citing net retention as evidence of switching costs. Assuming contractual lock-in is switching cost — contracts expire, and renewal is where the real test happens. Ignoring that standardisation and migration tooling erode these costs over time.", "followups": ["What is gross retention, separate from net?", "Who inside the customer gets blamed if the migration goes badly?", "Do these costs hold against something that is ten times better, not ten percent?"]}, {"id": "QUA-06", "object": "stock", "mode": "general", "type": "framework", "q": "They have a famous brand. Is that a power, or just marketing spend?", "principle": "Branding is a power only when it lets the company charge more for a functionally identical product, and when that premium survives without proportionally rising marketing spend. It works by reducing perceived risk or conferring identity value, and it requires long, consistent investment — which is exactly what makes it a barrier, since a competitor cannot compress that history with money.", "framing": ["Test for a price premium on a functionally comparable product. No premium means no branding power.", "Ask what the brand does for the buyer — reduces risk, signals identity, or saves search effort.", "Check whether the premium is stable or requires ever-increasing marketing spend to sustain.", "Establish how long the brand took to build, since that duration is the barrier.", "Ask whether the category is one where brand matters. In categories with objective, verifiable performance metrics, brand power is weak.", "Consider fragility: brand power is asymmetric, built over decades and damaged in a quarter."], "matters": "The clean test is price premium relative to marketing intensity, tracked over time. If the premium is holding while marketing spend as a percentage of revenue is flat or falling, the brand is a genuine asset compounding on its own. If the premium requires steadily rising spend to maintain, you are not looking at a power — you are looking at a rented position, and the rent is disclosed in the income statement.", "trap": "Confusing awareness with pricing power — plenty of famous brands command no premium. Assuming brand transfers across categories. Ignoring how quickly brand power breaks in categories where performance is objectively measurable.", "followups": ["What is the price premium versus a functionally equivalent product?", "Is marketing spend as a share of revenue rising to hold that premium?", "Does brand matter in a category where buyers can measure performance directly?"]}, {"id": "QUA-07", "object": "stock", "mode": "general", "type": "framework", "q": "Is there a cornered resource here, and what stops it from walking out of the door?", "principle": "A cornered resource is preferential access to a valuable asset on attractive terms — a patent estate, a mineral deposit, an exclusive contract, an irreplaceable team. The barrier is exclusivity itself. The critical question is always who captures the value: if the resource can renegotiate, it will extract the surplus for itself rather than for shareholders.", "framing": ["Identify the resource precisely and confirm that access is genuinely exclusive rather than merely early.", "Establish the terms and, crucially, the duration. A resource secured on favourable terms for two years is a timing advantage.", "Ask who has the bargaining power at renewal.", "If the resource is people, ask what stops them from leaving or being hired away.", "Ask whether the resource is substitutable — a patent matters only if there is no alternative route to the same outcome.", "Check where the economics actually land: in the company's margin, or in the resource's compensation."], "matters": "Where the resource is human, the value usually accrues to the humans rather than to shareholders. Talent renegotiates continuously and captures its own surplus, which is why businesses built on irreplaceable individuals rarely sustain excess returns for owners. The cornered resources that create durable shareholder value are ones that cannot bargain — geology, spectrum, a patent, a long-dated exclusive contract with a counterparty who has no leverage.", "trap": "Counting a patent portfolio without checking whether an alternative route exists. Treating a key team as a durable resource. Missing the renewal date on the contract that constitutes the entire advantage.", "followups": ["When does this expire or come up for renewal, and who holds the leverage then?", "Does the surplus land in margin or in compensation?", "Is there another way to achieve the same outcome without this resource?"]}, {"id": "QUA-08", "object": "stock", "mode": "general", "type": "framework", "q": "They claim their operational execution is the moat. Is that process power, or just a good year?", "principle": "Process power is a superior way of operating, embedded in an organisation, that competitors cannot replicate quickly even when they can observe it. The barrier is that it takes years of iterative development to build and cannot be bought or copied wholesale. It is the rarest of the powers and the most frequently claimed, which makes the burden of proof high.", "framing": ["Identify the specific operational metric where the company is superior, and quantify the gap.", "Establish how long the gap has persisted. Process power shows up as a durable, widening advantage, not a good couple of years.", "Ask whether competitors know about it. If the advantage survives being fully understood, that is evidence of a real barrier.", "Ask why it cannot be copied — usually because it is embedded in tacit knowledge and thousands of small decisions rather than a single practice.", "Check whether it was built gradually over many years, since that duration is the barrier.", "Confirm it converts into economics: lower cost, better quality, faster cycle time, and ultimately margin."], "matters": "The bar is that the advantage persists even after competitors have studied it openly. Genuine process power is usually visible to everyone in the industry and still not replicable, because it lives in accumulated tacit organisational knowledge rather than in a documented practice. If a competitor could copy it by hiring three people or buying software, it is an operating advantage — real, valuable, worth something, but not durable and not worth a moat multiple.", "trap": "Attributing to process what is actually scale. Extrapolating two good years into a structural advantage. Accepting a claim of superior culture without a quantified operating metric behind it.", "followups": ["Which metric, and how big is the gap versus the number two?", "How many years has the gap persisted, and is it widening?", "Competitors can see exactly what they do. Why can they not copy it?"]}, {"id": "QUA-09", "object": "stock", "mode": "general", "type": "framework", "q": "Rank the moat as hard or soft, and tell me what it would take to break it.", "principle": "Hard moats are structural: they rest on physics, contracts, regulation, geography, or arithmetic that a competitor cannot alter with effort or capital. Soft moats rest on behaviour, habit, reputation, and organisational quality — real, but contingent on continued good decisions. The distinction determines how much you can underwrite and how much management risk you are accepting.", "framing": ["Classify the barrier: is it a structural fact, or a behavioural pattern that must be maintained?", "Ask what could break it — a technology change, a regulatory change, a determined competitor, or several years of poor management.", "Estimate the time to break. Hard moats break slowly and visibly; soft moats can break quickly and quietly.", "Ask how much management skill is required to keep the moat intact. That is the management risk you are underwriting.", "Check for erosion evidence in the numbers already — pricing, retention, share, incremental margins.", "State how many years of the current economics you would actually underwrite, and defend that number."], "matters": "The practical output of this analysis is a duration, and it should feed straight into how you value the business. A hard moat justifies underwriting a long period of excess returns and paying for it; a soft moat justifies a much shorter one. Most valuation disagreements about quality businesses are really disagreements about this duration, and stating your number explicitly is what separates a rigorous answer from a comfortable one.", "trap": "Treating all moats as equivalent because they are all called moats. Underwriting soft-moat businesses on hard-moat durations. Assuming a moat that has held for a decade is structural when it might just be well-managed.", "followups": ["How many years of excess returns are you actually underwriting?", "Could three years of mediocre management break this?", "What is the earliest observable sign of erosion?"]}, {"id": "QUA-10", "object": "stock", "mode": "general", "type": "framework", "q": "Is the moat widening or narrowing right now? Give me the leading indicators.", "principle": "Moats are dynamic, and the direction matters more than the level for a twelve-month investor. The market prices the level, which is visible in current margins and returns; it prices the direction slowly, because direction shows up first in operating metrics that lead the financials by several quarters. That lag is a durable source of edge on both the long and short side.", "framing": ["Track pricing: is realised price rising or falling relative to inflation and to competitors?", "Track gross retention and its trend, which reveals switching costs directly.", "Track win rates in competitive deals, and the reasons given for losses.", "Track customer acquisition cost and payback period. Rising CAC means the position is getting harder to defend.", "Track incremental margins, which reveal whether scale is still translating into economics.", "Track the competitive set itself: who is entering, who is exiting, and who is being funded."], "matters": "Rising customer acquisition cost against flat pricing is the earliest reliable warning that a moat is eroding, and it typically precedes visible margin damage by four to eight quarters. It means the company is paying more to win the same customer at the same price, which is what competitive pressure looks like before it reaches the income statement. This is exactly the kind of signal that a twelve-month horizon is built to exploit.", "trap": "Reading current high margins as evidence of a healthy moat — margins are the most lagging indicator available. Ignoring the reasons behind competitive losses. Assuming a stable share means a stable moat when share is being defended with discounting.", "followups": ["What has happened to CAC payback over eight quarters?", "What reason do they give when they lose a deal, and has it changed?", "Is share being held with price or with product?"]}, {"id": "QUA-11", "object": "stock", "mode": "general", "type": "framework", "q": "If the moat is real, show me where it appears in the financial statements.", "principle": "A power that cannot be located in the financials is a story. Every genuine power produces a specific, identifiable financial signature — and knowing which signature belongs to which power lets you work backwards from the statements to the structural claim, and to test a management narrative against the evidence.", "framing": ["Start with return on invested capital, excluding goodwill, sustained over a full cycle. That is the summary statistic for all powers.", "Map benefit to line: pricing power appears in gross margin, scale in operating leverage, switching costs in retention and low churn-related spend, network effects in customer acquisition cost falling with scale.", "Check capital intensity. Some powers show up as needing less capital rather than earning more margin.", "Compare against the closest competitors on the same lines. A power is relative, so absolute levels are meaningless alone.", "Test persistence: how many consecutive years has the gap held?", "Look for the counter-evidence — rising costs required to sustain the position."], "matters": "Work backwards from the statements to the claim rather than forwards from the narrative. If someone claims network effects, customer acquisition cost should be falling as the network grows; if it is rising, the claim is wrong regardless of how compelling the story is. This reversal is the single most useful discipline in quality analysis, because it converts an unfalsifiable strategic assertion into a testable prediction about a number you can look up.", "trap": "Accepting high margins as proof of a moat without checking capital intensity and competitor margins. Using adjusted figures that capitalise the very spending required to defend the position.", "followups": ["What is ROIC excluding goodwill, and how does it compare to the number two?", "Your claimed power predicts a specific line moves. Does it?", "How many consecutive years has the gap persisted?"]}, {"id": "QUA-12", "object": "stock", "mode": "general", "type": "framework", "q": "Great business, but is it a great investment? Separate those two for me.", "principle": "Quality and return are different questions, and the connection between them runs entirely through price and through the market's expectations. A great business at a price that already discounts its greatness is a mediocre investment. The only way quality generates excess return is if the market underestimates the durability, the reinvestment opportunity, or the terminal value of the advantage.", "framing": ["State what the current price implies about growth duration and terminal returns on capital.", "Identify where your view differs: is the moat more durable than priced, wider than priced, or is the reinvestment runway longer?", "Ask whether the company can reinvest at these returns. High returns with nowhere to deploy capital is a cash-return story, not a compounding one.", "Distinguish the quality of the business from the quality of the entry point, explicitly.", "Ask what the market would have to learn to close the gap, and over what period.", "State your return under your view and under consensus, so the asymmetry is visible."], "matters": "The most durable source of edge in quality investing is duration, not level. Markets are generally good at recognising that a business is excellent and reliably bad at estimating how long excellence persists, because the models that price it use fade assumptions borrowed from averages. If your variant view is that the fade is slower than assumed, say so explicitly and quantify it — that is a real, defensible, and repeatedly profitable claim. If your only view is that the business is good, you have no edge, because everyone already agrees.", "trap": "Pitching quality as if it were the whole thesis. Assuming a great business is always worth owning at any price. Ignoring that a business earning 40% returns with no reinvestment options compounds at its payout yield, not at 40%.", "followups": ["What growth duration does today's price imply?", "Can they reinvest at these returns, or is this a dividend in disguise?", "Everyone agrees this is a great business. What do you know that they do not?"]}]}, {"pillar": "projections", "title": "Projections", "blurb": "Driver trees end to end: unit economics from the bottom up, market versus company growth, operating leverage, and turning a thesis into numbers.", "cards": [{"id": "PRJ-01", "object": "stock", "mode": "general", "type": "framework", "q": "You think gross margins expand because the mix shifts toward a higher-value product. Build the projection — which lines move, in what order, and which assumption is doing the work?", "principle": "A model is a rendering of a thesis, not a forecast. Every qualitative claim has to land on a specific line, through a specific mechanism, with a specific lag. If a belief does not move a line, it is not a thesis — it is an observation. Conversely, if a line moves and you cannot name the mechanism, you have modelled a wish.", "framing": ["Drivers, never growth rates. Revenue is units times price times attach or mix. A typed-in growth percentage hides the thing you are actually arguing about.", "Mechanism and lag. Mix shift reaches reported gross margin only as the installed base turns over. State the turnover rate, because that is usually the real disagreement.", "Follow the cost consequence. Premium products cost more to sell and support. Margin rising with no offsetting spend is a free lunch you have modelled into existence.", "Express operating leverage as incremental margin — revenue grows one hundred, EBIT grows forty. A ramp toward a target margin hides the assumption; an incremental margin states it.", "Cross-check twice: has this company ever expanded gross margin this fast, and has anyone in the sector?", "Make the balance sheet agree. Growth consumes working capital and capex."], "matters": "Find the load-bearing assumption — the one that, halved, kills the thesis — and build the case where it only half works. That two-thirds case is the number you should actually underwrite; the base case is marketing. Then ask what the market's model implies for the same line, because the gap between those two lines is your entire edge.", "trap": "Smooth ramps to a target margin. Reverse-engineering assumptions to reach a price target you had already decided on. Three-statement precision on a business whose critical variable is unknowable.", "followups": ["Which line moves first, and when would it be visible?", "What if the mix shift takes twice as long — is it still a good investment?", "What incremental margin is implied by your year-three numbers, and has this company ever printed that?"]}, {"id": "PRJ-02", "object": "stock", "mode": "tech", "type": "framework", "q": "Build me the revenue driver tree for a subscription software business. Go as deep as the tree actually goes.", "principle": "A driver tree decomposes revenue until every leaf is something you can independently observe, research, or defend. The discipline forces you to locate exactly where your view differs from consensus, because disagreement always lives at a leaf, never at the trunk.", "framing": ["Revenue equals customers times average revenue per customer. Decompose both.", "Customers equals opening customers, plus new, minus churned. New customers equals leads times conversion, or sales capacity times productivity times win rate.", "Average revenue per customer equals seats or usage, times price, times product attach.", "Split every driver between existing customers and new customers. They behave differently and should never be blended.", "Push each leaf until it is observable — sales headcount, quota attainment, list price, published usage tiers, disclosed retention.", "Then state which single leaf your variant view lives in."], "matters": "Sales capacity is the most under-modelled driver in software and the most observable. New bookings are ultimately constrained by the number of quota-carrying reps times their productivity, and headcount is visible through hiring pages and professional profiles with a two-to-three-quarter lead on revenue. A company that has stopped hiring reps has told you its next-year growth rate whether or not it has guided to it.", "trap": "Stopping the tree at a revenue growth percentage. Blending new and existing customer behaviour into a single average. Building a tree so deep it becomes unmaintainable — stop at observable, not at atomic.", "followups": ["Which leaf does your variant view actually live in?", "What is their quota-carrying headcount doing, and what does that imply for next year?", "Is growth coming from more customers or more per customer, and which is more durable?"]}, {"id": "PRJ-03", "object": "stock", "mode": "general", "type": "framework", "q": "Walk me through the unit economics from a single customer, and tell me whether this business actually works.", "principle": "Unit economics answer whether the business creates value per unit sold, independent of growth. Growth masks bad unit economics entirely — a company acquiring customers at a loss reports revenue growth right up until it stops spending. Building from one customer up is the only way to see whether scale will ever produce profit.", "framing": ["Start with one customer: revenue per year, gross margin per year, and therefore gross profit per year.", "Establish the fully loaded cost to acquire that customer, including all sales and marketing, not just the direct commission.", "Compute payback in months on a gross profit basis, not a revenue basis.", "Establish the retention curve and therefore expected lifetime, being honest that early-cohort retention is a poor guide for later cohorts.", "Add expansion revenue if it is real and evidenced, discounting it appropriately since it arrives later.", "Compare lifetime gross profit to acquisition cost, and separately ask whether the ongoing cost to serve is included."], "matters": "Two disciplines separate real unit economics from marketing arithmetic. First, use gross profit rather than revenue for payback — a business with 50% gross margin and a twelve-month revenue payback actually has a twenty-four-month payback. Second, be suspicious of any lifetime value that relies on retention beyond the observed history; assuming a customer lasts ten years when the company is five years old is an assumption, not a measurement, and it is where most LTV to CAC ratios are manufactured.", "trap": "Revenue-based payback. Lifetime assumptions longer than the observed data. Excluding the cost to serve. Using blended CAC that mixes cheap inbound with expensive outbound and hides the marginal cost of the next customer.", "followups": ["Is that payback on gross profit or revenue?", "How long is the actual observed retention history?", "What does the marginal customer cost, not the blended average?"]}, {"id": "PRJ-04", "object": "stock", "mode": "general", "type": "framework", "q": "You are forecasting 20% growth for three years. Decompose that into what the market gives them and what they have to earn.", "principle": "Company growth is market growth times share change times price and mix. Separating the components is what makes a forecast defensible, because each component has a different level of uncertainty, a different evidence base, and a different durability. A forecast that cannot be decomposed cannot be defended.", "framing": ["Establish market growth independently, and state your source and confidence.", "State the implied share change. If your forecast requires steady share gain, that is a claim needing a mechanism.", "Name the mechanism for share gain and ask whether it is repeatable each year or a one-time step.", "Separate price and mix from volume, since they have different margin consequences.", "Add any inorganic contribution explicitly, and consider whether acquisitions should be in an organic forecast at all.", "Sanity-check the cumulative result: what share do they hold in year three, and is that plausible?"], "matters": "Always compound the share implication out and look at the endpoint. Forecasts built one year at a time frequently imply share levels by year five that nobody would defend if stated directly — this is the most common way sell-side models become quietly absurd. Two hundred basis points of share gain a year sounds modest and reasonable; compounded over five years in a consolidated market it often implies the company has taken essentially all available share from a competitor who is presumably responding.", "trap": "Forecasting company growth without an independent market growth number. Assuming share gain continues at the recent rate indefinitely. Never checking the terminal share the model implies.", "followups": ["What share does your model imply in year five?", "Is the share gain mechanism repeatable, or is it one large deal?", "What is the competitor you are taking share from doing in your model?"]}, {"id": "PRJ-05", "object": "stock", "mode": "tech", "type": "framework", "q": "Net revenue retention is 120%. What does that actually tell you, and what does it hide?", "principle": "Net retention is a composite of expansion, price increases, and churn, and the composite can stay flat while its components deteriorate badly. It is the most cited and least decomposed metric in software. The underlying question — do customers become more valuable over time, and do they stay — requires looking at the cohorts, not the aggregate.", "framing": ["Decompose into gross retention, expansion from seat or usage growth, and price increases. Three very different sources of the same number.", "Ask which is doing the work. Price-driven retention has a ceiling; usage-driven retention scales with the customer's business.", "Look at retention by cohort and by vintage. A blended number is dominated by the largest, oldest, best customers.", "Ask whether the metric is calculated on customers or on dollars, since dollar-weighting hides the loss of many small accounts.", "Check the trend in the newest cohorts, which is the leading indicator that matters.", "Ask what happens to expansion revenue when the customer's own business stops growing."], "matters": "Expansion driven by the customer's own growth is borrowed durability. When net retention comes from customers hiring more people or processing more transactions, the metric is a derivative of your customers' growth rates, and it falls the moment their growth falls — simultaneously, across the whole base, with no company-specific warning. Retention driven by adding products is genuinely stronger, because it reflects a deepening relationship rather than a bet on the customer's own expansion.", "trap": "Citing net retention as evidence of switching costs — gross retention measures that. Reading a blended cohort number and missing deterioration in recent vintages. Extrapolating expansion revenue through a downturn.", "followups": ["What is gross retention, and what is the trend?", "How much of the expansion is the customer growing versus buying more products?", "What do the last four cohorts look like compared to the 2021 vintage?"]}, {"id": "PRJ-06", "object": "stock", "mode": "general", "type": "framework", "q": "Revenue grows 100 million. How much falls to EBIT, and how do you defend that number?", "principle": "Incremental margin is the honest expression of operating leverage. It forces you to state explicitly how much of each new revenue dollar reaches profit, rather than hiding the assumption inside a smooth margin ramp. It is also directly checkable against the company's own history, which makes it the fastest way to falsify an optimistic model.", "framing": ["Classify every cost line as fixed, semi-variable, or variable in the relevant range.", "Start from gross margin on incremental revenue, which may differ from the average if mix is shifting.", "Ask which operating costs genuinely do not need to grow with revenue, and be sceptical — most scale somewhat.", "Consider step costs. Capacity, offices, and infrastructure arrive in lumps, not smoothly.", "Compute the implied incremental margin and compare it to what the company has actually delivered in prior growth years.", "Ask what management does with any upside — many companies reinvest operating leverage rather than dropping it through."], "matters": "Compare your implied incremental margin against the company's own realised history before defending it. If a business has historically delivered thirty percent incremental margins and your model implies fifty, you are making a specific claim about a behavioural change, and you should be able to name what changed. Management reinvestment is the usual reason models overestimate this: companies with good growth options reinvest leverage rather than letting it reach EBIT, and that is often the right decision for the business while being wrong for your forecast.", "trap": "Assuming operating costs are fixed when they are semi-variable. Ignoring step costs and modelling smooth leverage. Forgetting that management will spend the upside if the growth opportunity is real.", "followups": ["What incremental margin has this company actually delivered historically?", "Which cost lines are genuinely fixed, and for how much more revenue?", "If they beat, do they let it drop through or reinvest it?"]}, {"id": "PRJ-07", "object": "stock", "mode": "general", "type": "framework", "q": "What does this business earn at maturity, and how did you get to that number?", "principle": "For a medium-term horizon, terminal assumptions dominate the valuation, and terminal margin is usually the least examined number in the model. Deriving it from industry structure and required returns on capital, rather than from management targets or a smooth extrapolation, is what separates a defensible target from an anchored one.", "framing": ["Identify structurally mature analogues and look at where their margins actually settled.", "Work backwards from required return on capital: given the capital intensity, what margin earns a fair return?", "Separate genuine growth investment, which falls away, from the ongoing cost of maintaining the position, which does not.", "Ask what competition does to price as differentiation narrows with maturity.", "Consider the customer mix at maturity — later customers are usually smaller and less profitable to serve.", "Stress the assumption: what is the business worth if terminal margin is five points lower?"], "matters": "Be disciplined about how much current spending is genuinely discretionary growth investment. Companies and their advocates routinely characterise most sales, marketing and research spend as growth investment that will normalise, but a large part of it is the cost of holding the position against competitors who have not gone away. The honest question is what spend is required to stand still at maturity — that number is much higher than the bull case assumes, and it is where terminal margin estimates most often go wrong.", "trap": "Adopting management's long-term margin model as the terminal assumption. Assuming all sales and marketing is growth spend. Using peak-cycle margins as mature margins.", "followups": ["What return on capital does your terminal margin imply?", "How much of today's opex is required just to stand still?", "What is the stock worth if terminal margin is five points lower?"]}, {"id": "PRJ-08", "object": "stock", "mode": "general", "type": "framework", "q": "Your model has revenue doubling. Does the balance sheet agree?", "principle": "Growth consumes capital. Working capital scales with revenue, capacity requires capex, and both consume cash before the earnings arrive. A projection where revenue doubles while the balance sheet stands still is internally inconsistent, and the inconsistency usually flatters both cash flow and returns on capital.", "framing": ["Establish working capital as a percentage of revenue historically, and hold it roughly constant unless you can justify improvement.", "Ask what capex is required for the volume, separating maintenance from growth capex.", "Check the timing: capital is spent before revenue arrives, so the cash flow trough comes first.", "Compute the free cash flow profile, not just earnings. Fast-growing capital-intensive businesses can grow earnings while burning cash.", "Ask how the capital is funded — internally, with debt, or with equity, since the last one changes per-share outcomes.", "Check that implied return on incremental capital is plausible against the company's history and the industry."], "matters": "Return on incremental invested capital is the number that ties the whole projection together, and it is the fastest sanity check available. Compute the additional capital your model requires and the additional profit it produces. If the implied incremental return is far above what the business or the industry has ever earned, the model is wrong somewhere, and this test tells you so in about two minutes — usually faster than finding the error by inspection.", "trap": "Modelling margin expansion while ignoring the capital required to support the volume. Assuming working capital improves as a percentage of revenue without a reason. Forgetting that equity funding dilutes the per-share outcome you are actually forecasting.", "followups": ["What return on incremental capital does your model imply?", "When is the cash flow trough, and can they fund it?", "Are you assuming working capital efficiency improves, and why?"]}, {"id": "PRJ-09", "object": "stock", "mode": "general", "type": "framework", "q": "Forget your model. What is the market's model, and where exactly do you differ?", "principle": "The price already contains a forecast. Reverse-engineering it turns a vague sense that a stock is cheap into a specific, falsifiable disagreement about a named variable. This is the most direct route to knowing whether you have an edge, and it frequently reveals that you do not.", "framing": ["Take the current price and solve for what it implies — growth rate, duration of growth, terminal margin, or terminal return on capital.", "Sanity-check the implication against history and against the industry. Sometimes the implied number is obviously unreasonable in either direction.", "Line up your assumptions against the implied ones, variable by variable.", "Identify the one or two variables where you genuinely differ, and be honest that on most variables you agree.", "Quantify the difference and its value impact.", "Ask why the market holds its view — there is usually a reason, and understanding it is part of the work."], "matters": "Doing this properly usually reveals that your disagreement is narrower than you thought, and that is valuable rather than deflating. A well-formed thesis differs from consensus on one or two variables and agrees on the rest, and it can state the value of being right on exactly those. Anyone who claims to differ on every assumption has not done this exercise — they have built a model that reflects their conclusion.", "trap": "Comparing your price target to the sell-side price target instead of comparing assumptions. Assuming the market is simply wrong without articulating why it holds its view. Differing on everything, which means you have anchored on an answer.", "followups": ["What growth duration does the current price imply?", "Which single variable carries your entire disagreement?", "Why does the market believe what it believes? Give me their best argument."]}, {"id": "PRJ-10", "object": "stock", "mode": "general", "type": "framework", "q": "Give me your bull, base, and bear. Then tell me why those three numbers are not useless.", "principle": "Scenarios are only informative when each one is a coherent state of the world with its own internal logic, rather than the base case with a multiplier applied. Three scenarios that share every assumption except the growth rate convey no more information than a single number and create false confidence in a range.", "framing": ["Build each scenario around a different answer to the load-bearing question, not around a different growth rate.", "Make the assumptions internally consistent — in a weak demand scenario, pricing, margin, and capital allocation all respond together.", "Attach rough probabilities and be willing to defend them, including with base rates.", "State the value in each scenario and compute a probability-weighted expected value.", "Check the asymmetry: how much do you make if right, how much do you lose if wrong, and how does that compare to the probabilities.", "Identify what evidence would move weight between scenarios, and when it arrives."], "matters": "Consistency within a scenario is what makes the exercise real. A genuine bear case is not the base case with lower growth — it is a world where growth disappoints, so pricing gets defensive, so gross margin compresses, so management cuts investment, so the growth outlook worsens further, and the multiple contracts on top of all of it. Those effects compound, which is why real bear outcomes are usually far worse than a mechanically reduced growth rate suggests, and why the exercise matters for sizing.", "trap": "Sensitivity analysis dressed up as scenario analysis. Symmetric bull and bear cases when the underlying distribution is not symmetric. Assigning probabilities after choosing the answer you wanted.", "followups": ["What is different about the world in your bear case, beyond the growth rate?", "Does the multiple move in your scenarios, and why?", "What single piece of evidence would shift weight between these, and when do you get it?"]}]}, {"pillar": "thesis", "title": "Thesis & Pitch", "blurb": "Variant perception, what is priced in, catalysts and re-rating, kill criteria, expression and sizing, and the pitch itself.", "cards": [{"id": "THS-01", "object": "stock", "mode": "general", "type": "framework", "q": "You like the stock. What does the market believe that you think is wrong — and why are you the one who is right?", "principle": "A thesis without a variant perception is a description. The market has already looked at this company, and the price reflects a considered view. Your return comes from the gap between that view and reality, which means you must be able to state the market's view accurately before claiming it is wrong.", "framing": ["State consensus specifically and numerically — what estimates and what multiple, and therefore what the price implies.", "State your view in the same units, so the gap is visible.", "Explain the source of your edge: informational, analytical, or time-horizon.", "Explain why the market holds its view. There is usually a structural reason, and naming it makes your claim credible.", "Say what evidence would confirm or refute you, and when it arrives.", "Size the gap in value terms."], "matters": "For a fund with a twelve-month horizon, time-horizon arbitrage is the most honest and most repeatable edge to claim. You are not asserting that you have better information than the market or that you are cleverer than the analysts covering it — you are asserting that the market is discounting the next two quarters and you are underwriting the next eight. That is a structural feature of how most capital is managed, it does not require you to be smarter than anyone, and it is defensible in an interview in a way that claiming informational edge usually is not.", "trap": "Saying the market does not appreciate the quality of this business — unfalsifiable, and everyone says it. Claiming informational edge you do not have. Being unable to state what consensus actually is in numbers.", "followups": ["How do you know that is consensus?", "If you are right, why has it not happened yet?", "Who is the marginal seller here, and what do they believe?"]}, {"id": "THS-02", "object": "stock", "mode": "general", "type": "framework", "q": "What is priced in at 30 times earnings?", "principle": "A multiple is not a judgement of cheap or expensive — it is a compressed forecast. Decoding what a price implies about growth, duration and returns converts a valuation opinion into a testable claim, and it is the fastest way to determine whether an apparently expensive stock is actually discounting something achievable.", "framing": ["Convert the multiple into an implied expectation: what growth, sustained for how long, at what terminal return, justifies this price?", "Compare that implied growth duration against the company's history and the industry's.", "Separate what is priced about the near term from what is priced about the terminal value. For high multiples, most of the value is terminal.", "Check what the multiple has been historically and what changed, if anything, in the business.", "Ask what the stock does if the company merely delivers consensus.", "State what would have to be true for the current price to prove conservative."], "matters": "The most useful version of this question is what happens if the company simply meets expectations. For richly valued stocks the answer is frequently that the stock does nothing or falls, because the price already contains several years of successful execution — which means meeting expectations is not a good outcome, it is the neutral one. Knowing that changes how you underwrite the position and how you size it, and it is the discipline that keeps quality investors out of expensive disappointments.", "trap": "Comparing the multiple to peers without asking what any of them imply. Treating a high multiple as automatically expensive or a low one as cheap. Ignoring that most of a high multiple's value sits beyond the forecast period.", "followups": ["What growth duration does that multiple imply?", "What does the stock do if they simply hit consensus?", "What has to be true for this price to look conservative in hindsight?"]}, {"id": "THS-03", "object": "stock", "mode": "general", "type": "anchored", "q": "A vertical software company, two billion enterprise value, growing 18%, 25% EBIT margins, trading at 28 times EBIT. You think it is a double in three years. Over the next twelve months, what makes the market agree with you — and what do you watch monthly to know it is working?", "principle": "For a medium-term horizon, catalysts are evidence-generating events rather than single-day prints. Separate thesis-confirming milestones, which tell you privately that you are right, from re-rating events, which make the market change its estimates. You need both, and they are rarely the same thing.", "framing": ["Numbers events: estimate revisions, guidance resets, a margin inflection actually appearing in reported results.", "Company actions: pricing moves, product cycle, capital allocation, segment disclosure, acquisitions.", "Industry and external: competitor exit, cycle turn, regulation, channel data.", "Ownership and narrative: index inclusion, initiations, lock-up expiry, activist involvement, a breakup.", "Attach a window to each, and name the two or three things you would monitor monthly.", "State how much of the return is earnings versus multiple."], "matters": "A twelve-month re-rating almost always requires the consensus estimate path to move, not just sentiment. Multiples expand when analysts raise numbers and extend their forecast horizon, which happens when reported results force it. So the catalyst that matters is whichever event first makes the estimate revisions unavoidable — identify that one, date it, and build the monitoring around it rather than around the narrative.", "trap": "Naming an earnings date as a catalyst without saying what in the print changes the estimate path. Listing catalysts you cannot observe until after the stock has moved. Confusing volatility events with re-rating events.", "followups": ["If none of that happens in twelve months, do you still own it?", "Which catalyst is most likely to break the thesis rather than confirm it?", "How much of your double is multiple expansion, and who pays that multiple?"]}, {"id": "THS-04", "object": "stock", "mode": "general", "type": "framework", "q": "It is a year from now and the position has lost you 30%. What happened?", "principle": "A pre-mortem surfaces risks that a bear case misses, because it forces you to reason backwards from a bad outcome you are required to accept as real. Stating kill criteria in advance converts an emotional decision under stress into a rule set while you are still thinking clearly, which is when your judgement is worth the most.", "framing": ["Assume the loss is real and give three distinct causes, ranked by likelihood rather than severity.", "Separate thesis failure, where you were wrong about the business, from price failure, where you were right but the multiple compressed.", "Identify which of these you would see early and which would arrive as a surprise.", "Define kill criteria: what specific observation, not price move, tells you the thesis is broken.", "Distinguish kill criteria from add criteria, since the same drawdown can be either depending on what caused it.", "State the maximum loss you would accept before forcing a full re-underwrite."], "matters": "The most valuable discipline here is separating a broken thesis from a cheaper stock, because they demand opposite actions and feel identical in the moment. Write the specific observable that would tell you the thesis is broken — retention below a number, a competitor winning a class of deal, a margin trajectory that stalls for two consecutive quarters — before you own it. Price alone is never a kill criterion, but it is the thing that will pressure you to invent one.", "trap": "Giving only the market-wide bear case, which says nothing specific about this position. Setting kill criteria in terms of price rather than evidence. Confusing a drawdown with a broken thesis.", "followups": ["Which of those causes would you see coming, and which arrives as a surprise?", "What specific observation, not price, tells you the thesis is broken?", "Down 30% on a multiple de-rate with the thesis intact — do you add?"]}, {"id": "THS-05", "object": "theme", "mode": "general", "type": "framework", "q": "You are right about the theme. How do you express it, and how big do you make it?", "principle": "Expression and sizing are where a correct view becomes a return or a disappointment. The same thesis can be expressed with different risk profiles, and the choice should follow from what you actually know versus what you are merely exposed to. Sizing follows conviction and asymmetry, not enthusiasm.", "framing": ["List the possible expressions: the pure play, the diversified beneficiary, the supplier, the enabler, and the short side.", "For each, ask what proportion of the return depends on your specific insight versus on factors you have no view on.", "Prefer the expression with the highest ratio of thesis exposure to unrelated exposure.", "Consider whether a pair or a hedge isolates the view, and be honest about the cost and the basis risk.", "Size from asymmetry and conviction: how much do you make if right, lose if wrong, and how confident are you.", "State what would make you add and what would make you cut, before you put it on."], "matters": "The cleanest expression is usually the one where the most of your return depends on the thing you actually did the work on. A company where your insight drives 70% of the outcome is better than a pure play where it drives 30% and the rest is exposure to a cycle, a currency, or a management team you have never assessed. In a concentrated long-biased book this discipline matters more than in a hedged one, because you cannot rely on the hedge to strip out the noise.", "trap": "Choosing the most levered expression rather than the most targeted one. Sizing on excitement. Assuming a pair trade removes risk when the two legs share a factor exposure that dominates both.", "followups": ["What percentage of your return in that name depends on your actual insight?", "What are you exposed to that you have no view on?", "What makes you double it, and what makes you halve it?"]}, {"id": "THS-06", "object": "stock", "mode": "general", "type": "framework", "q": "How do you assess management, beyond meeting them?", "principle": "Management assessment is a judgement about capital allocation and honesty, and both are visible in the record. Meetings are the least reliable input available, because senior executives are selected in part for their ability to be persuasive in exactly that setting. The historical record of decisions and disclosures is far more informative.", "framing": ["Review capital allocation history: acquisitions and their returns, buybacks and the prices paid, capex and what it earned.", "Ask whether they buy back stock counter-cyclically or when it is expensive and comfortable. This one fact is enormously revealing.", "Read old guidance against outcomes. Do they set achievable targets and meet them, or set aspirational ones and miss?", "Look at how they discuss failure. Specific, unflattering candour is rare and highly correlated with honest reporting.", "Examine incentive structures — what are they actually paid on, and does it match what you want them to do?", "Check insider behaviour over time, weighting open-market purchases far above grants."], "matters": "Buyback behaviour across a cycle is the single most informative disclosure about a management team's judgement and independence. Buying heavily at peak valuations and stopping during a drawdown reveals that they are managing optics or earnings per share, not value — and that same judgement is being applied to everything you cannot see. It is a free look at how they think about price and value, disclosed quarterly, and most investors ignore it entirely.", "trap": "Weighting a meeting impression above the capital allocation record. Assuming founder-led implies long-term-oriented. Treating stock grants and scheduled sales as an insider signal.", "followups": ["When did they buy back the most stock, and at what multiple?", "What are they compensated on, and what does that make them do?", "Show me a time they admitted a mistake specifically and early."]}, {"id": "THS-07", "object": "stock", "mode": "general", "type": "framework", "q": "Pitch me a stock. Ninety seconds.", "principle": "The pitch is a compression test. In ninety seconds you can convey a thesis, a variant perception, and an asymmetry, but only if you have decided in advance what to leave out. Everything you say that a competent generalist could have said from a screen is wasted time, and the omissions are what reveal whether you understand the investment.", "framing": ["One sentence on what the company does, pitched at a level that a smart generalist follows immediately.", "The thesis in one sentence: what you think happens and over what period.", "The variant perception: what the market believes and why it is wrong, in numbers.", "Two or three supporting points, each one evidence rather than assertion.", "The return: what it is worth, what you make, and what you lose if wrong.", "The main risk, stated by you before they ask, and why you are comfortable with it."], "matters": "Lead with the variant perception rather than the business description. The listener does not need to be sold on the company; they need to know why this is a mispricing and not simply a good business that everyone already recognises. Naming the main risk yourself is the strongest signal available that you have done the work and are not selling — and the single most common failure is spending sixty of the ninety seconds on background that establishes nothing.", "trap": "Spending most of the time on what the company does. Presenting quality as if it were the thesis. Waiting to be asked about the risk. Being unable to state the downside in numbers.", "followups": ["What is the bear case, in their words rather than a strawman?", "What would you need to see to double the position?", "Why is this better than the second-best idea you have?"]}, {"id": "THS-08", "object": "stock", "mode": "general", "type": "framework", "q": "You are long. Make the case that this is actually a short.", "principle": "Being able to argue the other side well is the most reliable test of whether you understand a position. A long-biased investor still needs this: it stress-tests the thesis, reveals what the marginal seller believes, and identifies which evidence would flip you. A weak bear case usually means you have not found the real one.", "framing": ["Build the strongest version, not a strawman, and use the actual arguments of people who are short.", "Separate the valuation short, where the business is fine but the price is wrong, from the fundamental short, where the business deteriorates.", "Identify the accounting or disclosure angle: anything the company has stopped disclosing, or a widening gap between adjusted and reported figures.", "Ask what the short's catalyst is and over what horizon, since a short needs timing far more than a long does.", "State what evidence would convert you from long to short.", "Say why, having made the case, you still hold the long."], "matters": "A company quietly ceasing to disclose a metric it used to highlight is among the most consistently informative signals available, and it costs nothing to track. Companies disclose what flatters them, so a discontinued metric almost always deteriorated. Reviewing what has dropped out of the disclosure over several years is a fast, high-yield exercise on both sides of a position, and it frequently surfaces the bear case before it appears in the reported numbers.", "trap": "Building a strawman bear case that is easy to dismiss. Confusing an expensive stock with a short, since expensive stocks can stay expensive for years. Not knowing what the actual short interest thesis is.", "followups": ["What has this company stopped disclosing?", "What is the gap between adjusted and reported earnings, and is it widening?", "What evidence would flip you from long to short?"]}]}];
+
+const state = {
+  screen: "home",
+  mode: "general",   // general | tech   (diligence)
+  diff: "clean",     // clean | precise  (math)
+  queue: [],
+  idx: 0,
+  revealed: false,
+  fuShown: 0,
+  deckLabel: "",
+  results: [],
+};
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+};
+const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+/* ---------------- home ---------------- */
+
+function renderHome() {
+  state.screen = "home";
+  $("deckname").textContent = "Drill";
+  $("counter").textContent = "";
+  $("track").style.width = "0%";
+
+  const m = $("main");
+  m.innerHTML = "";
+
+  const hero = el("div", "hero");
+  const h1 = el("h1", null, "Two things get you hired.");
+  const p = el("p", null, "Fast arithmetic, and a structured answer to an open question. Pick a deck.");
+  hero.append(h1, p);
+  m.append(hero);
+
+  m.append(groupLabel("Diligence"));
+  const dwrap = el("div", "decks");
+  const avail = DECKS.filter((d) => countFor(d) > 0);
+  avail.forEach((d) => dwrap.append(deckButton(d.title, d.blurb, countFor(d), () => startDiligence([d], d.title))));
+  const total = avail.reduce((s, d) => s + countFor(d), 0);
+  dwrap.append(deckButton("Everything", "All four decks, shuffled together. This is the interview.", total, () => startDiligence(avail, "Everything")));
+  m.append(dwrap);
+
+  m.append(groupLabel("Mode"));
+  m.append(segment([
+    ["general", "General"],
+    ["tech", "Tech-specific"],
+  ], state.mode, (v) => { state.mode = v; renderHome(); },
+  "Tech mode adds software, semis and platform cards to every deck."));
+
+  m.append(groupLabel("Math"));
+  const mwrap = el("div", "decks");
+  const buckets = [...new Set(MATH_GENERATORS.map((g) => g.bucket))];
+  buckets.forEach((b) => {
+    const gens = MATH_GENERATORS.filter((g) => g.bucket === b);
+    mwrap.append(deckButton(b, gens.map((g) => g.name.replace(/&harr;/g, "↔")).join(" · "), gens.length + " gen", () => startMath(gens, b)));
+  });
+  mwrap.append(deckButton("All math", "Every generator, shuffled. Twenty questions.", MATH_GENERATORS.length + " gen", () => startMath(MATH_GENERATORS, "All math")));
+  m.append(mwrap);
+
+  m.append(segmentWrap(segment([
+    ["clean", "Clean"],
+    ["precise", "Precise"],
+  ], state.diff, (v) => { state.diff = v; renderHome(); },
+  "Clean resolves in your head in about fifteen seconds. Precise makes you grind.")));
+
+  $("footer").innerHTML = "";
+  $("footer").style.display = "none";
+}
+
+function countFor(d) {
+  return d.cards.filter((c) => state.mode === "tech" || c.mode === "general").length;
+}
+
+function groupLabel(t) { return el("div", "grouplabel", t); }
+
+function segmentWrap(node) { const w = el("div"); w.style.marginTop = ".75rem"; w.append(node); return w; }
+
+function segment(opts, current, onPick, note) {
+  const wrap = el("div");
+  const row = el("div", "toggles");
+  const seg = el("div", "seg");
+  opts.forEach(([val, label]) => {
+    const b = el("button", null, label);
+    b.setAttribute("aria-pressed", String(current === val));
+    b.onclick = () => onPick(val);
+    seg.append(b);
+  });
+  row.append(seg);
+  wrap.append(row);
+  if (note) {
+    const n = el("p", null, note);
+    n.style.cssText = "margin:.55rem 0 0;font-size:var(--step--1);color:var(--ink-3);max-width:40ch";
+    wrap.append(n);
+  }
+  return wrap;
+}
+
+function deckButton(title, blurb, n, onclick) {
+  const b = el("button", "deck");
+  const left = el("div");
+  left.append(el("strong", null, title), el("em", null, blurb));
+  b.append(left, el("span", "n", String(n)));
+  b.onclick = onclick;
+  return b;
+}
+
+/* ---------------- start ---------------- */
+
+function startDiligence(decks, label) {
+  const cards = [];
+  decks.forEach((d) => d.cards.forEach((c) => {
+    if (state.mode === "tech" || c.mode === "general") cards.push({ kind: "dil", ...c, pillar: d.title });
+  }));
+  begin(shuffle(cards), label);
+}
+
+function startMath(gens, label) {
+  const q = [];
+  for (let i = 0; i < 20; i++) {
+    const g = gens[i % gens.length];
+    const v = g.gen(state.diff);
+    q.push({ kind: "math", gen: g, ...v });
+  }
+  begin(shuffle(q), label + " · " + (state.diff === "clean" ? "clean" : "precise"));
+}
+
+function begin(queue, label) {
+  state.queue = queue;
+  state.idx = 0;
+  state.results = [];
+  state.deckLabel = label;
+  $("footer").style.display = "flex";
+  renderCard();
+}
+
+/* ---------------- card ---------------- */
+
+function renderCard() {
+  state.screen = "drill";
+  state.revealed = false;
+  state.fuShown = 0;
+
+  const c = state.queue[state.idx];
+  $("deckname").textContent = state.deckLabel;
+  $("counter").textContent = (state.idx + 1) + " / " + state.queue.length;
+  $("track").style.width = ((state.idx) / state.queue.length * 100) + "%";
+
+  const m = $("main");
+  m.innerHTML = "";
+  const body = el("div", "card-body");
+
+  const meta = el("div", "meta");
+  if (c.kind === "dil") {
+    meta.append(tag(c.id, "id"), tag(c.pillar), tag(c.object), tag(c.type));
+  } else {
+    meta.append(tag(c.gen.name.replace(/&harr;/g, "↔"), "id"), tag(c.gen.bucket), tag(state.diff));
+  }
+  body.append(meta);
+
+  const q = el("h2", "q");
+  q.innerHTML = c.q;
+  body.append(q);
+
+  m.append(body);
+  window.scrollTo(0, 0);
+  m.scrollTop = 0;
+
+  const f = $("footer");
+  f.innerHTML = "";
+  const rev = el("button", "primary", "Reveal");
+  rev.onclick = reveal;
+  f.append(rev);
+}
+
+function tag(t, cls) { return el("span", "tag" + (cls ? " " + cls : ""), t); }
+
+function reveal() {
+  if (state.revealed) return;
+  state.revealed = true;
+  const c = state.queue[state.idx];
+  const body = document.querySelector(".card-body");
+  const back = el("div");
+
+  if (c.kind === "math") {
+    const a = el("div", "answer");
+    a.innerHTML = c.a;
+    back.append(a);
+
+    const method = section("Method");
+    const ol = el("ol", "steps");
+    c.method.forEach((s) => { const li = el("li"); li.innerHTML = s; ol.append(li); });
+    method.append(ol);
+    back.append(method);
+
+    if (c.gen.table) {
+      const t = collapsible("Reference table", true);
+      const w = el("div", "tablewrap");
+      w.innerHTML = c.gen.table;
+      t.content.append(w);
+      back.append(t.node);
+    }
+
+    const teach = section("Why it matters");
+    const p = el("p");
+    p.innerHTML = c.gen.teaching;
+    teach.append(p);
+    back.append(teach);
+  } else {
+    const lead = section("The principle");
+    lead.classList.add("lead");
+    lead.append(el("p", null, c.principle));
+    back.append(lead);
+
+    const fr = collapsible("How to frame it", false);
+    const ol = el("ol", "steps");
+    c.framing.forEach((s) => ol.append(el("li", null, s)));
+    fr.content.append(ol);
+    back.append(fr.node);
+
+    const mt = collapsible("What matters most", false);
+    mt.content.append(el("p", null, c.matters));
+    back.append(mt.node);
+
+    const tp = collapsible("Trap", false);
+    const tpp = el("p", "trap", c.trap);
+    tp.content.append(tpp);
+    back.append(tp.node);
+
+    const fu = section("Follow-ups");
+    const list = el("div", "followups");
+    list.id = "fulist";
+    fu.append(list);
+    const more = el("button", "ghost", "Show first follow-up →");
+    more.id = "fubtn";
+    more.onclick = nextFollowup;
+    fu.append(more);
+    back.append(fu);
+  }
+
+  body.append(back);
+  showGrades();
+}
+
+function section(title) {
+  const s = el("div", "sec");
+  s.append(el("h3", "sech", title));
+  return s;
+}
+
+function collapsible(title, open) {
+  const d = el("details", "sec");
+  if (open) d.open = true;
+  const s = el("summary", null, title);
+  const content = el("div");
+  d.append(s, content);
+  return { node: d, content };
+}
+
+function nextFollowup() {
+  const c = state.queue[state.idx];
+  const list = $("fulist");
+  const i = state.fuShown;
+  if (i >= c.followups.length) return;
+  const f = el("div", "fu");
+  f.append(el("span", "n", "Follow-up " + (i + 1)), document.createTextNode(c.followups[i]));
+  list.append(f);
+  state.fuShown++;
+  const btn = $("fubtn");
+  if (state.fuShown >= c.followups.length) btn.remove();
+  else btn.textContent = "Next follow-up →";
+}
+
+function showGrades() {
+  const f = $("footer");
+  f.innerHTML = "";
+  [["miss", "Missed", "went blank"], ["shaky", "Shaky", "half there"], ["nail", "Nailed", "clean"]].forEach(([k, label, sub]) => {
+    const b = el("button", "grade " + k);
+    b.append(el("b", null, label), document.createTextNode(sub));
+    b.onclick = () => grade(k);
+    f.append(b);
+  });
+}
+
+function grade(g) {
+  const c = state.queue[state.idx];
+  state.results.push({ g, label: c.kind === "dil" ? c.id + " · " + c.q : c.gen.name.replace(/&harr;/g, "↔") + " · " + c.q.replace(/<[^>]+>/g, "") });
+  state.idx++;
+  if (state.idx >= state.queue.length) renderSummary();
+  else renderCard();
+}
+
+/* ---------------- summary ---------------- */
+
+function renderSummary() {
+  state.screen = "summary";
+  $("track").style.width = "100%";
+  $("counter").textContent = "done";
+
+  const n = state.results.filter((r) => r.g === "nail").length;
+  const s = state.results.filter((r) => r.g === "shaky").length;
+  const x = state.results.filter((r) => r.g === "miss").length;
+
+  const m = $("main");
+  m.innerHTML = "";
+  const hero = el("div", "hero");
+  hero.append(el("h1", null, "Session done."));
+  hero.append(el("p", null, x + s === 0 ? "Clean run. Raise the difficulty or switch decks." : "The ones below are the session. Everything else you already know."));
+  m.append(hero);
+
+  const tally = el("div", "tally");
+  [["nail", n, "nailed"], ["", s, "shaky"], ["miss", x, "missed"]].forEach(([cls, v, lab]) => {
+    const st = el("div", "stat " + cls);
+    st.append(el("b", null, String(v)), el("span", null, lab));
+    tally.append(st);
+  });
+  m.append(tally);
+
+  const weak = state.results.filter((r) => r.g !== "nail");
+  if (weak.length) {
+    m.append(groupLabel("Work these"));
+    const rev = el("div", "review");
+    weak.forEach((r) => {
+      const d = el("div", "r");
+      const parts = r.label.split(" · ");
+      d.append(el("b", null, parts[0]), document.createTextNode(parts.slice(1).join(" · ")));
+      rev.append(d);
+    });
+    m.append(rev);
+  }
+
+  const f = $("footer");
+  f.innerHTML = "";
+  const again = el("button", "primary", "Run it again");
+  again.onclick = () => { begin(shuffle(state.queue), state.deckLabel); };
+  const home = el("button", null, "Decks");
+  home.onclick = renderHome;
+  f.append(home, again);
+  window.scrollTo(0, 0);
+}
+
+/* ---------------- keys ---------------- */
+
+document.addEventListener("keydown", (e) => {
+  if (state.screen !== "drill") return;
+  if (e.key === " " || e.key === "Enter") {
+    if (!state.revealed) { e.preventDefault(); reveal(); }
+  } else if (state.revealed) {
+    if (e.key === "1") grade("miss");
+    if (e.key === "2") grade("shaky");
+    if (e.key === "3") grade("nail");
+    if (e.key === "f") nextFollowup();
+  }
+});
+
+renderHome();
+</script>

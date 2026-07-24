@@ -1,0 +1,513 @@
+{
+  "pillar": "markets",
+  "title": "Markets",
+  "blurb": "How to think about a market: structure, inflections, beneficiaries, and how an industry dynamic lands in the financials.",
+  "cards": [
+    {
+      "id": "MKT-01",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "The market is growing 25% a year. Walk me through who captures the economics — and whether that's stable.",
+      "principle": "Market growth and profit pools are nearly unrelated. Value accrues to whoever controls the scarce input or owns the customer relationship, and that position migrates over time. The useful question is never how big, but who has pricing power and how durable it is.",
+      "framing": [
+        "Draw the chain — supplier, component, assembly, distribution, customer — and put a rough margin on each stage.",
+        "At each stage ask how many credible alternatives the adjacent stage has. Bargaining power is just a count of alternatives.",
+        "Ask what is scarce, and whether the scarcity is durable. Capacity scarcity resolves in 18-36 months as capex lands; IP, regulatory and network scarcity do not.",
+        "Locate the customer relationship and the data. They usually travel together.",
+        "Ask who is funding the growth and whether their return on that spend is positive.",
+        "Then, and only then, size the market."
+      ],
+      "matters": "Ask what was scarce three years ago, what is scarce now, and what is scarce in three years. Profit pools migrate — hardware to software to services, provider to aggregator — and the consensus long is usually anchored on yesterday's bottleneck. That drift is where the variant view lives.",
+      "trap": "TAM as a thesis. Assuming the share leader is the profit leader. Forgetting that fast growth attracts capital, and capital competes returns away.",
+      "followups": [
+        "Whose budget funds this, and does their spend earn a return?",
+        "What is the bottleneck today versus in three years?",
+        "Give me the version where the market triples and every participant earns exactly their cost of capital."
+      ]
+    },
+    {
+      "id": "MKT-02",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "How would you size this market — and more importantly, how would you know if your number is wrong by 3x?",
+      "principle": "A market size is a claim with error bars, not a fact. The number matters far less than knowing which assumption carries it, because that assumption is the one you will actually be arguing about with the person on the other side of the trade.",
+      "framing": [
+        "Build bottom-up from units times price times penetration. Sanity-check against a top-down number and explain any gap.",
+        "Separate TAM, SAM, and what is realistically servicable in five years. Only the third one is investable.",
+        "Name whose budget it comes out of — new spend, or displaced spend.",
+        "Identify the single assumption with the widest range, and state the range explicitly.",
+        "Ask what price does over time. Tech markets deflate.",
+        "State what would have to be true for your number to be 3x too high."
+      ],
+      "matters": "The error is almost never in the arithmetic — it is in penetration ceiling and price trajectory. Most sizing errors come from assuming everyone is a customer and that price holds. Ask who structurally cannot buy this, at any price, and take them out of the denominator first.",
+      "trap": "Quoting a Gartner or IDC number as the answer. Treating a large TAM as a bull argument on its own — huge TAMs attract capital and compete margins away.",
+      "followups": [
+        "Whose budget does this displace, and will that buyer defend it?",
+        "What if unit prices fall 30% a year — is this still growing in dollars?",
+        "Does a bigger TAM actually help this company, or is its share structurally capped?"
+      ]
+    },
+    {
+      "id": "MKT-03",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "What is inflecting in this market right now, and why now rather than three years ago?",
+      "principle": "An inflection is a change in the second derivative of something real — cost, capability, regulation, or behaviour — that crosses a threshold and unlocks demand that was previously uneconomic. If you cannot name the threshold that was crossed, you are describing a trend, not an inflection, and trends are already priced.",
+      "framing": [
+        "Name the specific variable that changed and the threshold it crossed.",
+        "Date it. When did it cross, and is it visible in reported numbers yet?",
+        "Explain why this was not possible three years ago — cost curve, regulation, installed base, complementary technology.",
+        "Identify the constraint that now binds instead. Every unlocked constraint reveals the next one.",
+        "Say what the adoption evidence is, distinguishing pilots from production spend.",
+        "State how long the transition takes, and what governs the pace."
+      ],
+      "matters": "The why-now answer is where most candidates are weakest and where senior investors probe hardest. A real inflection has a mechanism — a cost falling below a substitute, a regulation changing an economic, an installed base reaching critical density. Vague answers about things getting better are the tell that you have found a story, not an inflection.",
+      "trap": "Confusing a narrative inflection with an economic one. Confusing pilot spend with production spend. Assuming an inflection in capability implies an inflection in willingness to pay.",
+      "followups": [
+        "What was the binding constraint before, and what is it now?",
+        "Show me where this appears in someone's reported numbers today.",
+        "If the inflection is real, why is the stock not already discounting it?"
+      ]
+    },
+    {
+      "id": "MKT-04",
+      "object": "market",
+      "mode": "general",
+      "type": "anchored",
+      "q": "An industry with three players sees the smallest exit. Prices rise 8%. Walk me line by line through what happens to the survivors' financials over the next eight quarters.",
+      "principle": "Industry dynamics are only investable once you can trace them to a line item with a lag. Most people stop at the dynamic — prices go up, good for margins — and that is exactly the step where the money is made or lost, because pricing, volume, cost, and capital intensity all move at different speeds.",
+      "framing": [
+        "Price first: does the 8% apply to the whole book immediately, or only to new and renewing contracts? State the reprice cycle.",
+        "Volume second: does the survivor absorb the exiting player's volume, or does that demand disappear? Not all of it transfers.",
+        "Gross margin: incremental price flows through at near 100% margin. Incremental volume flows at the variable margin, which is lower.",
+        "Operating expense: absorbing volume may require capacity, service, or sales headcount. Say whether that is a step cost or a ramp.",
+        "Capital: more volume means working capital and possibly capex. Cash conversion lags earnings.",
+        "Then the second-order question: does the higher price attract re-entry, and how fast?"
+      ],
+      "matters": "The whole answer lives in the lag structure. If contracts reprice over three years, an 8% list price move is a 2.7% realised price move in year one, and consensus will be modelling the headline. That gap between headline pricing and realised pricing is one of the most reliable sources of edge in industrial and software markets alike.",
+      "trap": "Flowing the full 8% through to margin in year one. Assuming all of the exiting player's volume transfers. Ignoring that a visibly high-margin industry invites entry.",
+      "followups": [
+        "What is the realised price increase in year one versus the headline?",
+        "Which cost line moves first if volumes rise 20%?",
+        "At what price does a new entrant find this market attractive again?"
+      ]
+    },
+    {
+      "id": "MKT-05",
+      "object": "market",
+      "mode": "tech",
+      "type": "anchored",
+      "q": "A key input cost for this hardware company falls 30%. The stock is up on the news. What do you actually need to know before deciding whether that is good?",
+      "principle": "An input cost decline accrues to whoever has pricing power, not to whoever buys the input. If the buyer's market is competitive, the saving is passed to customers within a repricing cycle and the margin benefit is temporary. Cost deflation is only a margin event where power exists.",
+      "framing": [
+        "Ask who else gets the same input at the same price. If everyone does, it is not an advantage.",
+        "Ask how the buyer prices — cost-plus, value-based, or competitively benchmarked. Cost-plus passes it straight through.",
+        "Check contract structure. Pass-through clauses hand the saving to the customer automatically.",
+        "Establish the inventory lag: costs flow through COGS as old inventory sells, so the P&L benefit arrives one to two quarters late and reverses just as slowly.",
+        "Ask whether the saving gets reinvested — in price, in R&D, in share gain — which is a management choice, not an accounting outcome.",
+        "Decide whether this is a permanent cost curve shift or a cyclical trough."
+      ],
+      "matters": "The question behind the question is whether the industry is a price-taker or a price-setter. In a price-taking industry, input deflation shows up as lower revenue with flat margins — the units get cheaper, the percentage holds, the dollars shrink. That is a materially worse outcome than the headline suggests, and it is the standard shape in commoditised hardware.",
+      "trap": "Assuming cost down equals margin up. Ignoring inventory lag when timing the trade. Treating a cyclical input trough as a structural cost improvement.",
+      "followups": [
+        "Do their competitors buy the same input at the same price?",
+        "What does the contract say about pass-through?",
+        "If they keep the saving, what stops a competitor from pricing it away?"
+      ]
+    },
+    {
+      "id": "MKT-06",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "Where are we on the adoption curve, and how would you defend that answer with evidence?",
+      "principle": "Penetration determines everything about the shape of future growth — the rate, the durability, the margin trajectory, and what multiple is defensible. Getting the position wrong by one phase is the single most expensive analytical error in growth investing, because early and late look identical on a one-year revenue chart.",
+      "framing": [
+        "Define the denominator precisely. Penetration of what population, and who is structurally excluded?",
+        "Estimate current penetration and be explicit about the uncertainty.",
+        "Look for the shape: is growth accelerating, linear, or decelerating in absolute units — not percentages.",
+        "Distinguish new adopters from existing users spending more. Those have different durability.",
+        "Look at the adopter profile: are new customers smaller, more price-sensitive, or harder to serve than the early ones?",
+        "Cross-check against comparable adoption curves in adjacent categories."
+      ],
+      "matters": "Watch absolute net adds, not growth rates. Percentage growth decelerates smoothly through the whole curve and tells you nothing about where you are. Absolute net adds peak at roughly the inflection point of the S-curve, which is typically 30 to 50% penetration — and that peak is the moment the market usually still believes growth is durable. Spotting the roll in net adds one or two quarters early is a repeatable source of alpha, on both sides.",
+      "trap": "Assuming the S-curve is symmetric. Using percentage growth to locate yourself on the curve. Extrapolating early-adopter economics onto the late majority, who pay less and cost more to serve.",
+      "followups": [
+        "Are absolute net adds still rising?",
+        "How do the newest cohorts compare to the 2021 cohorts on price and retention?",
+        "What penetration does the current multiple imply they eventually reach?"
+      ]
+    },
+    {
+      "id": "MKT-07",
+      "object": "market",
+      "mode": "tech",
+      "type": "framework",
+      "q": "This market grows 30% a year in units and shrinks in dollars. How do you invest in it?",
+      "principle": "Technology markets deflate by construction — cost per unit of performance falls relentlessly, and competition passes that to customers. Whether a market grows in dollars depends entirely on whether volume elasticity exceeds price decline. Unit growth is not revenue growth, and conflating them is the most common tech investing error.",
+      "framing": [
+        "Decompose revenue growth into unit growth and price per unit. Do it explicitly.",
+        "Establish the elasticity: does a 30% price decline unlock more than 30% additional volume?",
+        "Ask whether deflation expands the addressable use cases, or just transfers value to existing buyers.",
+        "Identify who captures the deflation — the customer, the vendor, or an adjacent layer.",
+        "Look one layer up: falling cost at one layer usually creates a profit pool at the layer above it.",
+        "Decide whether to own the deflating layer at all, or the beneficiary of the deflation."
+      ],
+      "matters": "The right response to a deflating layer is usually to own what the deflation enables, not the deflating thing itself. Falling cost per unit at one layer reliably builds a profit pool one layer up, because it expands the set of economically viable applications. Ask what becomes possible at the new price point that was not possible at the old one — that is where the dollars accumulate.",
+      "trap": "Celebrating unit growth in a market where dollars are shrinking. Assuming deflation is bad for everyone — it is very good for the layer above. Modelling flat pricing in any technology market.",
+      "followups": [
+        "What is the historical elasticity — has volume outrun price before?",
+        "What becomes economically viable at the new price that was not at the old one?",
+        "Which layer of the stack captures the value the deflation releases?"
+      ]
+    },
+    {
+      "id": "MKT-08",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "Demand here is booming. How do you test whether it is durable?",
+      "principle": "Demand is durable when the buyer earns a return on the purchase. Demand funded by someone's negative-return spending, by a financing window, or by a one-time budget event will stop, and it usually stops abruptly rather than fading. Trace the money to its source and ask whether that source is renewable.",
+      "framing": [
+        "Identify the buyer and the budget line the money comes from.",
+        "Ask what return the buyer earns on this purchase, in their own terms.",
+        "Establish whether the spend is operating budget, capital budget, or venture and stimulus funding. These have very different half-lives.",
+        "Check whether purchases are recurring or a one-time build-out. A build-out has a completion date.",
+        "Look for pull-forward: did an event compress several years of demand into one?",
+        "Ask what the buyer does if their own revenue falls 20%."
+      ],
+      "matters": "Ask the buyer's ROI question in the buyer's language, not the vendor's. Vendors quantify benefits in terms customers never actually budget against. If the buyer cannot point to the line where the saving or revenue appeared, the spend is discretionary — and discretionary spend funded by enthusiasm is the first thing cut. This single question would have caught most of the demand air-pockets of the last decade.",
+      "trap": "Accepting vendor ROI studies at face value. Missing pull-forward and extrapolating a pulled-forward year. Assuming a build-out is a run-rate.",
+      "followups": [
+        "Is this operating budget or capital budget?",
+        "What happens to this spend if the buyer's own revenue falls 20%?",
+        "Is any of this funded by capital that has to be raised again next year?"
+      ]
+    },
+    {
+      "id": "MKT-09",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "How does market structure determine what margins are achievable here?",
+      "principle": "Structure sets the ceiling; execution decides where within it you land. Concentration, differentiation, capacity constraints, and switching costs jointly determine whether pricing is possible at all. No amount of good management produces durable pricing power in a fragmented, undifferentiated market with excess capacity.",
+      "framing": [
+        "Count credible competitors and measure concentration honestly — top three share, and whether it is rising.",
+        "Assess differentiation: would a customer notice if you swapped vendors?",
+        "Look at capacity utilisation. Pricing power requires tightness; excess capacity destroys it regardless of concentration.",
+        "Measure switching costs from the customer's side, in time and risk rather than in fees.",
+        "Check barriers to entry and, separately, barriers to expansion by existing players — the second is more often the binding one.",
+        "Compare achieved margins across the industry. Persistent dispersion means execution matters; uniformity means structure dominates."
+      ],
+      "matters": "Margin dispersion across an industry is the diagnostic. Where every player earns similar margins, structure is destiny and your company-specific work is nearly worthless — model the industry and stop. Where dispersion is wide and persistent, there is something firm-specific worth understanding, and that is where fundamental work actually pays. Check the dispersion before deciding how to spend your time.",
+      "trap": "Assuming consolidation automatically means pricing power — it does not, if capacity is loose. Treating entry barriers as the only barrier that matters.",
+      "followups": [
+        "What is the margin dispersion between the best and worst player, and has it persisted?",
+        "Is capacity tight enough that anyone can actually raise price?",
+        "What stops the number two player from buying share tomorrow?"
+      ]
+    },
+    {
+      "id": "MKT-10",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "What would tell you that price competition is coming, before it shows up in the numbers?",
+      "principle": "Price wars are preceded by observable capacity and incentive changes, not by announcements. By the time discounting appears in reported gross margin it is two to four quarters old and fully reflected in the stock. The edge is entirely in the lead indicators.",
+      "framing": [
+        "Track capacity additions against demand growth. Price breaks when supply growth exceeds demand growth, with a lag.",
+        "Watch for a player with a strategic reason to buy share — new management, a private-equity owner exiting, a subscale competitor facing irrelevance.",
+        "Look at inventory in the channel, not just on the balance sheet.",
+        "Monitor discounting behaviour directly: deal sizes, contract lengths, promotional intensity, end-of-quarter behaviour.",
+        "Check whether the marginal competitor is profitable. Unprofitable competitors price irrationally because they have nothing to protect.",
+        "Watch for product cycle gaps, when a player has nothing new to sell and defends on price instead."
+      ],
+      "matters": "The most reliable single predictor is a competitor with low share and high fixed costs. They have the largest incentive to fill capacity at any price above marginal cost, and the least to lose from destroying industry economics. Identify that player in every market you look at, and watch their capacity utilisation — they set the floor price for everyone.",
+      "trap": "Waiting for gross margin to confirm what channel behaviour showed two quarters earlier. Assuming rational actors — subscale players are rationally irrational.",
+      "followups": [
+        "Who is the marginal competitor, and are they profitable?",
+        "Is capacity growth running ahead of demand growth?",
+        "What are you seeing in contract length and end-of-quarter discounting?"
+      ]
+    },
+    {
+      "id": "MKT-11",
+      "object": "market",
+      "mode": "tech",
+      "type": "framework",
+      "q": "Supply is tight and pricing is excellent. How long does that last?",
+      "principle": "Capacity scarcity is self-correcting on a knowable clock. The lead time to add supply — permitting, construction, equipment, qualification — sets the duration of the pricing window with far more precision than most investors credit. Scarcity that comes from IP, regulation, or network position does not have this clock, which is why it is worth so much more.",
+      "framing": [
+        "Establish the physical lead time to add capacity, from decision to shipping product.",
+        "Find out what capacity has already been committed. Announced capex is a forward supply schedule you can read.",
+        "Ask what the pricing looks like when that capacity lands, given demand growth in the interim.",
+        "Distinguish scarcity of the facility from scarcity of a bottleneck input inside it.",
+        "Ask whether the current price is above the level that justifies new entry. Sustained above-replacement-cost pricing guarantees supply response.",
+        "Check whether customers are double-ordering, which inflates apparent demand and produces a violent correction."
+      ],
+      "matters": "Read the industry capex announcements as a supply calendar and mark the date. In capacity-constrained cycles the stock tends to peak when the pricing is best, because the market is already discounting the supply that has been publicly announced and is under construction. The information is not secret — the discipline is simply to build the supply schedule and act on it while the current numbers still look excellent.",
+      "trap": "Extrapolating peak pricing. Missing double-ordering, which makes a demand roll look like a collapse. Confusing a capacity bottleneck with a durable moat.",
+      "followups": [
+        "What capacity has been announced, and when does it ship?",
+        "Is current pricing above the level that justifies new entry?",
+        "How would you detect double-ordering in the numbers?"
+      ]
+    },
+    {
+      "id": "MKT-12",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "What could replace this product entirely, and how would you see it coming?",
+      "principle": "Substitution rarely arrives as a better version of the same thing. It arrives as a different thing that solves the same job, usually worse on the incumbent's preferred metrics and dramatically better on price or convenience. Because it looks inferior on the established scorecard, incumbents and their analysts dismiss it right up until the crossover.",
+      "framing": [
+        "Define the job the customer is hiring this product to do, rather than the product category.",
+        "List everything else that could do that job, including doing nothing and doing it manually.",
+        "For each, ask what would need to change in cost or capability for it to become viable, and how fast that variable is moving.",
+        "Check where the substitute is being adopted today — usually at the low end or in a use case incumbents do not want.",
+        "Watch the trajectory, not the current position. The threat is the slope.",
+        "Ask what the incumbent would have to give up to respond, since that is what usually prevents them."
+      ],
+      "matters": "The substitution that matters is the one currently serving customers the incumbent is happy to lose. Low-end and adjacent-use-case adoption is the standard entry vector, and the incumbent's margin structure makes ignoring it locally rational. When you hear management dismiss a competitor as not enterprise-grade or a toy, mark the date and track the gap — that specific phrasing has an excellent track record as a leading indicator.",
+      "trap": "Evaluating substitutes on the incumbent's metrics. Comparing today's capability instead of the rate of improvement. Assuming the incumbent can respond when their P&L structure means responding is unattractive.",
+      "followups": [
+        "What job is the customer actually hiring this to do?",
+        "Where is the substitute winning today, and how fast is the gap closing?",
+        "What would the incumbent have to cannibalise to respond?"
+      ]
+    },
+    {
+      "id": "MKT-13",
+      "object": "theme",
+      "mode": "general",
+      "type": "framework",
+      "q": "Everyone agrees the theme is real. Where is consensus wrong about who captures the profit?",
+      "principle": "Three separate judgements get collapsed into one: is the theme real, where does profit accrue, and is it priced. A theme being correct is not an edge — it is usually the reason the obvious beneficiaries are expensive. The edge is in the second and third questions.",
+      "framing": [
+        "Separate the claims explicitly and say which one you are making.",
+        "Map the value chain and ask where bargaining power sits, not where the excitement sits.",
+        "Split first-derivative beneficiaries, which are obvious and crowded, from second-derivative ones.",
+        "Trace who is funding the theme and whether that funding is renewable.",
+        "Decide the expression: pure play, supplier, enabler, or the loser side.",
+        "State what is already in the multiple, in numbers."
+      ],
+      "matters": "The reliable mispricing in a consensus theme is timing and magnitude, not direction. The market is usually right that something will happen and wrong about how fast and how much falls to the bottom line. Frame your variant view in those terms — it is far more defensible than claiming the entire theme is misunderstood, and it is much more often true.",
+      "trap": "Reflexive picks-and-shovels reasoning without checking whether the pick-maker has any competitive position. Owning a real theme at any price. Treating consensus agreement as confirmation rather than as a valuation problem.",
+      "followups": [
+        "Who is writing the cheques, and can they keep writing them in a downturn?",
+        "What is already discounted in the multiple today?",
+        "The theme plays out exactly as you say and the stock goes nowhere for two years. What happened?"
+      ]
+    },
+    {
+      "id": "MKT-14",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "How does the route to market change the economics here?",
+      "principle": "Distribution decides who owns the customer, and owning the customer decides who keeps the margin. Two companies with identical products and identical end-market demand can have completely different margin structures, growth durability, and terminal value purely because of how the product reaches the buyer.",
+      "framing": [
+        "Map the path from product to end user and identify every party that touches the transaction.",
+        "Establish who owns the customer relationship, the data, and the renewal.",
+        "Compare gross margin by channel — partner and channel sales carry a discount that shows up as lower realised price.",
+        "Compare the cost to serve by channel. Direct sales carries high opex but keeps the margin and the information.",
+        "Ask what happens at renewal. Whoever renews the customer controls the pricing.",
+        "Consider concentration risk: a channel partner large enough to matter is large enough to renegotiate."
+      ],
+      "matters": "Watch for channel mix shifts inside reported revenue growth. A shift toward partner distribution can accelerate revenue while quietly degrading gross margin, renewal control, and customer visibility — and it typically shows up as a growth story before it shows up as a margin problem. The mix shift is often disclosed only in passing, if at all, which is precisely why it is worth tracking.",
+      "trap": "Reading blended gross margin without decomposing channel mix. Ignoring that the party who owns the renewal owns the pricing. Treating a large partner as a pure positive.",
+      "followups": [
+        "Who controls the renewal conversation?",
+        "How much of the growth is channel mix rather than underlying demand?",
+        "What happens if the largest partner decides to renegotiate?"
+      ]
+    },
+    {
+      "id": "MKT-15",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "How does regulation shape this market, and is it an asset or a liability here?",
+      "principle": "Regulation is a market structure variable, and it cuts both ways. It raises cost for everyone, which favours scale; it creates compliance barriers, which favour incumbents; and it caps pricing or mandates access, which destroys returns. The sign of the effect depends entirely on where you sit in the industry.",
+      "framing": [
+        "Identify what specifically is regulated: price, entry, conduct, data, or safety.",
+        "Ask who bears the compliance cost as a percentage of revenue. Fixed compliance cost is a scale advantage.",
+        "Ask whether regulation restricts entry, and whether that restriction is durable or under review.",
+        "Separate current rules from the direction of travel — investors are paid for the change, not the level.",
+        "Establish the political economy: who lobbies, who benefits, who complains loudly enough to force change.",
+        "Ask what happens to the business if the rule reverses."
+      ],
+      "matters": "Fixed compliance costs are one of the most under-appreciated sources of scale advantage. Where compliance requires a fixed investment in systems and headcount, it becomes a per-unit cost that falls with volume, and it structurally advantages the largest player while suppressing subscale entry. Incumbents lobbying for regulation are usually doing exactly this, and it is a legitimate and durable power.",
+      "trap": "Treating all regulation as a negative. Underwriting a regulatory outcome as a catalyst with a date — regulatory timelines slip far more often than they hold.",
+      "followups": [
+        "Is compliance cost fixed or variable, and who does that favour?",
+        "Which way is the direction of travel, and who is lobbying for it?",
+        "What is the business worth if the rule reverses entirely?"
+      ]
+    },
+    {
+      "id": "MKT-16",
+      "object": "theme",
+      "mode": "tech",
+      "type": "anchored",
+      "q": "Name the second-derivative beneficiary of a technology shift, and explain why it is better positioned than the obvious winner.",
+      "principle": "First-derivative beneficiaries are identified by everyone simultaneously and priced accordingly. Second-derivative beneficiaries are companies whose economics improve because of what the shift does to their costs, their competitive position, or their addressable market — not because they sell the new thing. They are mispriced because the connection requires one additional inferential step.",
+      "framing": [
+        "Identify the direct beneficiary and check what is priced in. That establishes the baseline.",
+        "Ask what the shift does to costs elsewhere — who gets a structurally cheaper input.",
+        "Ask what it does to competitive position — who gains relative advantage because a rival's differentiation is eroded.",
+        "Ask what it expands — whose addressable market grows because a constraint was removed.",
+        "Test whether the connection is genuinely economic or merely thematic. It must show up in a line item.",
+        "Check whether the second-order beneficiary can retain the benefit or must compete it away."
+      ],
+      "matters": "The best second-derivative positions are companies where a new capability collapses a cost that was previously a barrier to their own expansion. They gain twice — margin improves, and the addressable market widens — while the market is still classifying them as unrelated to the theme. The test that keeps you honest: name the line item and the quarter it starts moving. If you cannot, it is a story.",
+      "trap": "Thematic association masquerading as economic linkage. Assuming the benefit is retained rather than competed away — if everyone in an industry gets the same cheaper input, customers get the benefit.",
+      "followups": [
+        "Which line item moves, and when?",
+        "Do their competitors get the same benefit?",
+        "If they keep it, what stops price competition from transferring it to customers?"
+      ]
+    },
+    {
+      "id": "MKT-17",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Revenue grew 20%. How much of that was the market, and how much was the company?",
+      "principle": "Company growth decomposes into market growth times share change, and the two have completely different durability, different drivers, and deserve different multiples. Share gain requires a mechanism you can name and defend. Market growth is borrowed and can be handed back.",
+      "framing": [
+        "Establish market growth independently from third-party data or the sum of competitors.",
+        "Derive share change as the residual, and sanity-check it against competitor disclosures.",
+        "If share is rising, name the mechanism — product, price, distribution, or a competitor's failure.",
+        "Ask whether the mechanism is repeatable or a one-time event such as a competitor stumble or a large deal.",
+        "Check the price and margin cost of the share gain. Share bought with discounting is not a durable advantage.",
+        "Separate volume, price, and mix within the company's own growth."
+      ],
+      "matters": "Share gains driven by a competitor's self-inflicted problem are the most commonly over-extrapolated pattern in growth investing. They look identical to structural share gain in the numbers, and they end abruptly when the competitor fixes the issue. Always ask what the loser is doing about it, and whether they can plausibly fix it — that determines whether you are looking at two years of tailwind or six.",
+      "trap": "Attributing all growth to execution. Ignoring that share gain funded by discounting shows up in growth before it shows up in margin. Extrapolating gains that came from a competitor's temporary failure.",
+      "followups": [
+        "What is the named mechanism for the share gain?",
+        "What is the company they are taking share from doing about it?",
+        "What did the share cost in price and gross margin?"
+      ]
+    },
+    {
+      "id": "MKT-18",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Do they have pricing power? Prove it.",
+      "principle": "Pricing power is the ability to raise price above inflation without losing volume, sustained over a cycle. It is the single most informative fact about a business, because it compounds directly into margin with no incremental capital. Claimed pricing power is common; demonstrated pricing power is rare and verifiable in the history.",
+      "framing": [
+        "Look for the evidence in the record: has price actually risen above inflation, and what happened to volume?",
+        "Separate realised price from list price. List price increases with rising discounts are not pricing power.",
+        "Check whether price rose during a demand downturn. Anyone can raise price in a shortage.",
+        "Ask what the customer's alternative is, and what switching would cost them in time and risk.",
+        "Establish what share of the customer's cost base this represents. Small, critical inputs price well.",
+        "Ask whether value delivered is measurable to the customer. Quantifiable value supports price."
+      ],
+      "matters": "The cleanest test is behaviour during the last downturn. Pricing power is defined by what happens when demand is weak — that is when price-takers discount and price-setters hold. If the business has never been tested in a weak market, say so explicitly and treat the pricing power as unproven rather than absent. Unproven is a legitimate answer and a far better one than an assertion.",
+      "trap": "Citing list price increases as evidence. Confusing shortage pricing with pricing power. Assuming a strong brand implies pricing power without checking realised price.",
+      "followups": [
+        "What happened to realised price in the last downturn?",
+        "What percentage of the customer's cost base is this?",
+        "Can the customer quantify what they get for the price?"
+      ]
+    },
+    {
+      "id": "MKT-19",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "This industry has grown for a decade and nobody has earned their cost of capital. Why, and does that change?",
+      "principle": "The capital cycle governs returns more reliably than demand does. High growth attracts capital; capital adds supply; supply competes away returns. Returns recover only when capital withdraws — which happens when the growth story dies, not when demand improves. This inverts the intuitive relationship between growth and returns.",
+      "framing": [
+        "Look at industry capacity growth versus demand growth over the period, not at demand alone.",
+        "Track where the capital came from and whether that source is still open.",
+        "Identify the signs of capital withdrawal: consolidation, capex discipline, exits, capacity closures, capital raises failing.",
+        "Ask whether the marginal supplier has been removed, since they set the price.",
+        "Establish what changed structurally, if anything, or whether this is simply a cyclical trough in investment.",
+        "Ask what would restart the capital inflow, because that is what ends the good period."
+      ],
+      "matters": "The best entry point in a capital-cycle industry is when demand is unremarkable and capital is leaving. That combination is uncomfortable to own and impossible to pitch on a growth narrative, which is exactly why it is available. Conversely, the moment to reduce is when demand is excellent and everyone is announcing capacity — the returns are visible in the current numbers and already dead in the forward ones.",
+      "trap": "Investing on demand growth without looking at supply growth. Waiting for demand to improve before buying, by which point capital has returned. Assuming consolidation fixes returns while capacity remains in the industry.",
+      "followups": [
+        "Is capacity still being added, and by whom?",
+        "Has the marginal supplier actually exited, or just changed owner?",
+        "What level of profitability brings capital back?"
+      ]
+    },
+    {
+      "id": "MKT-20",
+      "object": "market",
+      "mode": "tech",
+      "type": "anchored",
+      "q": "A software category is shifting from seat-based to usage-based pricing. What does that do to the market and to the incumbents?",
+      "principle": "A pricing model change rewrites the relationship between customer value and vendor revenue, and therefore rewrites growth durability, revenue visibility, competitive dynamics, and the multiple the market will pay. It is a structural change disguised as a commercial one, and it usually helps growth before it hurts predictability.",
+      "framing": [
+        "Establish what the new model ties revenue to, and whether that variable grows faster or slower than seats.",
+        "Ask what it does to land friction. Usage pricing typically lowers the barrier to adoption and accelerates new customer acquisition.",
+        "Ask what it does to revenue visibility. Usage revenue is consumption-linked and therefore cyclical.",
+        "Consider the effect on customer incentives — usage pricing gives customers a reason to optimise their consumption downward.",
+        "Assess who the model favours competitively: it typically favours products with genuine value-based ROI and hurts products bought as standard overhead.",
+        "Ask what the market pays for each revenue type, since visibility carries a real multiple premium."
+      ],
+      "matters": "Usage-based revenue converts a software business into something closer to a cyclical one, and the market discovers this only in the first downturn. The growth acceleration comes first and is celebrated; the volatility arrives later and re-rates the multiple. On a twelve-month view, the sequencing matters more than the end state: the transition is usually a tailwind to revenue and a headwind to the multiple, and those two do not arrive at the same time.",
+      "trap": "Treating the transition as purely a growth positive. Applying subscription multiples to consumption revenue. Missing that optimisation by customers is a permanent structural drag once tooling exists.",
+      "followups": [
+        "What is the usage variable actually tied to, and is it cyclical?",
+        "What happens to this revenue line in a customer downturn?",
+        "Should this business trade at the same multiple as a seat-based peer?"
+      ]
+    },
+    {
+      "id": "MKT-21",
+      "object": "market",
+      "mode": "tech",
+      "type": "anchored",
+      "q": "Orders are down 30%. Is that the cycle or the end of the business?",
+      "principle": "Cyclical and structural declines look identical in a single year of reported numbers, and the distinction determines whether the stock is a double or a value trap. Separating them requires evidence about units versus price, share versus market, and inventory versus consumption — because a cyclical decline is a timing problem while a structural one is a terminal value problem.",
+      "framing": [
+        "Separate the company's decline from the market's. Losing share in a falling market is a different problem entirely.",
+        "Distinguish sell-in from sell-through. Inventory corrections produce violent order declines with stable end demand.",
+        "Decompose into units and price. Structural decline usually shows in units; cyclical shows in both.",
+        "Check whether the end application still exists and is growing, independent of this product.",
+        "Look for a substitute taking the volume, and where it is winning.",
+        "Compare against prior cycles: amplitude, duration, and what the recovery looked like."
+      ],
+      "matters": "The diagnostic question is whether end consumption ever fell. If units consumed by end customers held while orders collapsed, you are looking at an inventory correction, which is self-limiting and mean-reverting on a knowable timeline. If end consumption itself declined and a substitute is visible in the data, no amount of cyclical recovery brings it back. Get that fact first — almost every other question is downstream of it.",
+      "trap": "Anchoring on peak earnings as the normalised level. Assuming mean reversion without checking whether the mean still exists. Confusing an inventory correction with a demand problem, or the reverse.",
+      "followups": [
+        "Did end consumption fall, or just orders?",
+        "Are they losing share, or is the market shrinking?",
+        "What did the last three cycles look like in amplitude and duration?"
+      ]
+    },
+    {
+      "id": "MKT-22",
+      "object": "market",
+      "mode": "general",
+      "type": "framework",
+      "q": "Where do margins settle in this industry at maturity, and how do you know?",
+      "principle": "Terminal margin is the assumption that dominates any valuation with a medium-term horizon, and it is almost always asserted rather than derived. Mature margin is set by industry structure, capital intensity, and the returns needed to keep capital in the business — not by the current margin, and not by management's target.",
+      "framing": [
+        "Find genuinely mature analogues, in this industry or a structurally similar one, and look at where their margins settled.",
+        "Work from required returns: what operating margin does this capital intensity need to earn a fair return on capital?",
+        "Identify which current costs are growth investment and would fall away at maturity, and be conservative — much less is discretionary than management implies.",
+        "Ask what competition does to price as the market matures and differentiation narrows.",
+        "Check the customer mix at maturity. Late customers are typically less profitable to serve.",
+        "Compare your terminal margin to the best margin anyone in this industry has ever sustained."
+      ],
+      "matters": "Sanity-check terminal margin against return on capital, not against the P&L. A margin that implies a mature business earning 60% returns on capital in a market with no entry barrier is not a forecast — it is an arithmetic error that competition will correct. Working backwards from a defensible return on capital gives you a terminal margin that is grounded in something, and it is usually well below the sell-side's.",
+      "trap": "Accepting management's long-term margin target as the terminal assumption. Assuming all sales and marketing spend is growth investment. Using a peak-cycle margin as the mature margin.",
+      "followups": [
+        "What return on capital does your terminal margin imply?",
+        "Has anyone in this industry ever sustained that margin?",
+        "How much of current opex genuinely falls away at maturity?"
+      ]
+    }
+  ]
+}

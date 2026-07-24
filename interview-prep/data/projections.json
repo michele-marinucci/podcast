@@ -1,0 +1,237 @@
+{
+  "pillar": "projections",
+  "title": "Projections",
+  "blurb": "Driver trees end to end: unit economics from the bottom up, market versus company growth, operating leverage, and turning a thesis into numbers.",
+  "cards": [
+    {
+      "id": "PRJ-01",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "You think gross margins expand because the mix shifts toward a higher-value product. Build the projection — which lines move, in what order, and which assumption is doing the work?",
+      "principle": "A model is a rendering of a thesis, not a forecast. Every qualitative claim has to land on a specific line, through a specific mechanism, with a specific lag. If a belief does not move a line, it is not a thesis — it is an observation. Conversely, if a line moves and you cannot name the mechanism, you have modelled a wish.",
+      "framing": [
+        "Drivers, never growth rates. Revenue is units times price times attach or mix. A typed-in growth percentage hides the thing you are actually arguing about.",
+        "Mechanism and lag. Mix shift reaches reported gross margin only as the installed base turns over. State the turnover rate, because that is usually the real disagreement.",
+        "Follow the cost consequence. Premium products cost more to sell and support. Margin rising with no offsetting spend is a free lunch you have modelled into existence.",
+        "Express operating leverage as incremental margin — revenue grows one hundred, EBIT grows forty. A ramp toward a target margin hides the assumption; an incremental margin states it.",
+        "Cross-check twice: has this company ever expanded gross margin this fast, and has anyone in the sector?",
+        "Make the balance sheet agree. Growth consumes working capital and capex."
+      ],
+      "matters": "Find the load-bearing assumption — the one that, halved, kills the thesis — and build the case where it only half works. That two-thirds case is the number you should actually underwrite; the base case is marketing. Then ask what the market's model implies for the same line, because the gap between those two lines is your entire edge.",
+      "trap": "Smooth ramps to a target margin. Reverse-engineering assumptions to reach a price target you had already decided on. Three-statement precision on a business whose critical variable is unknowable.",
+      "followups": [
+        "Which line moves first, and when would it be visible?",
+        "What if the mix shift takes twice as long — is it still a good investment?",
+        "What incremental margin is implied by your year-three numbers, and has this company ever printed that?"
+      ]
+    },
+    {
+      "id": "PRJ-02",
+      "object": "stock",
+      "mode": "tech",
+      "type": "framework",
+      "q": "Build me the revenue driver tree for a subscription software business. Go as deep as the tree actually goes.",
+      "principle": "A driver tree decomposes revenue until every leaf is something you can independently observe, research, or defend. The discipline forces you to locate exactly where your view differs from consensus, because disagreement always lives at a leaf, never at the trunk.",
+      "framing": [
+        "Revenue equals customers times average revenue per customer. Decompose both.",
+        "Customers equals opening customers, plus new, minus churned. New customers equals leads times conversion, or sales capacity times productivity times win rate.",
+        "Average revenue per customer equals seats or usage, times price, times product attach.",
+        "Split every driver between existing customers and new customers. They behave differently and should never be blended.",
+        "Push each leaf until it is observable — sales headcount, quota attainment, list price, published usage tiers, disclosed retention.",
+        "Then state which single leaf your variant view lives in."
+      ],
+      "matters": "Sales capacity is the most under-modelled driver in software and the most observable. New bookings are ultimately constrained by the number of quota-carrying reps times their productivity, and headcount is visible through hiring pages and professional profiles with a two-to-three-quarter lead on revenue. A company that has stopped hiring reps has told you its next-year growth rate whether or not it has guided to it.",
+      "trap": "Stopping the tree at a revenue growth percentage. Blending new and existing customer behaviour into a single average. Building a tree so deep it becomes unmaintainable — stop at observable, not at atomic.",
+      "followups": [
+        "Which leaf does your variant view actually live in?",
+        "What is their quota-carrying headcount doing, and what does that imply for next year?",
+        "Is growth coming from more customers or more per customer, and which is more durable?"
+      ]
+    },
+    {
+      "id": "PRJ-03",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Walk me through the unit economics from a single customer, and tell me whether this business actually works.",
+      "principle": "Unit economics answer whether the business creates value per unit sold, independent of growth. Growth masks bad unit economics entirely — a company acquiring customers at a loss reports revenue growth right up until it stops spending. Building from one customer up is the only way to see whether scale will ever produce profit.",
+      "framing": [
+        "Start with one customer: revenue per year, gross margin per year, and therefore gross profit per year.",
+        "Establish the fully loaded cost to acquire that customer, including all sales and marketing, not just the direct commission.",
+        "Compute payback in months on a gross profit basis, not a revenue basis.",
+        "Establish the retention curve and therefore expected lifetime, being honest that early-cohort retention is a poor guide for later cohorts.",
+        "Add expansion revenue if it is real and evidenced, discounting it appropriately since it arrives later.",
+        "Compare lifetime gross profit to acquisition cost, and separately ask whether the ongoing cost to serve is included."
+      ],
+      "matters": "Two disciplines separate real unit economics from marketing arithmetic. First, use gross profit rather than revenue for payback — a business with 50% gross margin and a twelve-month revenue payback actually has a twenty-four-month payback. Second, be suspicious of any lifetime value that relies on retention beyond the observed history; assuming a customer lasts ten years when the company is five years old is an assumption, not a measurement, and it is where most LTV to CAC ratios are manufactured.",
+      "trap": "Revenue-based payback. Lifetime assumptions longer than the observed data. Excluding the cost to serve. Using blended CAC that mixes cheap inbound with expensive outbound and hides the marginal cost of the next customer.",
+      "followups": [
+        "Is that payback on gross profit or revenue?",
+        "How long is the actual observed retention history?",
+        "What does the marginal customer cost, not the blended average?"
+      ]
+    },
+    {
+      "id": "PRJ-04",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "You are forecasting 20% growth for three years. Decompose that into what the market gives them and what they have to earn.",
+      "principle": "Company growth is market growth times share change times price and mix. Separating the components is what makes a forecast defensible, because each component has a different level of uncertainty, a different evidence base, and a different durability. A forecast that cannot be decomposed cannot be defended.",
+      "framing": [
+        "Establish market growth independently, and state your source and confidence.",
+        "State the implied share change. If your forecast requires steady share gain, that is a claim needing a mechanism.",
+        "Name the mechanism for share gain and ask whether it is repeatable each year or a one-time step.",
+        "Separate price and mix from volume, since they have different margin consequences.",
+        "Add any inorganic contribution explicitly, and consider whether acquisitions should be in an organic forecast at all.",
+        "Sanity-check the cumulative result: what share do they hold in year three, and is that plausible?"
+      ],
+      "matters": "Always compound the share implication out and look at the endpoint. Forecasts built one year at a time frequently imply share levels by year five that nobody would defend if stated directly — this is the most common way sell-side models become quietly absurd. Two hundred basis points of share gain a year sounds modest and reasonable; compounded over five years in a consolidated market it often implies the company has taken essentially all available share from a competitor who is presumably responding.",
+      "trap": "Forecasting company growth without an independent market growth number. Assuming share gain continues at the recent rate indefinitely. Never checking the terminal share the model implies.",
+      "followups": [
+        "What share does your model imply in year five?",
+        "Is the share gain mechanism repeatable, or is it one large deal?",
+        "What is the competitor you are taking share from doing in your model?"
+      ]
+    },
+    {
+      "id": "PRJ-05",
+      "object": "stock",
+      "mode": "tech",
+      "type": "framework",
+      "q": "Net revenue retention is 120%. What does that actually tell you, and what does it hide?",
+      "principle": "Net retention is a composite of expansion, price increases, and churn, and the composite can stay flat while its components deteriorate badly. It is the most cited and least decomposed metric in software. The underlying question — do customers become more valuable over time, and do they stay — requires looking at the cohorts, not the aggregate.",
+      "framing": [
+        "Decompose into gross retention, expansion from seat or usage growth, and price increases. Three very different sources of the same number.",
+        "Ask which is doing the work. Price-driven retention has a ceiling; usage-driven retention scales with the customer's business.",
+        "Look at retention by cohort and by vintage. A blended number is dominated by the largest, oldest, best customers.",
+        "Ask whether the metric is calculated on customers or on dollars, since dollar-weighting hides the loss of many small accounts.",
+        "Check the trend in the newest cohorts, which is the leading indicator that matters.",
+        "Ask what happens to expansion revenue when the customer's own business stops growing."
+      ],
+      "matters": "Expansion driven by the customer's own growth is borrowed durability. When net retention comes from customers hiring more people or processing more transactions, the metric is a derivative of your customers' growth rates, and it falls the moment their growth falls — simultaneously, across the whole base, with no company-specific warning. Retention driven by adding products is genuinely stronger, because it reflects a deepening relationship rather than a bet on the customer's own expansion.",
+      "trap": "Citing net retention as evidence of switching costs — gross retention measures that. Reading a blended cohort number and missing deterioration in recent vintages. Extrapolating expansion revenue through a downturn.",
+      "followups": [
+        "What is gross retention, and what is the trend?",
+        "How much of the expansion is the customer growing versus buying more products?",
+        "What do the last four cohorts look like compared to the 2021 vintage?"
+      ]
+    },
+    {
+      "id": "PRJ-06",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Revenue grows 100 million. How much falls to EBIT, and how do you defend that number?",
+      "principle": "Incremental margin is the honest expression of operating leverage. It forces you to state explicitly how much of each new revenue dollar reaches profit, rather than hiding the assumption inside a smooth margin ramp. It is also directly checkable against the company's own history, which makes it the fastest way to falsify an optimistic model.",
+      "framing": [
+        "Classify every cost line as fixed, semi-variable, or variable in the relevant range.",
+        "Start from gross margin on incremental revenue, which may differ from the average if mix is shifting.",
+        "Ask which operating costs genuinely do not need to grow with revenue, and be sceptical — most scale somewhat.",
+        "Consider step costs. Capacity, offices, and infrastructure arrive in lumps, not smoothly.",
+        "Compute the implied incremental margin and compare it to what the company has actually delivered in prior growth years.",
+        "Ask what management does with any upside — many companies reinvest operating leverage rather than dropping it through."
+      ],
+      "matters": "Compare your implied incremental margin against the company's own realised history before defending it. If a business has historically delivered thirty percent incremental margins and your model implies fifty, you are making a specific claim about a behavioural change, and you should be able to name what changed. Management reinvestment is the usual reason models overestimate this: companies with good growth options reinvest leverage rather than letting it reach EBIT, and that is often the right decision for the business while being wrong for your forecast.",
+      "trap": "Assuming operating costs are fixed when they are semi-variable. Ignoring step costs and modelling smooth leverage. Forgetting that management will spend the upside if the growth opportunity is real.",
+      "followups": [
+        "What incremental margin has this company actually delivered historically?",
+        "Which cost lines are genuinely fixed, and for how much more revenue?",
+        "If they beat, do they let it drop through or reinvest it?"
+      ]
+    },
+    {
+      "id": "PRJ-07",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "What does this business earn at maturity, and how did you get to that number?",
+      "principle": "For a medium-term horizon, terminal assumptions dominate the valuation, and terminal margin is usually the least examined number in the model. Deriving it from industry structure and required returns on capital, rather than from management targets or a smooth extrapolation, is what separates a defensible target from an anchored one.",
+      "framing": [
+        "Identify structurally mature analogues and look at where their margins actually settled.",
+        "Work backwards from required return on capital: given the capital intensity, what margin earns a fair return?",
+        "Separate genuine growth investment, which falls away, from the ongoing cost of maintaining the position, which does not.",
+        "Ask what competition does to price as differentiation narrows with maturity.",
+        "Consider the customer mix at maturity — later customers are usually smaller and less profitable to serve.",
+        "Stress the assumption: what is the business worth if terminal margin is five points lower?"
+      ],
+      "matters": "Be disciplined about how much current spending is genuinely discretionary growth investment. Companies and their advocates routinely characterise most sales, marketing and research spend as growth investment that will normalise, but a large part of it is the cost of holding the position against competitors who have not gone away. The honest question is what spend is required to stand still at maturity — that number is much higher than the bull case assumes, and it is where terminal margin estimates most often go wrong.",
+      "trap": "Adopting management's long-term margin model as the terminal assumption. Assuming all sales and marketing is growth spend. Using peak-cycle margins as mature margins.",
+      "followups": [
+        "What return on capital does your terminal margin imply?",
+        "How much of today's opex is required just to stand still?",
+        "What is the stock worth if terminal margin is five points lower?"
+      ]
+    },
+    {
+      "id": "PRJ-08",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Your model has revenue doubling. Does the balance sheet agree?",
+      "principle": "Growth consumes capital. Working capital scales with revenue, capacity requires capex, and both consume cash before the earnings arrive. A projection where revenue doubles while the balance sheet stands still is internally inconsistent, and the inconsistency usually flatters both cash flow and returns on capital.",
+      "framing": [
+        "Establish working capital as a percentage of revenue historically, and hold it roughly constant unless you can justify improvement.",
+        "Ask what capex is required for the volume, separating maintenance from growth capex.",
+        "Check the timing: capital is spent before revenue arrives, so the cash flow trough comes first.",
+        "Compute the free cash flow profile, not just earnings. Fast-growing capital-intensive businesses can grow earnings while burning cash.",
+        "Ask how the capital is funded — internally, with debt, or with equity, since the last one changes per-share outcomes.",
+        "Check that implied return on incremental capital is plausible against the company's history and the industry."
+      ],
+      "matters": "Return on incremental invested capital is the number that ties the whole projection together, and it is the fastest sanity check available. Compute the additional capital your model requires and the additional profit it produces. If the implied incremental return is far above what the business or the industry has ever earned, the model is wrong somewhere, and this test tells you so in about two minutes — usually faster than finding the error by inspection.",
+      "trap": "Modelling margin expansion while ignoring the capital required to support the volume. Assuming working capital improves as a percentage of revenue without a reason. Forgetting that equity funding dilutes the per-share outcome you are actually forecasting.",
+      "followups": [
+        "What return on incremental capital does your model imply?",
+        "When is the cash flow trough, and can they fund it?",
+        "Are you assuming working capital efficiency improves, and why?"
+      ]
+    },
+    {
+      "id": "PRJ-09",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Forget your model. What is the market's model, and where exactly do you differ?",
+      "principle": "The price already contains a forecast. Reverse-engineering it turns a vague sense that a stock is cheap into a specific, falsifiable disagreement about a named variable. This is the most direct route to knowing whether you have an edge, and it frequently reveals that you do not.",
+      "framing": [
+        "Take the current price and solve for what it implies — growth rate, duration of growth, terminal margin, or terminal return on capital.",
+        "Sanity-check the implication against history and against the industry. Sometimes the implied number is obviously unreasonable in either direction.",
+        "Line up your assumptions against the implied ones, variable by variable.",
+        "Identify the one or two variables where you genuinely differ, and be honest that on most variables you agree.",
+        "Quantify the difference and its value impact.",
+        "Ask why the market holds its view — there is usually a reason, and understanding it is part of the work."
+      ],
+      "matters": "Doing this properly usually reveals that your disagreement is narrower than you thought, and that is valuable rather than deflating. A well-formed thesis differs from consensus on one or two variables and agrees on the rest, and it can state the value of being right on exactly those. Anyone who claims to differ on every assumption has not done this exercise — they have built a model that reflects their conclusion.",
+      "trap": "Comparing your price target to the sell-side price target instead of comparing assumptions. Assuming the market is simply wrong without articulating why it holds its view. Differing on everything, which means you have anchored on an answer.",
+      "followups": [
+        "What growth duration does the current price imply?",
+        "Which single variable carries your entire disagreement?",
+        "Why does the market believe what it believes? Give me their best argument."
+      ]
+    },
+    {
+      "id": "PRJ-10",
+      "object": "stock",
+      "mode": "general",
+      "type": "framework",
+      "q": "Give me your bull, base, and bear. Then tell me why those three numbers are not useless.",
+      "principle": "Scenarios are only informative when each one is a coherent state of the world with its own internal logic, rather than the base case with a multiplier applied. Three scenarios that share every assumption except the growth rate convey no more information than a single number and create false confidence in a range.",
+      "framing": [
+        "Build each scenario around a different answer to the load-bearing question, not around a different growth rate.",
+        "Make the assumptions internally consistent — in a weak demand scenario, pricing, margin, and capital allocation all respond together.",
+        "Attach rough probabilities and be willing to defend them, including with base rates.",
+        "State the value in each scenario and compute a probability-weighted expected value.",
+        "Check the asymmetry: how much do you make if right, how much do you lose if wrong, and how does that compare to the probabilities.",
+        "Identify what evidence would move weight between scenarios, and when it arrives."
+      ],
+      "matters": "Consistency within a scenario is what makes the exercise real. A genuine bear case is not the base case with lower growth — it is a world where growth disappoints, so pricing gets defensive, so gross margin compresses, so management cuts investment, so the growth outlook worsens further, and the multiple contracts on top of all of it. Those effects compound, which is why real bear outcomes are usually far worse than a mechanically reduced growth rate suggests, and why the exercise matters for sizing.",
+      "trap": "Sensitivity analysis dressed up as scenario analysis. Symmetric bull and bear cases when the underlying distribution is not symmetric. Assigning probabilities after choosing the answer you wanted.",
+      "followups": [
+        "What is different about the world in your bear case, beyond the growth rate?",
+        "Does the multiple move in your scenarios, and why?",
+        "What single piece of evidence would shift weight between these, and when do you get it?"
+      ]
+    }
+  ]
+}
